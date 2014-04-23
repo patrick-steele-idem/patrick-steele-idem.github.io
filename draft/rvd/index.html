@@ -1,0 +1,549 @@
+<!doctype html> <html lang="en"> <head><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Raptor Templates versus Dust | Patrick Steele-Idem</title><meta name="description" content="Web Development, JavaScript, Node.js and open source software."><link rel="shortcut icon" href="{{@blog.logo}}"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="/static/index.css">
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></head><body><div id="header-bar"></div><div id="content"><header id="header"><div id="titles"><h1><a>Patrick Steele-Idem</a></h1><h2>If it's not perfect, make it better.</h2></div></header><main id="main"><article class="hentry" role="article"><h1 class="post-title">Raptor Templates versus Dust</h1><div class="post-meta"><span class="byline author vcard">Posted by <span class="fn">undefined</span></span> on <time data-updated="true" pubdate="" datetime="2014-04-23">Wednesday, April 23, 2014</time> <span class="categories">&nbsp; <nobr><i class="fa fa-tags"></i> <a href="/category/dust/" class="category">Dust</a>, <a href="/category/javascript/" class="category">JavaScript</a>, <a href="/category/raptor-templates/" class="category">Raptor Templates</a>, <a href="/category/templating/" class="category">Templating</a></nobr></span></div><div class="post-body"><p>This guide aims to compare <a href="https://github.com/raptorjs3/raptor-templates">Raptor Templates</a> and <a href="https://github.com/linkedin/dustjs">Dust</a> to help guide developers deciding between the two. However, even if you are considering other templating languages, such as Handlebars or Mustache, this guide should still be helpful.</p>
+<p><em>Disclaimer: This guide is my opinion, and as the author of Raptor Templates it is very difficult for me to be unbiased. Also, I&#39;ve used Dust enough to be proficient in it, but I would not claim to be a Dust expert. If you feel that anything is misleading or wrong then please let me know and I will correct it. Also, my goal was to be as objective and as fair as possible, but some things are inherently subjective.</em></p>
+<p><p class="toc"><strong>Table of Contents</strong><ul class="toc-level0"><li><a href="#overview">Overview</a></li><li><a href="#features">Features</a></li><li><a href="#readability">Readability</a></li><li><a href="#dry">DRY</a></li><li><a href="#ramp-up-time">Ramp-up Time</a></li><li><a href="#javascript-api-usability">JavaScript API Usability</a></li><li><a href="#asynchronous-support">Asynchronous Support</a></li><li><a href="#interoperability">Interoperability</a></li><li><a href="#server-and-client-support">Server and Client Support</a></li><li><a href="#extensibility">Extensibility</a></li><li><a href="#rendering-performance">Rendering Performance</a></li><li><a href="#page-weight">Page Weight</a></li><li><a href="#ease-of-debugging">Ease of Debugging</a></li><li><a href="#security">Security</a></li><li><a href="#validation">Validation</a></li><li><a href="#editor-support">Editor Support</a></li><li><a href="#community">Community</a></li><li><a href="#maturity">Maturity</a></li><li><a href="#documentation">Documentation</a></li><li><a href="#future-relevancy">Future Relevancy</a></li><li><a href="#summary">Summary</a></li></ul></p></p>
+<h2 id="overview"><a name="overview" class="anchor" href="#overview"><span class="header-link"></span></a>Overview</h2><p>For this guide we will be comparing Dust and Raptor Templates based on the following criteria:</p>
+<ul>
+<li><strong>Readability:</strong> How easy is it to descern the HTML structure of a template and understand what it will produce?</li>
+<li><strong>Ramp-up Time:</strong> What does the learning curve look like?</li>
+<li><strong>DRY (Don&#39;t Repeat Yourself):</strong> How DRY is the templating technology? Is there support for code-reuse and partials?</li>
+<li><strong>Rendering Performance:</strong> What is the CPU and memory overhead?</li>
+<li><strong>Page Weight:</strong> What is the weight of the runtime and the compiled templates?</li>
+<li><strong>Server and Client Support:</strong> Can the same template be rendered on both client-side and server-side?</li>
+<li><strong>Community:</strong> Is there an active community using this project? Can questions be answered via a search engine?</li>
+<li><strong>Interoperability:</strong> How easy is the templating language to integrate into an existing stack?</li>
+<li><strong>Ease of Debugging:</strong> Is it possible to step through the code while it&#39;s running to track down errors?</li>
+<li><strong>Editor Support:</strong> Is there an editor with auto-complete, syntax highlighting, error checking, etc.?</li>
+<li><strong>Maturity:</strong> Is this a relatively stable project or still experimenting and churning?</li>
+<li><strong>Documentation:</strong> How is the documentation?</li>
+<li><strong>Streaming Support:</strong> How well is streaming supported?</li>
+<li><strong>Future Relevancy:</strong> Is the templating language aligned with trends in the industry?</li>
+<li><strong>Asynchronous Support:</strong> How well is asynchronous template rendering supported?</li>
+</ul>
+<h2 id="features"><a name="features" class="anchor" href="#features"><span class="header-link"></span></a>Features</h2><p>Before we go into a comparison for each category, let&#39;s take a look at a high-level overview of the features of each templating language:</p>
+<p><strong>Dust:</strong></p>
+<ul>
+<li>Text-based templating language</li>
+<li>Streaming support</li>
+<li>Asynchronous rendering support</li>
+<li>Compatible with Node.js and the browser</li>
+<li>Extensible via custom helper tags</li>
+<li>Contributors from multiple companies, including LinkedIn and eBay</li>
+<li>Design Philosophy (from original author):<ul>
+<li><strong>Markup-like:</strong> A templating syntax should not encompass operations that are better left to a programming language. Templates should make it easy to format content for presentation while keeping application logic where it belongs: in the application.</li>
+<li><strong>Asynchronous:</strong> Template helpers should be callable asynchronously and in parallel so that expensive operations (caching, deferred loading, filtering) can run as the template is being rendered.</li>
+<li><strong>Streaming:</strong> Templates should allow (but not require) data to be flushed to the output in user-defined chunks.</li>
+<li><strong>Browser and server compatible:</strong> Templates should render in both server and browser environments without hacks or extensive configuration.</li>
+<li><strong>Storage agnostic:</strong> The templating engine should not impose a particular loading scheme. Developers should be free to load templates via the filesystem, a database or an army of carrier pigeons.</li>
+<li><strong>Composable:</strong> Designers should be able to break presentation markup into manageable components and combine these components at runtime. It should not be necessary to statically link templates or manually assemble &#39;layouts&#39; inside application code.</li>
+<li><strong>Format agnostic:</strong> While HTML generation and DOM manipulation are useful in specific instances, a general-purpose template system should not be tied to a particular output format.</li>
+<li><strong>Precise:</strong> The parser should be accurate enough that designers rarely have to use escape sequences to achieve the desired result. Similarly, templates shouldn&#39;t mysteriously generate or eliminate whitespace.</li>
+<li><strong>Safe(r):</strong> At the very least, the engine should be configurable such that it is reasonably safe to render untrusted templates in a server environment.</li>
+<li><strong>Fast:</strong> Server-side templates cannot always be cached. Browser-side templates may be rendered on devices with limited system resources. A template engine should be fast enough to render in real time without bottlenecking its environment.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Raptor Templates:</strong></p>
+<ul>
+<li>HTML-based templating language</li>
+<li>Streaming support</li>
+<li>Asynchronous rendering support</li>
+<li>Compatible with Node.js and the browser</li>
+<li>Extensible via the following:<ul>
+<li>Custom tags</li>
+<li>Custom attributes</li>
+<li>Custom compilers and compile-time transformers</li>
+<li>Custom taglibs can be installed via <code>npm</code></li>
+</ul>
+</li>
+<li><a href="https://github.com/raptorjs3/templating-benchmarks">High performance and small footprint</a></li>
+<li>Design Philosophy<ul>
+<li><strong>Readable:</strong> Templates should be as close to the output HTML as possible to keep templates readable. Cryptic syntax should be avoided.</li>
+<li><strong>Simple:</strong> The number of new concepts should be minimized to reduce the learning curve and complexity.</li>
+<li><strong>Extensible:</strong> The template engine should be easily extensible at both compile time and runtime.</li>
+<li><strong>High Performance:</strong> Runtime and compiled output should be optimized for low CPU and memory usage and have a small footprint. All expressions should be native JavaScript to avoid runtime interpretation.</li>
+<li><strong>Asynchronous and Streaming Output:</strong> It should be possible to render HTML out-of-order, but the output HTML should be streamed out in the correct order. This minimizes idle time and reduces the time to first byte.</li>
+<li><strong>Intuitive:</strong> The templating engine should introduce as few surprises as possible.</li>
+<li><strong>Browser and Server Compatibility:</strong> Templates should compile down to JavaScript that can be executed on both the server and the client.</li>
+<li><strong>Debuggable:</strong> Compiled JavaScript should be debuggable and readable.</li>
+<li><strong>Compile-Time Checks:</strong> Syntax, custom tags and custom attributes should be validated at compile-time.</li>
+<li><strong>Tools Support:</strong> Tools should be enabled to offer auto-completion and validation for improved productivity and safety.</li>
+<li><strong>Modular:</strong> Runtime and compiled templates should be based on CommonJS modules for improved dependency management. Template dependencies (such as custom tags) should resolved based on a template&#39;s file system path instead of relying on a shared registry.</li>
+</ul>
+</li>
+</ul>
+<h2 id="readability"><a name="readability" class="anchor" href="#readability"><span class="header-link"></span></a>Readability</h2><p>Readability is largely subjective, but let&#39;s compare two templates:</p>
+<p><strong>Raptor:</strong></p>
+<pre><code class="lang-html">Hello ${data.<span class="hljs-property">name</span>}!
+
+&lt;ul c-<span class="hljs-keyword">if</span>=<span class="hljs-string">"notEmpty(data.colors)"</span>&gt;
+    &lt;li <span class="hljs-type">class</span>=<span class="hljs-string">"color"</span> c-<span class="hljs-keyword">for</span>=<span class="hljs-string">"color in data.colors"</span>&gt;
+        ${color}
+    &lt;/li&gt;
+&lt;/ul&gt;
+&lt;<span class="hljs-keyword">div</span> c-<span class="hljs-keyword">else</span>&gt;
+    No colors!
+&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+<p><strong>Dust:</strong></p>
+<pre><code class="lang-html">Hello {name}!
+
+{?colors} 
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+    {#colors}
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"color"</span>&gt;</span>
+        {.}
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    {/colors}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+{:else}
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+    No colors!
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+{/colors}
+</code></pre>
+<p>As shown in the above code, Raptor has the following advantages:</p>
+<ul>
+<li>Less lines of code</li>
+<li>Less additional code</li>
+<li>More DRY</li>
+<li>HTML templates looks like HTML</li>
+<li>Final HTML structure is immediately obvious</li>
+</ul>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="dry"><a name="dry" class="anchor" href="#dry"><span class="header-link"></span></a>DRY</h2><p>Raptor supports multiple ways to keep your code DRY such as the following:</p>
+<ul>
+<li>Reusable custom tags</li>
+<li>Includes/partials</li>
+<li>Macros (think of them as inline partials that are parameterized)</li>
+</ul>
+<p>Dust offers the following features to stay DRY:</p>
+<ul>
+<li>Custom helper tags</li>
+<li>Includes/partials</li>
+</ul>
+<p>However, where Dust falls short in this category is that it requires you to repeat expressions used for sections and blocks. For example:</p>
+<p><strong>Dust:</strong></p>
+<pre><code class="lang-html"><span class="hljs-list">{?person.friends}</span>
+&lt;ul&gt;
+    <span class="hljs-list">{#person.friends}</span>
+    &lt;li class=<span class="hljs-string">"friend"</span>&gt;<span class="hljs-list">{.}</span>&lt;/li&gt;
+    <span class="hljs-list">{/person.friends}</span>
+&lt;/ul&gt;
+<span class="hljs-list">{/person.friends}</span>
+</code></pre>
+<p>In the above Dust template, the <code>person.friends</code> expression is repeated for a total of four times. The same template in Raptor is shown below:</p>
+<p><strong>Raptor:</strong></p>
+<pre><code class="lang-html">
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">c-if</span>=<span class="hljs-value">"notEmpty(person.friends)"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"friend"</span> <span class="hljs-attribute">c-for</span>=<span class="hljs-value">"friend in person.friends"</span>&gt;</span>
+        ${friend}
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+<p>In the above Raptor template, the <code>person.friends</code> expression is only repeated twice.</p>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="ramp-up-time"><a name="ramp-up-time" class="anchor" href="#ramp-up-time"><span class="header-link"></span></a>Ramp-up Time</h2><p>Comparing ramp-up time is difficult, but below is a summary of the <em>new concepts</em> that must be understood to truly master each templating language.</p>
+<p><strong>Dust:</strong></p>
+<ul>
+<li>Partials (<code>&gt;</code> operator)</li>
+<li>Partial context -- <code>{&gt;name:.context}</code></li>
+<li>Recursion (<code>&gt;</code> operator)</li>
+<li>Blocks <code>{:blockname}</code>, <code>{:else}</code></li>
+<li>Special blocks <code>{+blockname}…{/blockname}</code></li>
+<li>Pragmas -- <code>%pragma</code></li>
+<li>Escaping using pragmas: <code>{%esc:s}…{/esc}</code></li>
+<li>Escaping strings<ul>
+<li><code>{name|s}</code></li>
+<li><code>{name|s|h|u}</code></li>
+</ul>
+</li>
+<li>Helper tags <code>{@helper}…{/helper}</code></li>
+<li>Block handlers -- <code>{#handler}…{/handler}</code></li>
+<li>Looped sections -- <code>{#somearray}{/somearray}</code></li>
+<li>Looping index -- <code>{@idx}{.}{/idx}</code></li>
+<li>Looping separator -- <code>{@sep}, {/sep}</code></li>
+<li>Conditional blocks (<code>{?somekey}…{/somekey}</code>)</li>
+<li>Negated conditionals (<code>{^somekey}…{/somekey}</code> )</li>
+<li>New line <code>{~n}</code></li>
+<li>Comments <code>{! … !}</code></li>
+</ul>
+<p><strong>Raptor:</strong></p>
+<ul>
+<li>Expressions<ul>
+<li>Escaped: <code>$&lt;property-path&gt;</code>, <code>${&lt;javascript-expression&gt;}</code></li>
+<li>Unescaped: <code>$!&lt;property-path&gt;</code>, <code>$!{&lt;javascript-expression&gt;}</code></li>
+</ul>
+</li>
+<li>Simple conditionals: (<code>{?&lt;javascript-expression&gt;;&lt;true-template&gt;[;&lt;false-template&gt;]}</code>)</li>
+<li>Custom tags and custom attributes<ul>
+<li><code>raptor-taglib.json</code></li>
+<li><code>raptor-tag.json</code></li>
+</ul>
+</li>
+</ul>
+<p>NOTE: The core taglib which includes <code>c-if</code>, <code>c-for</code>, etc., were not included since those are implemented using custom tags and custom attributes.</p>
+<p>Dust has the negative that the syntax can be cryptic (especially for those just getting started). Examples:</p>
+<pre><code class="lang-html">{! Comment syntax !} 
+
+{.}
+
+{<span class="hljs-comment">#name:name2}.... {/name}</span>
+
+{&gt;header /}
+    template <span class="hljs-keyword">for</span> <span class="hljs-operator">the</span> body <span class="hljs-operator">of</span> <span class="hljs-operator">the</span> page...
+{&gt;footer  /}
+
+{&gt;<span class="hljs-built_in">replace</span>:.profile/}
+
+Hello {name|jp}
+
+{~n}
+</code></pre>
+<p>Raptor has the following advantages to reduce ramp-up time:</p>
+<ul>
+<li>JavaScript is used as the expression language</li>
+<li>HTML is used as the input language</li>
+</ul>
+<p>The JavaScript API also impacts ramp-up time and that is described in the next section.</p>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="javascript-api-usability"><a name="javascript-api-usability" class="anchor" href="#javascript-api-usability"><span class="header-link"></span></a>JavaScript API Usability</h2><p>Raptor has the following advantages:</p>
+<ul>
+<li>Templates compile to CommonJS modules (for improved ease of use with other CommonJS modules)</li>
+<li>All data passing is based on simple JavaScript objects (no hierarchiel context lookups)</li>
+<li>Simpler API</li>
+</ul>
+<p>Here&#39;s a comparison of both public APIs:</p>
+<p><strong>Dust:</strong></p>
+<ul>
+<li><code>require(&#39;dustjs-linkedin&#39;).helpers = {}</code></li>
+<li><code>require(&#39;dustjs-linkedin&#39;).cache = {}</code></li>
+<li><code>require(&#39;dustjs-linkedin&#39;).register(name, tmpl)</code></li>
+<li><code>require(&#39;dustjs-linkedin&#39;).render(name, context, callback)</code></li>
+<li><code>require(&#39;dustjs-linkedin&#39;).stream(name, context)</code></li>
+<li><code>require(&#39;dustjs-linkedin&#39;).renderSource(name, context, callback)</code></li>
+<li><code>require(&#39;dustjs-linkedin&#39;).compileFn(source, name)</code></li>
+<li><code>require(&#39;dustjs-linkedin&#39;).load(name, chunk, context)</code></li>
+<li><code>require(&#39;dustjs-linkedin&#39;).loadSource(source, path)</code></li>
+<li><code>require(&#39;dustjs-linkedin&#39;).makeBase(global)</code></li>
+<li><code>Context</code><ul>
+<li><code>wrap(context, name)</code></li>
+<li><code>this.get(key)</code></li>
+<li><code>this.getPath(cur, down)</code></li>
+<li><code>this.push(head, idx, len)</code></li>
+<li><code>this.rebase(head)</code></li>
+<li><code>this.current()</code></li>
+<li><code>this.getBlock(key, chk, ctx)</code></li>
+<li><code>this.shiftBlocks(locals)</code></li>
+</ul>
+</li>
+<li><code>Chunk</code><ul>
+<li><code>this.write(data)</code></li>
+<li><code>this.end(data)</code></li>
+<li><code>this.map(callback)</code></li>
+<li><code>this.tap(tap)</code></li>
+<li><code>this.untap()</code></li>
+<li><code>this.render(body, context)</code></li>
+<li><code>this.reference(elem, context, auto, filters)</code></li>
+<li><code>this.section(elem, context, bodies, params)</code></li>
+<li><code>this.exists(elem, context, bodies)</code></li>
+<li><code>this.notexists(elem, context, bodies)</code></li>
+<li><code>this.block(elem, context, bodies)</code></li>
+<li><code>this.partial(elem, context, params)</code></li>
+<li><code>this.helper(name, context, bodies, params)</code></li>
+<li><code>this.capture(body, context, callback)</code></li>
+<li><code>this.setError(err)</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Raptor:</strong></p>
+<ul>
+<li><code>require(&#39;raptor-templates&#39;).render(path, data, callback)</code></li>
+<li><code>require(&#39;raptor-templates&#39;).render(path, data, context)</code></li>
+<li><code>require(&#39;raptor-templates&#39;).stream(path, data)</code></li>
+<li><code>require(&#39;raptor-templates&#39;).unload(path)</code></li>
+<li><code>require(&#39;raptor-templates&#39;).createContext(stream)</code></li>
+<li><code>require(&#39;raptor-templates/compiler&#39;).compile(src, path, options)</code></li>
+<li><code>require(&#39;raptor-templates/compiler&#39;).compileFile(path, options, options)</code></li>
+<li><code>Context</code><ul>
+<li><code>this.write(str)</code></li>
+<li><code>this.beginAsync(timeout)</code></li>
+<li><code>this.end(timeout)</code></li>
+<li><code>this.on(event, callback)</code></li>
+<li><code>this.once(event, callback)</code></li>
+<li><code>this.emit(event, ...args)</code></li>
+<li><code>this.attributes = {}</code></li>
+</ul>
+</li>
+</ul>
+<p>The Dust JavaScript API is much more complicated and it is very specific to Dust. The public API for Raptor Templates is very simple in comparison. Raptor Templates favors passing around simple JavaScript objects while Dust relies heavily on Dust-specific objects (such as the hierarchical data context object with lookup methods).</p>
+<p>The JavaScript API for each templating engine also impacts how you write helper tags and helper functions.</p>
+<p>Let&#39;s look at a simple custom tag comparison:</p>
+<p><strong>Dust:</strong></p>
+<pre><code class="lang-javascript">dust.helpers.hello = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tagHandler</span><span class="hljs-params">(chunk, context, bodies, params)</span> {</span>
+    <span class="hljs-keyword">return</span> chunk.write(<span class="hljs-string">'Hello '</span> + params.name + <span class="hljs-string">'!'</span>);
+};
+</code></pre>
+<p><strong>Raptor:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(input, context)</span></span> {
+    context.write(<span class="hljs-string">'Hello '</span> + input.name + <span class="hljs-string">'!'</span>);
+}
+</code></pre>
+<p>In general, the API for Raptor Templates is much simpler and more intuitive.</p>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="asynchronous-support"><a name="asynchronous-support" class="anchor" href="#asynchronous-support"><span class="header-link"></span></a>Asynchronous Support</h2><p>Examples of using the asynchronous rendering API for each templating engine is shown below:</p>
+<p><strong>Dust:</strong></p>
+<pre><code class="lang-javascript">dust.helpers.hello = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tagHandler</span><span class="hljs-params">(chunk, context, bodies, params)</span></span> {
+    <span class="hljs-keyword">return</span> chunk.map(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(asyncChunk)</span></span> {
+        setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
+            chunk.<span class="hljs-keyword">end</span>(<span class="hljs-string">'Hello '</span> + input.name + <span class="hljs-string">'!'</span>);
+        }, <span class="hljs-number">1000</span>);
+    })
+};
+</code></pre>
+<p><strong>Raptor:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(input, context)</span></span> {
+    var asyncContext = context.beginAsync();
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span> {
+        asyncContext.<span class="hljs-keyword">end</span>(<span class="hljs-string">'Hello '</span> + input.name + <span class="hljs-string">'!'</span>);
+    }, <span class="hljs-number">1000</span>);
+}
+</code></pre>
+<p>Other than a slightly simpler API for Raptor, there is no significant difference between the asynchronous rendering support offered by Raptor and Dust. Raptor Templates does have the advantage that the <a href="https://github.com/raptorjs3/raptor-render-context">asynchronous rendering context</a> is a public module independent of Raptor Templates.</p>
+<p><strong>Winner: - Tie</strong></p>
+<h2 id="interoperability"><a name="interoperability" class="anchor" href="#interoperability"><span class="header-link"></span></a>Interoperability</h2><p>When considering interoperability, Raptor has the following advantages:</p>
+<ul>
+<li>Raptor Templates works seamlessly with the Node.js ecosystem </li>
+<li>Custom tag renderers are coded using a simple API that is independent of Raptor Templates</li>
+<li>Raptor Template files compile to CommonJS modules (no global template registry)</li>
+<li>CommonJS modules are compatible with client resource bundlers such as <a href="https://github.com/substack/node-browserify">Browserify</a> and the <a href="https://github.com/raptorjs3/raptor-optimizer">RaptorJS Optimizer</a>.</li>
+<li>Any CommonJS module can be required and used inside a Raptor template</li>
+</ul>
+<p>Neither Raptor Templates nor Dust will force you to use any third party library and will not conflict with your existing code.</p>
+<p>The following code illustrates how a vanilla CommonJS module can be imported into a template for use as a helper:</p>
+<pre><code class="lang-javascript">&lt;c-<span class="hljs-built_in">require</span> <span class="hljs-built_in">module</span>=<span class="hljs-string">"./my-util"</span> <span class="hljs-reserved">var</span>=<span class="hljs-string">"util"</span> /&gt;
+Hello ${util.reverse(name)}!
+</code></pre>
+<p>One thing to consider is that Raptor Templates relies on a Node.js-compatible CommonJS module loader for loading module dependencies and for loading custom tags. As a result, it is not recommended to try and use Raptor Templates as a standalone library unless you use either the <a href="https://github.com/raptorjs3/raptor-optimizer">RaptorJS Optimizer</a> or <a href="https://github.com/substack/node-browserify">Browserify</a> to produce a custom build. Dust is more self-contained and this makes it easier to use in any server-side or browser JavaScript environment. </p>
+<p><strong>Winner:</strong> </p>
+<ul>
+<li><strong>✓ Raptor</strong>, if using Node.js or a Node.js-compatible module loader such Browserify or the RaptorJS Optimizer</li>
+<li><strong>✓ Dust</strong>, if <em>not</em> using a Node.js-compatible module loader</li>
+</ul>
+<h2 id="server-and-client-support"><a name="server-and-client-support" class="anchor" href="#server-and-client-support"><span class="header-link"></span></a>Server and Client Support</h2><p>Both Raptor and Dust both work on the server (under Node.js) and in the browser. </p>
+<p><em>NOTE:</em> As mentioned earlier, the Raptor Templates runtime and compiled Raptor templates are based on CommonJS modules so a Node.js-compatible module loader is required.</p>
+<p><strong>Winner: - Tie</strong></p>
+<h2 id="extensibility"><a name="extensibility" class="anchor" href="#extensibility"><span class="header-link"></span></a>Extensibility</h2><p>Raptor offers the following ways to extend the language:</p>
+<ul>
+<li>Custom tags</li>
+<li>Custom attributes</li>
+<li>Custom compile-time transformers</li>
+<li>Custom compile-time code generators for AST nodes</li>
+<li>Custom taglibs that can be installed using <a href="https://www.npmjs.org/">npm</a></li>
+<li>CommonJS modules can be imported as helpers inside templates</li>
+</ul>
+<p>Dust offers the following ways to extend the language:</p>
+<ul>
+<li>Helper tags</li>
+<li>Custom compile-time AST transforms (not well-documented)</li>
+</ul>
+<p>In addition, for helper tags to be registered in Dust, code must be executed to register the helper tags and all helper tags are made global to all templates. In comparison, Raptor will automatically discover taglibs relative to where a template is located on disk. This allows different templates to use different versions of the same taglib for better dependency isolation.</p>
+<p>Raptor also has the advantage that a simpler API is used to extend the language with custom helpers.</p>
+<p>Let&#39;s take a look at a sample custom tag for Raptor and a sample custom helper for Dust:</p>
+<p><strong>Raptor:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(input, context)</span></span> {
+    context.write(<span class="hljs-string">'Hello '</span> + input.name + <span class="hljs-string">'!'</span>);
+}
+</code></pre>
+<p><strong>Dust:</strong></p>
+<pre><code class="lang-javascript">dust.helpers.hello = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(chunk, context, bodies, params)</span> {</span>
+    <span class="hljs-keyword">return</span> chunk.write(<span class="hljs-string">'Hello '</span> + params.name + <span class="hljs-string">'!'</span>);
+};
+</code></pre>
+<p>Raptor Templates was designed to be extended via an API that is not tied to Raptor Templates. This allows custom tag renderers to be usable outside the context of a template rendering (such as being called directly from JavaScript code).</p>
+<p>With Raptor, the <code>input</code> argument is just a standard JavaScript object with no tie-ins to Raptor Templates. The <code>context</code> argument is an <a href="https://github.com/raptorjs3/raptor-render-context">asynchronous render context</a> object that wraps a standard Node.js stream and it is independent of Raptor Templates.</p>
+<p>In comparison, the <code>chunk</code> argument is a Dust <code>Chunk</code> object. The <code>context</code> is a Dust <code>Context</code> object and the <code>bodies</code> object is very specific to <code>Dust</code> as well. When you are building helpers for Dust, those helpers will only work with Dust (unless an abstraction is utilized).</p>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="rendering-performance"><a name="rendering-performance" class="anchor" href="#rendering-performance"><span class="header-link"></span></a>Rendering Performance</h2><p>Raptor has significantly better rendering performance when compared to Dust. For benchmarks, please see <a href="https://github.com/raptorjs3/raptor-templates">Templating Benchmarks</a>.</p>
+<p>The memory utilization has not been compared, but I suspect that the memory usage is very similar.</p>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="page-weight"><a name="page-weight" class="anchor" href="#page-weight"><span class="header-link"></span></a>Page Weight</h2><p>Raptor produces smaller compiled templates and has a smaller runtime. For benchmarks, please see <a href="https://github.com/raptorjs3/raptor-templates">Templating Benchmarks</a>.</p>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="ease-of-debugging"><a name="ease-of-debugging" class="anchor" href="#ease-of-debugging"><span class="header-link"></span></a>Ease of Debugging</h2><p>Raptor produces very clean compiled JavaScript code that is readable and debuggable. In addition, stack traces generated on the server will show the exact line number and file where an error occurred.</p>
+<p>Example compiled output for Raptor:</p>
+<pre><code class="lang-javascript">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">(__helpers)</span> {</span>
+  <span class="hljs-keyword">var</span> <span class="hljs-keyword">empty</span> = __helpers.e,
+      notEmpty = __helpers.ne,
+      escapeXml = __helpers.x,
+      <span class="hljs-keyword">forEach</span> = __helpers.f;
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(data, context)</span> {</span>
+    context.w(<span class="hljs-string">'Hello '</span> +
+      escapeXml(data.name) +
+      <span class="hljs-string">'! '</span>);
+
+    <span class="hljs-keyword">if</span> (notEmpty(data.colors)) {
+      context.w(<span class="hljs-string">'&lt;ul&gt;'</span>);
+
+      <span class="hljs-keyword">forEach</span>(data.colors, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(color)</span> {</span>
+        context.w(<span class="hljs-string">'&lt;li class="color"&gt;'</span> +
+          escapeXml(color) +
+          <span class="hljs-string">'&lt;/li&gt;'</span>);
+      });
+
+      context.w(<span class="hljs-string">'&lt;/ul&gt;'</span>);
+    }
+    <span class="hljs-keyword">else</span> {
+      context.w(<span class="hljs-string">'&lt;div&gt;No colors!&lt;/div&gt;'</span>);
+    }
+  };
+}
+</code></pre>
+<p>Example compiled output for Dust:</p>
+<pre><code class="lang-javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>dust.register(<span class="hljs-string">"simple-1"</span>,body_0);<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_0</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">"Hello "</span>).reference(ctx.<span class="hljs-keyword">get</span>([<span class="hljs-string">"name"</span>], <span class="hljs-literal">false</span>),ctx,<span class="hljs-string">"h"</span>).write(<span class="hljs-string">"!"</span>).exists(ctx.<span class="hljs-keyword">get</span>([<span class="hljs-string">"colors"</span>], <span class="hljs-literal">false</span>),ctx,{<span class="hljs-string">"block"</span>:body_1},<span class="hljs-literal">null</span>).notexists(ctx.<span class="hljs-keyword">get</span>([<span class="hljs-string">"colors"</span>], <span class="hljs-literal">false</span>),ctx,{<span class="hljs-string">"block"</span>:body_3},<span class="hljs-literal">null</span>);}<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_1</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">" &lt;ul&gt;"</span>).section(ctx.<span class="hljs-keyword">get</span>([<span class="hljs-string">"colors"</span>], <span class="hljs-literal">false</span>),ctx,{<span class="hljs-string">"block"</span>:body_2},<span class="hljs-literal">null</span>).write(<span class="hljs-string">"&lt;/ul&gt;"</span>);}<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_2</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">"&lt;li class=\"color\"&gt;"</span>).reference(ctx.getPath(<span class="hljs-literal">true</span>, []),ctx,<span class="hljs-string">"h"</span>).write(<span class="hljs-string">"&lt;/li&gt;"</span>);}<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_3</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">"&lt;div&gt;No colors!&lt;/div&gt;"</span>);}<span class="hljs-keyword">return</span> body_0;})();
+</code></pre>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="security"><a name="security" class="anchor" href="#security"><span class="header-link"></span></a>Security</h2><p>To prevent XSS attacks, both Dust and Raptor escape special HTML characters wherever dynamic text is allowed. Both templating languages allow developers to opt out of the automatic escaping where needed.</p>
+<p>Raptor Templates does allow arbitrary JavaScript code to be used inside templates (all expressions in Raptor templates are JavaScript). For this reason, it would not be appropriate to render untrusted Raptor templates provided by a third-party (at least without sandboxing at a higher level). In comparision, expressions in Dust are interpretted at runtime and this approach does not allow arbitrary JavaScript code to be embedded in a template.</p>
+<p><strong>Winner:</strong> </p>
+<ul>
+<li><strong>✓ Raptor or Dust</strong>, if all templates are trusted (e.g. developed in-house)</li>
+<li><strong>✓ Dust</strong>, if you are rendering untrusted templates (<em>rare for most use cases</em>)</li>
+</ul>
+<h2 id="validation"><a name="validation" class="anchor" href="#validation"><span class="header-link"></span></a>Validation</h2><p>Raptor allows developers that create custom tags to declare which attributes are allowed (possibly all attributes) and the target type for each attribute. The Raptor compiler will validate that only the allowed attributes are provided for each custom tag. The following code declares a simple tag with allowed attributes:</p>
+<pre><code class="lang-javascript">{
+    "<span class="hljs-attribute">tags</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">my-hello</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">attributes</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+                "<span class="hljs-attribute">age</span>": <span class="hljs-value"><span class="hljs-string">"integer"</span>
+            </span>}
+        </span>}
+    </span>}
+</span>}
+</code></pre>
+<p>The following template will be successfully compiled:</p>
+<pre><code class="lang-html">&lt;<span class="hljs-keyword">my</span>-hello <span class="hljs-property">name</span>=<span class="hljs-string">"Frank"</span> age=<span class="hljs-string">"20"</span>/&gt;
+</code></pre>
+<p>However, the following template will result in an error during compilation:</p>
+<pre><code class="lang-html">&lt;<span class="hljs-keyword">my</span>-hello <span class="hljs-property">name</span>=<span class="hljs-string">"Frank"</span> gender=<span class="hljs-string">"male"</span>/&gt;
+</code></pre>
+<p>Error message:</p>
+<pre><code><span class="hljs-attribute">Error</span>: <span class="hljs-string">Errors in template:</span>
+
+<span class="vbnet"><span class="hljs-number">1</span>) [test-project/<span class="hljs-keyword">custom</span>-tag.rhtml:<span class="hljs-number">1</span>:<span class="hljs-number">0</span>] The tag <span class="hljs-string">"my-hello"</span> <span class="hljs-keyword">in</span> taglib <span class="hljs-string">"test-project/raptor-taglib.json"</span> does <span class="hljs-keyword">not</span> support attribute <span class="hljs-string">"gender"</span> (&lt;test-hello&gt;)</span>
+</code></pre><p><em>NOTE: With Raptor, declaring allowed attributes is an optional feature. As a custom tag developer, you can choose to allow all attributes by omitting the <code>attributes</code> property or by using the special <code>&quot;*&quot;: &quot;string&quot;</code> attribute definition.</em></p>
+<p>Dust allows developers to introduce helper tags but it does not provide support for validating that only allowed parameters are passed to a helper at compile time. In addition, Dust silently discards helper tags that it does not recognize (although I suspect this will be fixed in the future).</p>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="editor-support"><a name="editor-support" class="anchor" href="#editor-support"><span class="header-link"></span></a>Editor Support</h2><p>The Dust documentation only lists an Emacs module to support basic Dust development. Currently, for Raptor Templates there there are no known plugins to support Raptor Template plugins. However, Raptor Template files are just HTML with some additional grammar. Therefore, any editor that supports tag completion and syntax highlighting for HTML will be very helpful to Raptor Template developers. In addition, because the syntax is HTML, comments are correctly highlighted.</p>
+<p>In addition, Raptor supports a declarative way to declare custom tags and custom attributes using simple JSON files. This supports the ability for plugin developers to easily build validators and autocomplete features. Dust relies on code to register custom heplers and those custom helpers have no schema attached so plugin developers trying to support Dust will be very limited.</p>
+<p>Lastly, any off-the-shelf HTML parser can be used to analyze a Raptor Template file. Analyzing a Dust template requires the use of the custom Dust parser and the proprietary and evolving AST.</p>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="community"><a name="community" class="anchor" href="#community"><span class="header-link"></span></a>Community</h2><p>Currently, Dust has a much larger public following.</p>
+<p><strong>Winner: ✓ Dust</strong></p>
+<h2 id="maturity"><a name="maturity" class="anchor" href="#maturity"><span class="header-link"></span></a>Maturity</h2><p>Both Dust and Raptor are relatively mature and are both used in heavily trafficked websites. Raptor has recently undergone significant changes to improve the language (switched from XML to HTML, dropped XML namespaces, switched to CommonJS modules as output, etc.). Because of these significant changes, Raptor cannot be considered as stable as Dust.</p>
+<p><strong>Winner: ✓ Dust</strong></p>
+<h2 id="documentation"><a name="documentation" class="anchor" href="#documentation"><span class="header-link"></span></a>Documentation</h2><p>Both Raptor and Dust offer fairly complete documentation. However, the documentation for Dust is a more fragmented and is missing from the main Git repo which is a departure from the norm and it makes it harder to accept pull requests to improve docs. In addition, the primary Dust documentation is written in more of a tutorial format which makes it a little harder to use as a reference and it is a little less complete. When trying to use Dust I found myself frequently going back to the original Dust documentation that is no longer being maintained.</p>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="future-relevancy"><a name="future-relevancy" class="anchor" href="#future-relevancy"><span class="header-link"></span></a>Future Relevancy</h2><p>Custom tags are an exciting trend that allow authors to define their own HTML tags that encapsulate view and behavior. The emerging Web Components standard and Raptor both support custom tags. In addition, the popular AngularJS framework also supports custom tags (called directives). The difference between a Raptor custom tag and a Web Components custom tag is that a Raptor custom tag is expanded to HTML when rendered on either the server or the client and a Web Components custom tag is expanded to a shadow DOM at time of insertion into the DOM. Custom elements are a very natural fit for web development and that appears to be an industry trend. In addition, it is possible to use the renderer for a Raptor Templates custom tag to produce the shadow DOM for a Web Components custom tag.</p>
+<p>Because Raptor also adopts custom tags, Raptor Template custom tags can be seamlessly swapped out with Web Component custom tags.</p>
+<p>Lastly, Raptor is very extensible at compile time and render time. This allows almost any feature to be added to the language with no restrictions. For example, while Raptor doesn&#39;t support data binding out-of-the-box, it is feasible to introduce a custom taglib to support data binding. For example:</p>
+<pre><code class="lang-html"><span class="hljs-subst">&lt;</span>div <span class="hljs-built_in">data</span><span class="hljs-attribute">-bind</span><span class="hljs-attribute">-text</span><span class="hljs-subst">=</span><span class="hljs-string">"someProperty"</span><span class="hljs-subst">&gt;&lt;</span>/div<span class="hljs-subst">&gt;</span>
+<span class="hljs-subst">&lt;</span>ul<span class="hljs-subst">&gt;</span>
+    <span class="hljs-subst">&lt;</span>li <span class="hljs-built_in">data</span><span class="hljs-attribute">-bind</span><span class="hljs-attribute">-for</span><span class="hljs-subst">=</span><span class="hljs-string">"color in colors"</span><span class="hljs-subst">&gt;</span><span class="hljs-variable">$color</span><span class="hljs-subst">&lt;</span>/li<span class="hljs-subst">&gt;</span>
+<span class="hljs-subst">&lt;</span>/ul<span class="hljs-subst">&gt;</span>
+</code></pre>
+<p><strong>Winner: ✓ Raptor</strong></p>
+<h2 id="summary"><a name="summary" class="anchor" href="#summary"><span class="header-link"></span></a>Summary</h2><p>If you made it this far you are either skimming to get a final thoughts or you really want to make a good decision when deciding to invest in a templating language (thank you for reading!). Below is a table that summarizes the results in each category:</p>
+<table class="markdown-table"><thead><tr>
+<th>Category</th>
+<th>Winner</th>
+</tr>
+</thead><tbody><tr>
+<td>Readability</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>DRY</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>Ramp-up Time</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>JavaScript API Usability</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>Asynchronous Support</td>
+<td>Tie</td>
+</tr>
+<tr>
+<td>Interoperability</td>
+<td>It depends (<a href="#interoperability"><em>see notes</em></a>)</td>
+</tr>
+<tr>
+<td>Vendor Lock-in</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>Server and Client Support</td>
+<td>Tie</td>
+</tr>
+<tr>
+<td>Extensibility</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>Rendering Performance</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>Page Weight</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>Ease of Debugging</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>It depends (<a href="#security"><em>see notes</em></a>)</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>Editor Support</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>Community</td>
+<td>Dust</td>
+</tr>
+<tr>
+<td>Maturity</td>
+<td>Dust</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>Raptor</td>
+</tr>
+<tr>
+<td>Future Relevancy</td>
+<td>Raptor</td>
+</tr>
+</tbody></table><p>My obvious preference is for Raptor Templates. As with all newer technologies, I had the chance to look at the current landscape and find room for improvement. While templating languages might seem like a solved problem, I think you will find the innovation that is part of Raptor Templates refreshing. Adopting Raptor Templates may require a shift in mindset, but I think the investment will be rewarding given the gaining popularity of custom tags and HTML-based templating languages.</p>
+<p> Raptor Templates is being used at eBay and other companies and it is continuing to evolve. I encourage you to join the community and help make Raptor Templates the templating language of choice for more developers.</p>
+</div><div class="post-footer"><div class="sharing"></div><div class="post-nav"></div></div></article><section><h1>Comments</h1><div id="disqus_thread"></div><script type="text/javascript">var disqus_shortname = "psteeleidem";var disqus_identifier = "raptor-versus-dust";var disqus_title = "Raptor Templates versus Dust"; (function() { var dsq = document.createElement('script'); dsq.type =
+'text/javascript'; dsq.async = true; dsq.src = '//' + disqus_shortname +
+'.disqus.com/embed.js'; (document.getElementsByTagName('head')[0] ||
+document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></section></main><aside id="sidebar"><div id="logo"><a><img src="/static/logo.jpg" alt="Patrick Steele-Idem"></a></div><p class="description">Web Development, JavaScript, Node.js and open source software.</p><p class="links"><a href="https://github.com/patrick-steele-idem"><i class="fa fa-github fa-2x"></i></a> <a href="https://twitter.com/psteeleidem"><i class="fa fa-twitter fa-2x"></i></a> <a href="https://www.npmjs.org/~pnidem"><img src="/static/npm-logo-73-33.png"></a></p><section><h1>Projects</h1><ul><li><a href="https://github.com/raptorjs3/raptor-templates">Raptor Templates</a></li><li><a href="https://github.com/raptorjs3/raptor-optimizer">RaptorJS Optimizer</a></li><li><a href="https://github.com/patrick-steele-idem/freeze">Freeze</a></li></ul></section><section><h1>Explore</h1><ul></ul></section></aside><footer id="footer"><section id="footer-message">&copy; 2014 Patrick Steele-Idem. All rights reserved. Powered by <a href="https://github.com/patrick-steele-idem/freeze" target="_blank">Freeze</a>.</section></footer></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create',
+'UA-50307227-1', 'psteeleidem.com'); ga('send', 'pageview');</script></body></html>

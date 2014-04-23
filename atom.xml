@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Patrick Steele-Idem</title>
+    <link>http://psteeleidem.com/</link>
+    <updated>2014-04-23T17:04:31Z</updated>
+    <author>
+        <name>Patrick Steele-Idem</name>
+        <email>pnidem@gmail.com</email>
+    </author>
+    <link rel="alternate" href="http://psteeleidem.com/"/>
+    <subtitle>Web Development, JavaScript, Node.js and open source software.</subtitle>
+    <rights>All rights reserved 2014, Patrick Steele-Idem</rights>
+    <generator>Feed for Node.js</generator>
+</feed>
