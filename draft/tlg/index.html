@@ -1,5 +1,5 @@
 <!doctype html> <html lang="en"> <head><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Choosing a JavaScript Templating Language | Patrick Steele-Idem</title><meta name="description" content="Web Development, JavaScript, Node.js and open source software."><link href="/favicon.ico" rel="icon"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="/static/post-d343cf44.css">
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></head><body><div id="header-bg"></div><div id="nav-bg"></div><div id="content"><header id="header"><div id="titles"><h1><a href="/">Patrick Steele-Idem</a></h1><h2>Better WebDev</h2></div></header><nav role="navigation" id="nav"><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archive/">Archive</a></li><li><a href="/about/">About</a></li><li><a href="/subscribe/">Subscribe</a></li><li><form action="https://google.com/search" method="get" class="search-form"><fieldset role="search"><input type="hidden" name="q" value="site:http://psteeleidem.com/"><input type="text" name="q" results="0" placeholder="Search" class="search-input"></fieldset></form></li></ul></nav><main id="main"><article class="hentry" role="article"><h1 class="post-title">Choosing a JavaScript Templating Language</h1><div class="post-meta"><span class="byline author vcard">Posted by <span class="fn">undefined</span></span> on <time data-updated="true" pubdate="" datetime="2014-04-24">Thursday, Apr 24th, 2014</time> <span class="categories">&nbsp; <nobr><i class="fa fa-tags"></i> <a href="/category/dust/" class="category">Dust</a>, <a href="/category/javascript/" class="category">JavaScript</a>, <a href="/category/raptor-templates/" class="category">Raptor Templates</a>, <a href="/category/templating/" class="category">Templating</a></nobr></span></div><div class="post-body"><p><p class="toc"><strong>Table of Contents</strong><ul class="toc-level0"><li><a href="#types-of-templating-languages">Types of Templating Languages</a><ul class="toc-level1"><li><a href="#text-based-templating-languages">Text-based Templating Languages</a></li><li><a href="#html-based-templating-languages">HTML-based Templating Languages</a></li><li><a href="#dom-based-templating-languages">DOM-based Templating Languages</a></li></ul></li><li><a href="#logic-less-versus-less-logic-versus-more-logic">Logic-less versus Less Logic versus More Logic</a><ul class="toc-level1"><li><a href="#logic-less">Logic-less</a></li><li><a href="#less-logic">Less Logic</a></li><li><a href="#more-logic">More Logic</a></li></ul></li><li><a href="#extensibility">Extensibility</a></li><li><a href="#streaming-versus-non-streaming">Streaming versus Non-Streaming</a></li><li><a href="#synchronous-versus-asynchronous">Synchronous versus Asynchronous</a></li><li><a href="#runtime-versus-runtime-less">Runtime versus Runtime-less</a></li></ul></p></p>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></head><body><div id="header-bg"></div><div id="nav-bg"></div><div id="content"><header id="header"><div id="titles"><h1><a href="/">Patrick Steele-Idem</a></h1><h2>Better WebDev</h2></div></header><nav role="navigation" id="nav"><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archive/">Archive</a></li><li><a href="/about/">About</a></li><li><a href="/subscribe/">Subscribe</a></li><li><form action="https://google.com/search" method="get" class="search-form"><fieldset role="search"><input type="hidden" name="q" value="site:http://psteeleidem.com/"><input type="text" name="q" results="0" placeholder="Search" class="search-input"></fieldset></form></li></ul></nav><main id="main"><article class="hentry" role="article"><h1 class="post-title">Choosing a JavaScript Templating Language</h1><div class="post-meta"><span class="byline author vcard">Posted by <span class="fn">undefined</span></span> on <time data-updated="true" pubdate="" datetime="2014-04-25">Friday, Apr 25th, 2014</time> <span class="categories">&nbsp; <nobr><i class="fa fa-tags"></i> <a href="/category/dust/" class="category">Dust</a>, <a href="/category/javascript/" class="category">JavaScript</a>, <a href="/category/raptor-templates/" class="category">Raptor Templates</a>, <a href="/category/templating/" class="category">Templating</a></nobr></span></div><div class="post-body"><p><p class="toc"><strong>Table of Contents</strong><ul class="toc-level0"><li><a href="#types-of-templating-languages">Types of Templating Languages</a><ul class="toc-level1"><li><a href="#text-based-templating-languages">Text-based Templating Languages</a></li><li><a href="#html-based-templating-languages">HTML-based Templating Languages</a></li><li><a href="#dom-based-templating-languages">DOM-based Templating Languages</a></li></ul></li><li><a href="#logic-less-versus-less-logic-versus-more-logic">Logic-less versus Less Logic versus More Logic</a><ul class="toc-level1"><li><a href="#logic-less">Logic-less</a></li><li><a href="#less-logic">Less Logic</a></li><li><a href="#more-logic">More Logic</a></li></ul></li><li><a href="#extensibility">Extensibility</a></li><li><a href="#streaming-versus-non-streaming">Streaming versus Non-Streaming</a></li><li><a href="#synchronous-versus-asynchronous">Synchronous versus Asynchronous</a></li><li><a href="#runtime-versus-runtime-less">Runtime versus Runtime-less</a></li></ul></p></p>
 <p>Choosing a template may seem inconsequential at first, but it can have a big impact on a project. Many templating languages have a certain design philosophy that may put restrictions on how you build your app. In addition, there can be significant performance implications. Lastly, usability and debuggability of a templating language can have a big impact on developer productivity. This document aims to be an unbiased guide for those deciding between Raptor Templates and Dust and possibly other templating languages.</p>
 <h2 id="types-of-templating-languages"><a name="types-of-templating-languages" class="anchor" href="#types-of-templating-languages"><span class="header-link"></span></a>Types of Templating Languages</h2><h3 id="text-based-templating-languages"><a name="text-based-templating-languages" class="anchor" href="#text-based-templating-languages"><span class="header-link"></span></a>Text-based Templating Languages</h3><p>A text-based templating language relies on a custom parser to recognize templating directives inside of any text document. A text-based templating language does not understand, nor does it care about, the structure of the document being templated. For this reason, a text-based templating language can be used to produce any type of text output (whether it be HTML source code, Java source code, XML, etc.). </p>
 <p>Examples of text-based templating languages:</p>
@@ -9,21 +9,21 @@
 <li><a href="http://handlebarsjs.com/">Handlebars</a></li>
 </ul>
 <p>A sample Dust template is shown below:</p>
-<pre><code class="lang-html">Hello <span class="hljs-list">{name}</span>!
+<pre><code class="lang-html">Hello {name}!
 
-<span class="hljs-list">{?colors}</span> 
-&lt;ul&gt;
-    <span class="hljs-list">{#colors}</span>
-    &lt;li class=<span class="hljs-string">"color"</span>&gt;<span class="hljs-list">{.}</span>&lt;/li&gt;
-    <span class="hljs-list">{/colors}</span>
-&lt;/ul&gt;
-<span class="hljs-list">{/colors}</span>
+{?colors} 
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+    {#colors}
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"color"</span>&gt;</span>{.}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    {/colors}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+{/colors}
 
-<span class="hljs-list">{^colors}</span>
-&lt;div&gt;
+{^colors}
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
     No colors!
-&lt;/div&gt;
-<span class="hljs-list">{/colors}</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+{/colors}
 </code></pre>
 <h3 id="html-based-templating-languages"><a name="html-based-templating-languages" class="anchor" href="#html-based-templating-languages"><span class="header-link"></span></a>HTML-based Templating Languages</h3><p>An HTML-based templating language relies on an HTML parser to recognize templating directives inside of HTML documents. Templating directives are given as either HTML elements or HTML attributes on top of the standard HTML grammar. An HTML-based templating language is only appropriate for producing HTML output.</p>
 <p>Examples of HTML-based templating languages:</p>
@@ -32,17 +32,17 @@
 <li><a href="https://github.com/kethinov/teddy">Teddy</a></li>
 </ul>
 <p>A sample Raptor Template is shown below:</p>
-<pre><code class="lang-html">Hello ${data.<span class="hljs-property">name</span>}!
+<pre><code class="lang-html">Hello ${data.name}!
 
-&lt;ul c-<span class="hljs-keyword">if</span>=<span class="hljs-string">"notEmpty(data.colors)"</span>&gt;
-    &lt;li <span class="hljs-type">class</span>=<span class="hljs-string">"color"</span> c-<span class="hljs-keyword">for</span>=<span class="hljs-string">"color in data.colors"</span>&gt;
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">c-if</span>=<span class="hljs-value">"notEmpty(data.colors)"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"color"</span> <span class="hljs-attribute">c-for</span>=<span class="hljs-value">"color in data.colors"</span>&gt;</span>
         ${color}
-    &lt;/li&gt;
-&lt;/ul&gt;
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
 
-&lt;<span class="hljs-keyword">div</span> c-<span class="hljs-keyword">else</span>&gt;
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">c-else</span>&gt;</span>
     No colors!
-&lt;/<span class="hljs-keyword">div</span>&gt;
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
 <h3 id="dom-based-templating-languages"><a name="dom-based-templating-languages" class="anchor" href="#dom-based-templating-languages"><span class="header-link"></span></a>DOM-based Templating Languages</h3><p>A DOM-based templating language relies on a DOM tree to recognize templating directives. A DOM-based templating will walk the DOM tree to discover templating directives and then manipulate the DOM tree to produce the final DOM tree that is then rendered in the browser. A DOM-based templating language only works in the browser unless a virtual DOM is used on the server. DOM-based templating languages are inherently much slower because the templates cannot be precompiled since the input is the DOM tree that is to be manipulated and the output is the manipulated DOM tree. In comparison, text-based and HTML-based templates can be precompiled into a JavaScript function that is a result of the compiler analyzing a template to find all of the interesting dynamic parts.</p>
 <p>Examples DOM-based templating languages:</p>
@@ -92,16 +92,16 @@
 </ul>
 <p>An example of &quot;more logic&quot; in various templating languages Raptor Template:</p>
 <p><em>Raptor Templates:</em></p>
-<pre><code class="lang-html">&lt;<span class="hljs-keyword">div</span> c-<span class="hljs-keyword">if</span>=<span class="hljs-string">"listing.ended || listing.removed"</span>&gt;
-    This listing <span class="hljs-keyword">is</span> no longer available
-&lt;/<span class="hljs-keyword">div</span>&gt;
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">c-if</span>=<span class="hljs-value">"listing.ended || listing.removed"</span>&gt;</span>
+    This listing is no longer available
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
 <p><em>Dust:</em></p>
-<pre><code class="lang-html">{@<span class="hljs-keyword">if</span> condition=<span class="hljs-string">"{ended} || {removed}"</span>}
-&lt;<span class="hljs-keyword">div</span>&gt;
-    This listing <span class="hljs-keyword">is</span> no longer available
-&lt;/<span class="hljs-keyword">div</span>&gt;
-{@/<span class="hljs-keyword">if</span>}
+<pre><code class="lang-html">{@if condition="{ended} || {removed}"}
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+    This listing is no longer available
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+{@/if}
 </code></pre>
 <h2 id="extensibility"><a name="extensibility" class="anchor" href="#extensibility"><span class="header-link"></span></a>Extensibility</h2><p>Templating languages vary a lot on support for extensibility and some templating languages are more difficult to extend than others. An extensible templating language allows a language to be extended in ways that may not have been intended by the original author. Templating languages such as Raptor Templates allow developers to control how compiled JavaScript code is generated.</p>
 <h2 id="streaming-versus-non-streaming"><a name="streaming-versus-non-streaming" class="anchor" href="#streaming-versus-non-streaming"><span class="header-link"></span></a>Streaming versus Non-Streaming</h2><p>A streaming templating language allows bytes to be immediately flushed to an output stream as they are generated. In comparison, a non-streaming templating language builds the entire string in memory before handing off the resulting string back to the calling code. When rendering a template that produces a lot of HTML, streaming templating languages will have a huge advantage for the following reasons:</p>
