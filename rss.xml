@@ -4,7 +4,7 @@
         <title>Patrick Steele-Idem</title>
         <description>Web Development, JavaScript, Node.js and open source software.</description>
         <link>http://psteeleidem.com/</link>
-        <lastBuildDate>Wed, 30 Apr 2014 20:58:02 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 30 Apr 2014 21:10:25 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <copyright>All rights reserved 2014, Patrick Steele-Idem</copyright>
         <generator>Feed for Node.js</generator>
@@ -17,7 +17,6 @@
 <p>Why Raptor Templates and Dust? Dust represents a well-established text-based templating language and Raptor Templates represents a well-established HTML-based templating language. Raptor Templates was created as an alternative to Dust when Dust was first starting to be used at eBay.</p>
 <p><em>Disclaimer: This guide is my opinion, and as the author of Raptor Templates it is very difficult for me to be unbiased. Also, I&#39;ve used Dust enough to be proficient in it, but I would not claim to be a Dust expert. If you feel that anything is misleading or wrong then please let me know and I will correct it. Also, my goal was to be as objective and as fair as possible, but some things are inherently subjective.</em></p>
 <p><a href="http://psteeleidem.com/raptor-versus-dust/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></description>
-            <content:encoded/>
             <author>
                 <name>Patrick Steele-Idem</name>
                 <email>pnidem@gmail.com</email>
@@ -32,7 +31,6 @@
 <p>A little about myself, I’m currently a Senior Platform Architect at eBay. I started out building web applications, but I now focus mostly on building the platform so that others can build applications more easily. Building frameworks, platforms and tools is a much better fit for me because if I were tasked with building a web application I would typically end up spending too much time on the underlying architecture. </p>
 <p>This blog gives me a chance to share my vision for how building web applications can be made easier. I am an open source advocate and you can find many of my projects linked to from this site.</p>
 <p><a href="http://psteeleidem.com/intro/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></description>
-            <content:encoded/>
             <author>
                 <name>Patrick Steele-Idem</name>
                 <email>pnidem@gmail.com</email>
