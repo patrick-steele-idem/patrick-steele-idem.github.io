@@ -4,14 +4,14 @@
         <title>Patrick Steele-Idem</title>
         <description>Web Development, JavaScript, Node.js and open source software.</description>
         <link>http://psteeleidem.com/</link>
-        <lastBuildDate>Wed, 30 Apr 2014 20:36:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 30 Apr 2014 20:47:38 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <copyright>All rights reserved 2014, Patrick Steele-Idem</copyright>
         <generator>Feed for Node.js</generator>
         <item>
             <title><![CDATA[Raptor Templates versus Dust]]></title>
-            <link>/raptor-versus-dust/</link>
-            <guid>/raptor-versus-dust/</guid>
+            <link>http://psteeleidem.com/raptor-versus-dust/</link>
+            <guid>http://psteeleidem.com/raptor-versus-dust/</guid>
             <pubDate>Thu, 24 Apr 2014 06:00:00 GMT</pubDate>
             <description><![CDATA[<p>This guide aims to compare <a href="https://github.com/raptorjs3/raptor-templates">Raptor Templates</a> and <a href="https://github.com/linkedin/dustjs">Dust</a> to help guide developers deciding between the two. However, even if you are considering other templating languages, such as Handlebars or Mustache, this guide should still be helpful.</p>
 <p>Why Raptor Templates and Dust? Dust represents a well-established text-based templating language and Raptor Templates represents a well-established HTML-based templating language. Raptor Templates was created as an alternative to Dust when Dust was first starting to be used at eBay.</p>
@@ -25,8 +25,8 @@
         </item>
         <item>
             <title><![CDATA[Introduction]]></title>
-            <link>/intro/</link>
-            <guid>/intro/</guid>
+            <link>http://psteeleidem.com/intro/</link>
+            <guid>http://psteeleidem.com/intro/</guid>
             <pubDate>Wed, 23 Apr 2014 06:00:00 GMT</pubDate>
             <description><![CDATA[<p>Creating a blog is something I have meant to do for awhile now, but every time I tried to use an existing solution I would be overwhelmed by the urge to create my own blogging platform. I did not want to use a blogging platform that puts restrictions on how I format my website, or for my content to reside in some private database in some proprietary format. I knew I wanted to use a static website generator based on Node.js and Markdown, but when looking at the available options (and there were <a href="http://staticsitegenerators.net/">a lot of them</a>) I found too many restrictions. Which leads to the next topic: I rarely choose the easiest solution if I believe that there is a better solution waiting to be discovered. It took me a little longer to get going, but now I have a website and have introduced a new open source static site generator named <a href="https://github.com/patrick-steele-idem/freeze">Freeze</a>.</p>
 <p>A little about myself, I’m currently a Senior Platform Architect at eBay. I started out building web applications, but I now focus mostly on building the platform so that others can build applications more easily. Building frameworks, platforms and tools is a much better fit for me because if I were tasked with building a web application I would typically end up spending too much time on the underlying architecture. </p>
