@@ -4,7 +4,7 @@
         <title>Patrick Steele-Idem</title>
         <description>Web Development, JavaScript, Node.js and open source software.</description>
         <link>http://psteeleidem.com/</link>
-        <lastBuildDate>Wed, 30 Apr 2014 18:16:37 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 30 Apr 2014 19:08:22 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <copyright>All rights reserved 2014, Patrick Steele-Idem</copyright>
         <generator>Feed for Node.js</generator>
@@ -138,12 +138,12 @@
 <td>Proprietary symbol-based syntax</td>
 </tr>
 <tr>
-<td>Data Referencing</td>
+<td>Data referencing</td>
 <td>JavaScript expressions</td>
 <td>Simple paths</td>
 </tr>
 <tr>
-<td>Data Passing</td>
+<td>Data passing</td>
 <td>Simple JavaScript objects</td>
 <td>Custom Dust wrapper objects with hierarchical data lookup methods</td>
 </tr>
@@ -264,7 +264,7 @@
 </tr>
 <tr>
 <td>Compilation error reporting</td>
-<td>Filename, column and line number and friendly error message</td>
+<td>Filename, column and line number and error message</td>
 <td>Column and line number and error message</td>
 </tr>
 <tr>
@@ -617,6 +617,18 @@ $!{profile}
 </div>
 
 <p>Readability is largely subjective, but let&#39;s compare a template from each language:</p>
+<p><strong>Raptor:</strong></p>
+<pre><code class="lang-html">Hello ${data.name}!
+
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">c-if</span>=<span class="hljs-value">"notEmpty(data.colors)"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"color"</span> <span class="hljs-attribute">c-for</span>=<span class="hljs-value">"color in data.colors"</span>&gt;</span>
+        ${color}
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">c-else</span>&gt;</span>
+    No colors!
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
 <p><strong>Dust:</strong></p>
 <pre><code class="lang-html">Hello {name}!
 
@@ -633,18 +645,6 @@ $!{profile}
     No colors!
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 {/colors}
-</code></pre>
-<p><strong>Raptor:</strong></p>
-<pre><code class="lang-html">Hello ${data.name}!
-
-<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">c-if</span>=<span class="hljs-value">"notEmpty(data.colors)"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"color"</span> <span class="hljs-attribute">c-for</span>=<span class="hljs-value">"color in data.colors"</span>&gt;</span>
-        ${color}
-    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">c-else</span>&gt;</span>
-    No colors!
-<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
 <p>A few things to note for the Raptor template:</p>
 <ul>
@@ -671,6 +671,21 @@ $!{profile}
 </div>
 
 <p>Comparing ramp-up time is difficult, but below is a summary of the <em>new concepts</em> that must be understood to truly master each templating language.</p>
+<p><strong>Raptor:</strong></p>
+<ul>
+<li>Expressions<ul>
+<li>Escaped: <code>$property.path</code>, <code>${javaScriptExpression}</code></li>
+<li>Unescaped: <code>$!property.path</code>, <code>$!{javaScriptExpression}</code></li>
+</ul>
+</li>
+<li>Simple conditionals: (<code>{?&lt;javascript-expression&gt;;&lt;true-template&gt;[;&lt;false-template&gt;]}</code>)</li>
+<li>Custom tags and custom attributes<ul>
+<li><code>raptor-taglib.json</code></li>
+<li><code>raptor-tag.json</code></li>
+</ul>
+</li>
+</ul>
+<p>NOTE: The core taglib which includes <code>c-if</code>, <code>c-for</code>, etc., were not included since those are implemented using custom tags and custom attributes.</p>
 <p><strong>Dust:</strong></p>
 <ul>
 <li>Partials: <code>{&gt;foo name=&quot;bar&quot;/}</code></li>
@@ -695,21 +710,6 @@ $!{profile}
 <li>Escaping using pragmas: <code>{%esc:s}…{/esc}</code></li>
 <li>Looping index: <code>{@idx}{.}{/idx}</code></li>
 </ul>
-<p><strong>Raptor:</strong></p>
-<ul>
-<li>Expressions<ul>
-<li>Escaped: <code>$&lt;property-path&gt;</code>, <code>${&lt;javascript-expression&gt;}</code></li>
-<li>Unescaped: <code>$!&lt;property-path&gt;</code>, <code>$!{&lt;javascript-expression&gt;}</code></li>
-</ul>
-</li>
-<li>Simple conditionals: (<code>{?&lt;javascript-expression&gt;;&lt;true-template&gt;[;&lt;false-template&gt;]}</code>)</li>
-<li>Custom tags and custom attributes<ul>
-<li><code>raptor-taglib.json</code></li>
-<li><code>raptor-tag.json</code></li>
-</ul>
-</li>
-</ul>
-<p>NOTE: The core taglib which includes <code>c-if</code>, <code>c-for</code>, etc., were not included since those are implemented using custom tags and custom attributes.</p>
 <p>While Dust has a lot in common with Handlebars and Dust, it is still a unique language. In comparison, Raptor Templates uses the HTML syntax to introduce templating directives (except in the case of dynamic text tokens).</p>
 <p>The JavaScript API also impacts ramp-up time and that is described in the next section.</p>
 <h3 id="javascript-api-usability"><a name="javascript-api-usability" class="anchor" href="#javascript-api-usability"><span class="header-link"></span></a>JavaScript API Usability</h3><div class="compare">
@@ -734,6 +734,26 @@ $!{profile}
 </div>
 
 <p>Here&#39;s a comparison of both public APIs:</p>
+<p><strong>Raptor:</strong></p>
+<ul>
+<li><code>require(&#39;raptor-templates&#39;).render(path, data, callback)</code></li>
+<li><code>require(&#39;raptor-templates&#39;).render(path, data, context)</code></li>
+<li><code>require(&#39;raptor-templates&#39;).stream(path, data)</code></li>
+<li><code>require(&#39;raptor-templates&#39;).unload(path)</code></li>
+<li><code>require(&#39;raptor-templates&#39;).createContext(stream)</code></li>
+<li><code>require(&#39;raptor-templates/compiler&#39;).compile(src, path, options)</code></li>
+<li><code>require(&#39;raptor-templates/compiler&#39;).compileFile(path, options, options)</code></li>
+<li><code>Context</code><ul>
+<li><code>this.write(str)</code></li>
+<li><code>this.beginAsync(timeout)</code></li>
+<li><code>this.end(timeout)</code></li>
+<li><code>this.on(event, callback)</code></li>
+<li><code>this.once(event, callback)</code></li>
+<li><code>this.emit(event, …args)</code></li>
+<li><code>this.attributes = {}</code></li>
+</ul>
+</li>
+</ul>
 <p><strong>Dust:</strong></p>
 <ul>
 <li><code>require(&#39;dustjs-linkedin&#39;).helpers = {}</code></li>
@@ -776,26 +796,6 @@ $!{profile}
 </ul>
 </li>
 </ul>
-<p><strong>Raptor:</strong></p>
-<ul>
-<li><code>require(&#39;raptor-templates&#39;).render(path, data, callback)</code></li>
-<li><code>require(&#39;raptor-templates&#39;).render(path, data, context)</code></li>
-<li><code>require(&#39;raptor-templates&#39;).stream(path, data)</code></li>
-<li><code>require(&#39;raptor-templates&#39;).unload(path)</code></li>
-<li><code>require(&#39;raptor-templates&#39;).createContext(stream)</code></li>
-<li><code>require(&#39;raptor-templates/compiler&#39;).compile(src, path, options)</code></li>
-<li><code>require(&#39;raptor-templates/compiler&#39;).compileFile(path, options, options)</code></li>
-<li><code>Context</code><ul>
-<li><code>this.write(str)</code></li>
-<li><code>this.beginAsync(timeout)</code></li>
-<li><code>this.end(timeout)</code></li>
-<li><code>this.on(event, callback)</code></li>
-<li><code>this.once(event, callback)</code></li>
-<li><code>this.emit(event, …args)</code></li>
-<li><code>this.attributes = {}</code></li>
-</ul>
-</li>
-</ul>
 <h3 id="dry"><a name="dry" class="anchor" href="#dry"><span class="header-link"></span></a>DRY</h3><div class="compare">
     <div class="col1 good">
         <h1>Raptor</h1>
@@ -817,6 +817,15 @@ $!{profile}
 </div>
 
 <p>Where Dust falls short in this category is that it requires you to repeat expressions used for sections and blocks. For example:</p>
+<p><strong>Raptor:</strong></p>
+<pre><code class="lang-html">
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">c-if</span>=<span class="hljs-value">"notEmpty(person.friends)"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"friend"</span> <span class="hljs-attribute">c-for</span>=<span class="hljs-value">"friend in person.friends"</span>&gt;</span>
+        ${friend}
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+</code></pre>
+<p>In the above Raptor template, the <code>person.friends</code> expression is only repeated twice.</p>
 <p><strong>Dust:</strong></p>
 <pre><code class="lang-html">{?person.friends}
 <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
@@ -827,15 +836,6 @@ $!{profile}
 {/person.friends}
 </code></pre>
 <p>In the above Dust template, the <code>person.friends</code> expression is repeated for a total of four times. The same template in Raptor is shown below:</p>
-<p><strong>Raptor:</strong></p>
-<pre><code class="lang-html">
-<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">c-if</span>=<span class="hljs-value">"notEmpty(person.friends)"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"friend"</span> <span class="hljs-attribute">c-for</span>=<span class="hljs-value">"friend in person.friends"</span>&gt;</span>
-        ${friend}
-    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
-</code></pre>
-<p>In the above Raptor template, the <code>person.friends</code> expression is only repeated twice.</p>
 <h3 id="asynchronous-and-streaming-support"><a name="asynchronous-and-streaming-support" class="anchor" href="#asynchronous-and-streaming-support"><span class="header-link"></span></a>Asynchronous and Streaming Support</h3><div class="compare">
     <div class="col1 good">
         <h1>Raptor</h1>
@@ -858,6 +858,14 @@ $!{profile}
 </div>
 
 <p>Examples of using the asynchronous rendering API for each templating engine is shown below:</p>
+<p><strong>Raptor:</strong></p>
+<pre><code class="lang-javascript">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(input, context)</span> {</span>
+    <span class="hljs-keyword">var</span> asyncContext = context.beginAsync();
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        asyncContext.end(<span class="hljs-string">'Hello '</span> + input.name + <span class="hljs-string">'!'</span>);
+    }, <span class="hljs-number">1000</span>);
+}
+</code></pre>
 <p><strong>Dust:</strong></p>
 <pre><code class="lang-javascript">dust.helpers.hello = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tagHandler</span><span class="hljs-params">(chunk, context, bodies, params)</span> {</span>
     <span class="hljs-keyword">return</span> chunk.map(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(asyncChunk)</span> {</span>
@@ -866,14 +874,6 @@ $!{profile}
         }, <span class="hljs-number">1000</span>);
     })
 };
-</code></pre>
-<p><strong>Raptor:</strong></p>
-<pre><code class="lang-javascript">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(input, context)</span> {</span>
-    <span class="hljs-keyword">var</span> asyncContext = context.beginAsync();
-    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-        asyncContext.end(<span class="hljs-string">'Hello '</span> + input.name + <span class="hljs-string">'!'</span>);
-    }, <span class="hljs-number">1000</span>);
-}
 </code></pre>
 <p>Raptor Templates has the advantage that the <a href="https://github.com/raptorjs3/raptor-render-context">asynchronous rendering context</a> module used to support asynchronous rendering to a stream is a public module independent of Raptor Templates.</p>
 <h3 id="interoperability-1"><a name="interoperability-1" class="anchor" href="#interoperability-1"><span class="header-link"></span></a>Interoperability</h3><div class="compare">
@@ -939,27 +939,26 @@ Hello ${util.reverse(name)}!
 </div>
 
 <p>Let&#39;s take a look at a sample custom tag for Raptor and a sample custom helper for Dust:</p>
-<p><strong>Dust:</strong></p>
-<pre><code class="lang-javascript">dust.helpers.hello = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(chunk, context, bodies, params)</span> {</span>
-    <span class="hljs-keyword">return</span> chunk.write(<span class="hljs-string">'Hello '</span> + params.name + <span class="hljs-string">'!'</span>);
-};
-</code></pre>
 <p><strong>Raptor:</strong></p>
 <pre><code class="lang-javascript">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(input, context)</span> {</span>
     context.write(<span class="hljs-string">'Hello '</span> + input.name + <span class="hljs-string">'!'</span>);
 }
 </code></pre>
-<p>Let&#39;s take a look at more complicated example borrowed from the <a href="https://github.com/linkedin/dustjs/wiki/Dust-Tutorial#writing-a-dust-helper">Dust.js tutorial</a>. With this example our goal is to achieve the following:</p>
-<p><em>Dust:</em></p>
-<pre><code class="lang-html">{@substr str=&quot;xxx&quot; begin=&quot;x&quot; end=&quot;y&quot; len=&quot;z&quot; /}
+<p><strong>Dust:</strong></p>
+<pre><code class="lang-javascript">dust.helpers.hello = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(chunk, context, bodies, params)</span> {</span>
+    <span class="hljs-keyword">return</span> chunk.write(<span class="hljs-string">'Hello '</span> + params.name + <span class="hljs-string">'!'</span>);
+};
 </code></pre>
+<p>Let&#39;s take a look at more complicated example borrowed from the <a href="https://github.com/linkedin/dustjs/wiki/Dust-Tutorial#writing-a-dust-helper">Dust.js tutorial</a>. With this example our goal is to achieve the following:</p>
 <p><em>Raptor:</em></p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">util-substr</span> <span class="hljs-attribute">str</span>=<span class="hljs-value">"xxx"</span> <span class="hljs-attribute">begin</span>=<span class="hljs-value">"x"</span> <span class="hljs-attribute">end</span>=<span class="hljs-value">"y"</span> <span class="hljs-attribute">len</span>=<span class="hljs-value">"z"</span> /&gt;</span>
+</code></pre>
+<p><em>Dust:</em></p>
+<pre><code class="lang-html">{@substr str=&quot;xxx&quot; begin=&quot;x&quot; end=&quot;y&quot; len=&quot;z&quot; /}
 </code></pre>
 <p>NOTE: This example is for demonstration purposes only. The <code>&lt;util-substr&gt;</code> tag would be useless for Raptor since you can use JavaScript expressions in your template. For example:</p>
 <pre><code class="lang-html">${str.slice(0, -2)}
 </code></pre>
-<p>Let&#39;s start with the Raptor implementation since it is simpler:</p>
 <p><em>Raptor:</em></p>
 <pre><code class="lang-javascript">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(input, context)</span> {</span>
     <span class="hljs-keyword">var</span> str = input.str;
@@ -1055,9 +1054,6 @@ Hello ${util.reverse(name)}!
     </div>
 </div>
 
-<p>Example compiled output for Dust:</p>
-<pre><code class="lang-javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>dust.register(<span class="hljs-string">"simple-1"</span>,body_0);<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_0</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">"Hello "</span>).reference(ctx.get([<span class="hljs-string">"name"</span>], <span class="hljs-literal">false</span>),ctx,<span class="hljs-string">"h"</span>).write(<span class="hljs-string">"!"</span>).exists(ctx.get([<span class="hljs-string">"colors"</span>], <span class="hljs-literal">false</span>),ctx,{<span class="hljs-string">"block"</span>:body_1},<span class="hljs-literal">null</span>).notexists(ctx.get([<span class="hljs-string">"colors"</span>], <span class="hljs-literal">false</span>),ctx,{<span class="hljs-string">"block"</span>:body_3},<span class="hljs-literal">null</span>);}<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_1</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">" &lt;ul&gt;"</span>).section(ctx.get([<span class="hljs-string">"colors"</span>], <span class="hljs-literal">false</span>),ctx,{<span class="hljs-string">"block"</span>:body_2},<span class="hljs-literal">null</span>).write(<span class="hljs-string">"&lt;/ul&gt;"</span>);}<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_2</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">"&lt;li class=\"color\"&gt;"</span>).reference(ctx.getPath(<span class="hljs-literal">true</span>, []),ctx,<span class="hljs-string">"h"</span>).write(<span class="hljs-string">"&lt;/li&gt;"</span>);}<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_3</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">"&lt;div&gt;No colors!&lt;/div&gt;"</span>);}<span class="hljs-keyword">return</span> body_0;})();
-</code></pre>
 <p>Example compiled output for Raptor:</p>
 <pre><code class="lang-javascript">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">(__helpers)</span> {</span>
   <span class="hljs-keyword">var</span> empty = __helpers.e,
@@ -1086,6 +1082,9 @@ Hello ${util.reverse(name)}!
     }
   };
 }
+</code></pre>
+<p>Example compiled output for Dust:</p>
+<pre><code class="lang-javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>dust.register(<span class="hljs-string">"simple-1"</span>,body_0);<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_0</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">"Hello "</span>).reference(ctx.get([<span class="hljs-string">"name"</span>], <span class="hljs-literal">false</span>),ctx,<span class="hljs-string">"h"</span>).write(<span class="hljs-string">"!"</span>).exists(ctx.get([<span class="hljs-string">"colors"</span>], <span class="hljs-literal">false</span>),ctx,{<span class="hljs-string">"block"</span>:body_1},<span class="hljs-literal">null</span>).notexists(ctx.get([<span class="hljs-string">"colors"</span>], <span class="hljs-literal">false</span>),ctx,{<span class="hljs-string">"block"</span>:body_3},<span class="hljs-literal">null</span>);}<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_1</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">" &lt;ul&gt;"</span>).section(ctx.get([<span class="hljs-string">"colors"</span>], <span class="hljs-literal">false</span>),ctx,{<span class="hljs-string">"block"</span>:body_2},<span class="hljs-literal">null</span>).write(<span class="hljs-string">"&lt;/ul&gt;"</span>);}<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_2</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">"&lt;li class=\"color\"&gt;"</span>).reference(ctx.getPath(<span class="hljs-literal">true</span>, []),ctx,<span class="hljs-string">"h"</span>).write(<span class="hljs-string">"&lt;/li&gt;"</span>);}<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">body_3</span><span class="hljs-params">(chk,ctx)</span>{</span><span class="hljs-keyword">return</span> chk.write(<span class="hljs-string">"&lt;div&gt;No colors!&lt;/div&gt;"</span>);}<span class="hljs-keyword">return</span> body_0;})();
 </code></pre>
 <h3 id="security"><a name="security" class="anchor" href="#security"><span class="header-link"></span></a>Security</h3><div class="compare">
     <div class="col1 good">
