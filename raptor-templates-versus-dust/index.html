@@ -256,12 +256,12 @@
 <tr>
 <td>Compiled conditionals</td>
 <td>Native JavaScript <code>if</code></td>
-<td>Interpetted</td>
+<td>Interpreted</td>
 </tr>
 <tr>
 <td>Compiled looping</td>
 <td>Native JavaScript <code>forEach</code> or <code>for</code></td>
-<td>Interpetted</td>
+<td>Interpreted</td>
 </tr>
 <tr>
 <td>Compiled body blocks</td>
@@ -501,7 +501,7 @@ $!profile
     Welcome back, ${name}!
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"balance {?balance&lt;0;negative;postive}"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"balance {?balance&lt;0;negative;positive}"</span>&gt;</span>
     ${formattedBalance}
 <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
 </code></pre>
@@ -512,7 +512,7 @@ $!profile
 &lt;/div&gt;
 {/isLoggedIn}
 
-&lt;span class="balance {@if cond="{balance} &lt; 0"}negative{:else}postive{/if}"&gt;
+&lt;span class="balance {@if cond="{balance} &lt; 0"}negative{:else}positive{/if}"&gt;
     ${formattedBalance}
 &lt;/span&gt;
 </code></pre>
@@ -575,7 +575,7 @@ $!profile
 </code></pre>
 <h2 id="detailed-comparisons"><a name="detailed-comparisons" class="anchor" href="#detailed-comparisons"><span class="header-link"></span></a>Detailed Comparisons</h2><h3 id="overview"><a name="overview" class="anchor" href="#overview"><span class="header-link"></span></a>Overview</h3><p>In the following sections we will take a deep dive into various aspects of Raptor Templates and Dust. Specifically, we will evaluate each templating language based on the following criteria:</p>
 <ul>
-<li><strong>Readability:</strong> How easy is it to descern the HTML structure of a template and understand what it will produce?</li>
+<li><strong>Readability:</strong> How easy is it to discern the HTML structure of a template and understand what it will produce?</li>
 <li><strong>Ramp-up Time:</strong> What does the learning curve look like?</li>
 <li><strong>JavaScript API Usability:</strong> How easy is it to use the JavaScript API to compile and render templates and also extend the language?</li>
 <li><strong>DRY (Don&#39;t Repeat Yourself):</strong> How DRY is the templating technology? Is there support for code reuse and partials?</li>
@@ -1101,7 +1101,7 @@ Hello ${util.reverse(name)}!
     </div>
 </div>
 
-<p>Raptor Templates does allow arbitrary JavaScript code to be used inside templates (all expressions in Raptor templates are JavaScript). For this reason, it would not be appropriate to render untrusted Raptor templates provided by a third-party (at least without sandboxing at a higher level). In comparision, expressions in Dust are interpretted at runtime and this approach does not allow arbitrary JavaScript code to be embedded in a template.</p>
+<p>Raptor Templates does allow arbitrary JavaScript code to be used inside templates (all expressions in Raptor templates are JavaScript). For this reason, it would not be appropriate to render untrusted Raptor templates provided by a third-party (at least without sandboxing at a higher level). In comparison, expressions in Dust are interpretted at runtime and this approach does not allow arbitrary JavaScript code to be embedded in a template.</p>
 <h3 id="validation"><a name="validation" class="anchor" href="#validation"><span class="header-link"></span></a>Validation</h3><div class="compare">
     <div class="col1 good">
         <h1>Raptor</h1>
@@ -1162,7 +1162,7 @@ Hello ${util.reverse(name)}!
         <ul>
             <li>Editor support:
                 <ul>
-                    <li>emacs using <a href="http://web-mode.org/">web-mode</a></li>
+                    <li>Emacs using <a href="http://web-mode.org/">web-mode</a></li>
                 </ul>
             </li>
             <li>Code required to register custom helper tags</li>
