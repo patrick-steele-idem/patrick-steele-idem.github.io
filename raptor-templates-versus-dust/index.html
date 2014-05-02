@@ -991,7 +991,7 @@ Hello ${util.reverse(name)}!
     <span class="hljs-keyword">return</span> chunk.write(str);
 }
 </code></pre>
-<p>Because Raptor favors passing around simple JavaScript objects, the tag implementation is much simpler for Raptor.</p>
+<p>Because Raptor favors simple JavaScript objects, the tag implementation is much simpler for Raptor.</p>
 <p>Raptor Templates was designed to be extended via an API that is not tied to Raptor Templates. This allows custom tag renderers to be usable outside the context of a template rendering (such as being called directly from JavaScript code).</p>
 <p>With Raptor, the <code>input</code> argument is just a standard JavaScript object with no tie-ins to Raptor Templates. The <code>context</code> argument is an <a href="https://github.com/raptorjs3/raptor-render-context">asynchronous render context</a> object that wraps a standard Node.js stream and it is independent of Raptor Templates.</p>
 <p>In comparison, the <code>chunk</code> argument is a Dust <code>Chunk</code> object. The <code>context</code> is a Dust <code>Context</code> object and the <code>bodies</code> object is very specific to <code>Dust</code> as well. When you are building helpers for Dust, those helpers will only work with Dust (unless an abstraction is utilized).</p>
@@ -1287,10 +1287,11 @@ Hello ${util.reverse(name)}!
 <p> Raptor Templates is being used at eBay and other companies and it is continuing to evolve. I encourage you to join the community and help make Raptor Templates the templating language of choice for more developers.</p>
 <p> Special thanks to the following folks for reviewing this post and providing valuable feedback:</p>
 <ul>
-<li>Phil Gates-Item (<a href="https://twitter.com/philidem">@philidem</a>, <a href="https://github.com/philidem/">Github</a>)</li>
-<li>Ramesh Mahadevan (<a href="https://twitter.com/Ramesh1211">@Ramesh1211</a>, <a href="https://github.com/RameshRM/">Github</a>)</li>
-<li>Santhosh Nageshwar Rao (<a href="https://twitter.com/santbob">@santbob</a>, <a href="https://github.com/santbob/">Github</a>)</li>
-<li>Senthil Padmanabhan (<a href="https://twitter.com/senthil_hi">@senthil_hi</a>, <a href="https://github.com/senthilp">Github</a>)</li>
+<li>David Robbins - <a href="https://github.com/davidrobbins/[Website](http://wakandave.org/">Github</a></li>
+<li>Phil Gates-Item - <a href="https://twitter.com/philidem">@philidem</a>/<a href="https://github.com/philidem/">Github</a></li>
+<li>Ramesh Mahadevan - <a href="https://twitter.com/Ramesh1211">@Ramesh1211</a>/<a href="https://github.com/RameshRM/">Github</a></li>
+<li>Santhosh Nageshwar Rao - <a href="https://twitter.com/santbob">@santbob</a>/<a href="https://github.com/santbob/">Github</a></li>
+<li>Senthil Padmanabhan - <a href="https://twitter.com/senthil_hi">@senthil_hi</a>/<a href="http://www.senthilp.com/">Website</a>/<a href="https://github.com/senthilp">Github</a></li>
 </ul>
 </div><div class="post-footer"><div class="sharing"><a href="https://twitter.com/share" class="twitter-share-button" data-via="psteeleidem">Tweet</a><script>!function(d,s,id){var
 js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,
