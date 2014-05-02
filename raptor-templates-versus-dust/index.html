@@ -1283,25 +1283,6 @@ Hello ${util.reverse(name)}!
 <li><strong>Editor Support and Validation:</strong> The HTML syntax and declarative taglibs allow for better editor support and validation.</li>
 <li><strong>Extensibility:</strong> Raptor Templates is easily extensible at runtime and compile-time, which allows for endless possibilities and ensures you will never be forced to settle for a sub-optimal solution.</li>
 </ol>
-<p>To be fair, below are possible reasons for <em>not</em> using Raptor Templates:</p>
-<ul>
-<li><em>You are not using a Node.js-compatible module loader.</em><ul>
-<li>Raptor Templates requires a Node.js-compatible module loader (not AMD).</li>
-<li>For the browser you will need to use a Node.js module bundler such as the <a href="https://github.com/raptorjs3/raptor-optimizer">Raptor Optimizer</a> or <a href="https://github.com/substack/node-browserify">Browserify</a></li>
-<li>There are no plans to support AMD, and as an earlier supporter of AMD that later switched to CommonJS modules, I encourage you to also move away from AMD.</li>
-</ul>
-</li>
-<li><em>You don&#39;t want to allow JavaScript expressions in your template.</em><ul>
-<li>It&#39;s true that allowing the full power of JavaScript in your templates can be abused.</li>
-<li>In my experience, a simplified expression language ends up being too limiting.</li>
-<li>NOTE: You are not safe with Dust either. See <a href="https://github.com/linkedin/dustjs/wiki/Dust-Tutorial#Logic_Helpers">Dust Tutorial » Logic Helpers</a></li>
-</ul>
-</li>
-<li><em>You are producing something other than HTML or XML.</em><ul>
-<li>A text-based templating language, such as Dust, is more suitable for producing non-HTML/XML output.</li>
-</ul>
-</li>
-</ul>
 <p>As with all newer technologies, I had the chance to look at the current landscape and find room for improvement. While templating languages might seem like a solved problem, I think you will find the innovation that is part of Raptor Templates refreshing. Moving from a text-based templating language, such as Dust, to Raptor Templates may require a shift in mindset, but I believe the gains in productivity will be rewarding.</p>
 <p> Raptor Templates is being used at eBay and other companies and it is continuing to evolve. I encourage you to join the community and help make Raptor Templates the templating language of choice for more developers.</p>
 <p> Special thanks to the following folks for reviewing this post and providing valuable feedback:</p>
