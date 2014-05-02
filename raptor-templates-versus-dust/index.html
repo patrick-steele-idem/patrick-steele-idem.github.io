@@ -992,7 +992,7 @@ Hello ${util.reverse(name)}!
 }
 </code></pre>
 <p>Because Raptor favors simple JavaScript objects, the tag implementation is much simpler for Raptor.</p>
-<p>Raptor Templates was designed to be extended via an API that is not tied to Raptor Templates. This allows custom tag renderers to be usable outside the context of a template rendering (such as being called directly from JavaScript code).</p>
+<p>Raptor Templates was designed to be extended via an API that is not tied to Raptor Templates. This allows custom tag renderers to be usable outside the context of template rendering (such as being called directly from JavaScript code).</p>
 <p>With Raptor, the <code>input</code> argument is just a standard JavaScript object with no tie-ins to Raptor Templates. The <code>context</code> argument is an <a href="https://github.com/raptorjs3/raptor-render-context">asynchronous render context</a> object that wraps a standard Node.js stream and it is independent of Raptor Templates.</p>
 <p>In comparison, the <code>chunk</code> argument is a Dust <code>Chunk</code> object. The <code>context</code> is a Dust <code>Context</code> object and the <code>bodies</code> object is very specific to <code>Dust</code> as well. When you are building helpers for Dust, those helpers will only work with Dust (unless an abstraction is utilized).</p>
 <h3 id="rendering-performance"><a name="rendering-performance" class="anchor" href="#rendering-performance"><span class="header-link"></span></a>Rendering Performance</h3><div class="compare">
