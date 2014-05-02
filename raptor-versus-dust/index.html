@@ -1,5 +1,5 @@
 <!doctype html> <html lang="en"> <head><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Raptor Templates versus Dust | Patrick Steele-Idem</title><link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"><meta name="description" content="Web Development, JavaScript, Node.js and open source software."><link href="/favicon.ico" rel="icon"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" type="text/css" href="/static/post-42aadd09.css">
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></head><body><div id="header-bg"></div><div id="nav-bg"></div><div id="content"><header id="header"><div id="titles"><h1><a href="/">Patrick Steele-Idem</a></h1><h2>Better WebDev</h2></div></header><nav role="navigation" id="nav"><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archive/">Archive</a></li><li><a href="/about/">About</a></li><li><a href="/subscribe/">Subscribe</a></li><li><form action="https://google.com/search" method="get" class="search-form"><fieldset role="search"><input type="hidden" name="q" value="site:http://psteeleidem.com/"><input type="text" name="q" results="0" placeholder="Search" class="search-input"></fieldset></form></li></ul></nav><main id="main"><div class="draft"><i class="fa fa-exclamation-circle"></i> Draft</div><article class="hentry" role="article"><h1 class="post-title">Raptor Templates versus Dust</h1><div class="post-meta"><span class="byline author vcard">Posted by <span class="fn">Patrick Steele-Idem</span></span> on <time data-updated="true" pubdate="" datetime="2014-05-01">Wednesday, Apr 30th, 2014</time> <span class="categories">&nbsp; <nobr><i class="fa fa-tags"></i> <a href="/category/dust/" class="category">Dust</a>, <a href="/category/javascript/" class="category">JavaScript</a>, <a href="/category/raptor-templates/" class="category">Raptor Templates</a>, <a href="/category/templating/" class="category">Templating</a></nobr></span></div><div class="post-body"><p>This guide aims to compare <a href="https://github.com/raptorjs3/raptor-templates">Raptor Templates</a> and <a href="https://github.com/linkedin/dustjs">Dust</a> to help guide developers deciding between the two. However, even if you are considering other templating languages, such as Handlebars or Mustache, this guide should still be helpful.</p>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></head><body><div id="header-bg"></div><div id="nav-bg"></div><div id="content"><header id="header"><div id="titles"><h1><a href="/">Patrick Steele-Idem</a></h1><h2>Better WebDev</h2></div></header><nav role="navigation" id="nav"><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archive/">Archive</a></li><li><a href="/about/">About</a></li><li><a href="/subscribe/">Subscribe</a></li><li><form action="https://google.com/search" method="get" class="search-form"><fieldset role="search"><input type="hidden" name="q" value="site:http://psteeleidem.com/"><input type="text" name="q" results="0" placeholder="Search" class="search-input"></fieldset></form></li></ul></nav><main id="main"><div class="draft"><i class="fa fa-exclamation-circle"></i> Draft</div><article class="hentry" role="article"><h1 class="post-title">Raptor Templates versus Dust</h1><div class="post-meta"><span class="byline author vcard">Posted by <span class="fn">Patrick Steele-Idem</span></span> on <time data-updated="true" pubdate="" datetime="2014-05-02">Thursday, May 1st, 2014</time> <span class="categories">&nbsp; <nobr><i class="fa fa-tags"></i> <a href="/category/dust/" class="category">Dust</a>, <a href="/category/javascript/" class="category">JavaScript</a>, <a href="/category/raptor-templates/" class="category">Raptor Templates</a>, <a href="/category/templating/" class="category">Templating</a></nobr></span></div><div class="post-body"><p>This guide aims to compare <a href="https://github.com/raptorjs3/raptor-templates">Raptor Templates</a> and <a href="https://github.com/linkedin/dustjs">Dust</a> to help guide developers deciding between the two. However, even if you are considering other templating languages, such as Handlebars or Mustache, this guide should still be helpful.</p>
 <p>Why Raptor Templates and Dust? Dust represents a well-established text-based templating language and Raptor Templates represents a well-established HTML-based templating language. Raptor Templates was created as an alternative to Dust when Dust was first starting to be used at eBay.</p>
 <p><em>Disclaimer: This guide is my opinion, and as the author of Raptor Templates it is very difficult for me to be unbiased. Also, I&#39;ve used Dust enough to be proficient in it, but I would not claim to be a Dust expert. If you feel that anything is misleading or wrong then please let me know and I will correct it. Also, my goal was to be as objective and as fair as possible, but some things are inherently subjective.</em></p>
 <p><p class="toc"><strong>Table of Contents</strong><ul class="toc-level0"><li><a href="#design-philosophies">Design Philosophies</a><ul class="toc-level1"><li><a href="#raptor-templates">Raptor Templates</a></li><li><a href="#dust">Dust</a></li></ul></li><li><a href="#feature-comparison">Feature Comparison</a><ul class="toc-level1"><li><a href="#language">Language</a></li><li><a href="#runtime">Runtime</a></li><li><a href="#compiler">Compiler</a></li><li><a href="#performance">Performance</a></li><li><a href="#debugging">Debugging</a></li><li><a href="#extensibility">Extensibility</a></li><li><a href="#interoperability">Interoperability</a></li><li><a href="#community">Community</a></li></ul></li><li><a href="#code-comparison">Code Comparison</a><ul class="toc-level1"><li><a href="#dynamic-text">Dynamic Text</a></li><li><a href="#looping">Looping</a><ul class="toc-level2"><li><a href="#loop-status-variable">Loop Status Variable</a></li></ul></li><li><a href="#conditionals">Conditionals</a></li><li><a href="#template-inheritance">Template Inheritance</a></li><li><a href="#custom-taghelper">Custom Tag/Helper</a></li></ul></li><li><a href="#detailed-comparisons">Detailed Comparisons</a><ul class="toc-level1"><li><a href="#overview">Overview</a></li><li><a href="#readability">Readability</a></li><li><a href="#ramp-up-time">Ramp-up Time</a></li><li><a href="#javascript-api-usability">JavaScript API Usability</a></li><li><a href="#dry">DRY</a></li><li><a href="#asynchronous-and-streaming-support">Asynchronous and Streaming Support</a></li><li><a href="#interoperability-1">Interoperability</a></li><li><a href="#extensibility-1">Extensibility</a></li><li><a href="#rendering-performance">Rendering Performance</a></li><li><a href="#page-weight">Page Weight</a></li><li><a href="#ease-of-debugging">Ease of Debugging</a></li><li><a href="#security">Security</a></li><li><a href="#validation">Validation</a></li><li><a href="#editor-support">Editor Support</a></li><li><a href="#community-1">Community</a></li><li><a href="#maturity">Maturity</a></li><li><a href="#documentation">Documentation</a></li><li><a href="#future-relevancy">Future Relevancy</a></li></ul></li><li><a href="#summary">Summary</a></li></ul></p></p>
@@ -85,13 +85,13 @@
 }
 </style>
 
-<h2 id="design-philosophies"><a name="design-philosophies" class="anchor" href="#design-philosophies"><span class="header-link"></span></a>Design Philosophies</h2><p>Before we go into a comparison for each category, let&#39;s take a look at a high-level overview of the features of each templating language:</p>
+<h2 id="design-philosophies"><a name="design-philosophies" class="anchor" href="#design-philosophies"><span class="header-link"></span></a>Design Philosophies</h2><p>Before we go into the features of each templating language, let&#39;s take a look at the design philosophies that helped shape each option.</p>
 <h3 id="raptor-templates"><a name="raptor-templates" class="anchor" href="#raptor-templates"><span class="header-link"></span></a>Raptor Templates</h3><ul>
 <li><strong>Readable:</strong> Templates should be as close to the output HTML as possible to keep templates readable. Cryptic syntax and symbols should be avoided.</li>
 <li><strong>Simple:</strong> The number of new concepts should be minimized to reduce the learning curve and complexity.</li>
 <li><strong>Extensible:</strong> The template engine should be easily extensible at both compile time and runtime.</li>
 <li><strong>High Performance:</strong> Runtime and compiled output should be optimized for low CPU and memory usage and have a small footprint. All expressions should be native JavaScript to avoid runtime interpretation.</li>
-<li><strong>Not restrictive:</strong> Whether or not to go less logic or more logic is up to the developer.</li>
+<li><strong>Not Restrictive:</strong> Whether or not to go less logic or more logic is up to the developer.</li>
 <li><strong>Asynchronous and Streaming Output:</strong> It should be possible to render HTML out-of-order, but the output HTML should be streamed out in the correct order. This minimizes idle time and reduces the time to first byte.</li>
 <li><strong>Intuitive:</strong> The templating engine should introduce as few surprises as possible.</li>
 <li><strong>Browser and Server Compatibility:</strong> Templates should compile down to JavaScript that can be executed on both the server and the client.</li>
@@ -150,7 +150,7 @@
 </tr>
 <tr>
 <td>Simple ternary conditionals</td>
-<td>Yes (<code>{?balance&lt;0;negative;postive}</code>)</td>
+<td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
@@ -438,7 +438,7 @@
 <pre><code class="lang-html">Hello $name!
 
 <span class="hljs-comment">&lt;!-- Unescaped: --&gt;</span>
-$!{profile}
+$!profile
 </code></pre>
 <p><strong>Dust:</strong></p>
 <pre><code class="lang-html">Hello {name}!
@@ -701,7 +701,7 @@ $!{profile}
 <li>Escaping using pragmas: <code>{%esc:s}…{/esc}</code></li>
 <li>Looping index: <code>{@idx}{.}{/idx}</code></li>
 </ul>
-<p>While Dust has a lot in common with Handlebars and Dust, it is still a unique language. In comparison, Raptor Templates uses the HTML syntax to introduce templating directives (except in the case of dynamic text tokens).</p>
+<p>While Dust has a lot in common with Handlebars and Mustache, it is still a unique language. In comparison, Raptor Templates uses the HTML syntax to introduce templating directives (except in the case of dynamic text tokens).</p>
 <p>The JavaScript API also impacts ramp-up time and that is described in the next section.</p>
 <h3 id="javascript-api-usability"><a name="javascript-api-usability" class="anchor" href="#javascript-api-usability"><span class="header-link"></span></a>JavaScript API Usability</h3><div class="compare">
     <div class="col1 good">
@@ -717,8 +717,8 @@ $!{profile}
     <div class="col2 bad">
         <h1>Dust</h1>
         <ul>
-            <li>Complicated API</li>
-            <li>Esoteric method names (e.g. &quot;tap&quot;, &quot;shiftBlocks&quot;, &quot;makeBase&quot;, etc.)</li>
+            <li>More complicated API</li>
+            <li>Some esoteric method names (e.g. &quot;tap&quot;, &quot;shiftBlocks&quot;, &quot;makeBase&quot;, etc.)</li>
             <li>Hierarchical data lookup adds complexity and can be error-prone</li>
         </ul>
     </div>
@@ -803,6 +803,7 @@ $!{profile}
             <li>Custom helper tags</li>
             <li>Includes/partials</li>
             <li>Template inheritance</li>
+            <li>Inline partials</li>
         </ul>
     </div>
 </div>
@@ -1345,8 +1346,9 @@ Hello ${util.reverse(name)}!
 <p> Raptor Templates is being used at eBay and other companies and it is continuing to evolve. I encourage you to join the community and help make Raptor Templates the templating language of choice for more developers.</p>
 <p> Special thanks to the following folks for reviewing this post and providing valuable feedback:</p>
 <ul>
-<li>Santhosh Nageshwar Rao</li>
 <li>Phil Gates-Item (<a href="https://twitter.com/philidem">@philidem</a>, <a href="https://github.com/philidem/">Github</a>)</li>
+<li>Santhosh Nageshwar Rao (<a href="https://twitter.com/santbob">@santbob</a>, <a href="https://github.com/santbob/">Github</a>)</li>
+<li>Senthil Padmanabhan (<a href="https://twitter.com/senthil_hi">@senthil_hi</a>, <a href="https://github.com/senthilp">Github</a>)</li>
 </ul>
 </div><div class="post-footer"><div class="sharing"><a href="https://twitter.com/share" class="twitter-share-button" data-via="psteeleidem">Tweet</a><script>!function(d,s,id){var
 js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,
