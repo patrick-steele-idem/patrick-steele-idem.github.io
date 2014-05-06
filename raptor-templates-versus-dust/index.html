@@ -145,13 +145,13 @@
 </tr>
 <tr>
 <td>if…else-if…else</td>
-<td>Yes</td>
+<td>✔</td>
 <td>if…else only</td>
 </tr>
 <tr>
 <td>Simple ternary conditionals</td>
-<td>Yes</td>
-<td>No</td>
+<td>✔</td>
+<td>✖</td>
 </tr>
 <tr>
 <td>Loop iteration data</td>
@@ -165,48 +165,48 @@
 </tr>
 <tr>
 <td>Loop separator</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✔</td>
+<td>✔</td>
 </tr>
 <tr>
 <td>Custom loop iterators</td>
-<td>Yes</td>
-<td>No</td>
+<td>✔</td>
+<td>✖</td>
 </tr>
 <tr>
 <td>Declare variables in template</td>
-<td>Yes</td>
-<td>No</td>
+<td>✔</td>
+<td>✖</td>
 </tr>
 <tr>
 <td>Embed JavaScript</td>
-<td>Yes</td>
-<td>No</td>
+<td>✔</td>
+<td>✖</td>
 </tr>
 <tr>
 <td>Simple function calls</td>
-<td>Yes (JavaScript expressions)</td>
-<td>No</td>
+<td>✔ (JavaScript expressions)</td>
+<td>✖</td>
 </tr>
 <tr>
 <td>Auto-escaping</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✔</td>
+<td>✔</td>
 </tr>
 <tr>
 <td>Template inheritance</td>
-<td>Yes (<a href="https://github.com/raptorjs3/raptor-templates#layout-taglib">layout taglib</a>)</td>
-<td>Yes</td>
+<td>✔ (<a href="https://github.com/raptorjs3/raptor-templates#layout-taglib">layout taglib</a>)</td>
+<td>✔</td>
 </tr>
 <tr>
 <td>Macros</td>
-<td>Yes</td>
-<td>Yes (inline partials)</td>
+<td>✔</td>
+<td>✔ (inline partials)</td>
 </tr>
 <tr>
 <td>Includes/Partials</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✔</td>
+<td>✔</td>
 </tr>
 </tbody></table><h3 id="runtime"><a name="runtime" class="anchor" href="#runtime"><span class="header-link"></span></a>Runtime</h3><table class="markdown-table"><thead><tr>
 <th></th>
@@ -215,18 +215,18 @@
 </tr>
 </thead><tbody><tr>
 <td>Asynchronous fragments</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✔</td>
+<td>✔</td>
 </tr>
 <tr>
 <td>Async fragment timeouts</td>
-<td>Yes</td>
-<td>No</td>
+<td>✔</td>
+<td>✖</td>
 </tr>
 <tr>
 <td>Streaming</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✔</td>
+<td>✔</td>
 </tr>
 <tr>
 <td>Output format</td>
@@ -270,23 +270,23 @@
 </tr>
 <tr>
 <td>Command-line compiler</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✔</td>
+<td>✔</td>
 </tr>
 <tr>
 <td>Precompile templates for server</td>
-<td>Yes</td>
+<td>✔</td>
 <td>Custom loader code required</td>
 </tr>
 <tr>
 <td>Precompile templates for client</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✔</td>
+<td>✔</td>
 </tr>
 <tr>
 <td>Whitespace Suppression</td>
-<td>Yes (based on HTML structure)</td>
-<td>Yes (based on text)</td>
+<td>✔ (based on HTML structure)</td>
+<td>✔ (based on text)</td>
 </tr>
 </tbody></table><h3 id="performance"><a name="performance" class="anchor" href="#performance"><span class="header-link"></span></a>Performance</h3><table class="markdown-table"><thead><tr>
 <th></th>
@@ -321,8 +321,8 @@
 </tr>
 <tr>
 <td>Readable compiled output?</td>
-<td>Yes</td>
-<td>No</td>
+<td>✔</td>
+<td>✖</td>
 </tr>
 </tbody></table><h3 id="extensibility"><a name="extensibility" class="anchor" href="#extensibility"><span class="header-link"></span></a>Extensibility</h3><table class="markdown-table"><thead><tr>
 <th></th>
@@ -331,12 +331,12 @@
 </tr>
 </thead><tbody><tr>
 <td>Custom tags</td>
-<td>Yes (HTML tags)</td>
-<td>Yes (Dust helper tags)</td>
+<td>✔ (HTML tags)</td>
+<td>✔ (Dust helper tags)</td>
 </tr>
 <tr>
 <td>Custom HTML attributes</td>
-<td>Yes</td>
+<td>✔</td>
 <td>N/A</td>
 </tr>
 <tr>
@@ -346,18 +346,18 @@
 </tr>
 <tr>
 <td>Custom compile-time transformations</td>
-<td>Yes (pseudo DOM API for transforming AST)</td>
-<td>Not well-supported</td>
+<td>✔ (pseudo DOM API for transforming AST)</td>
+<td>✖ (not well-supported)</td>
 </tr>
 <tr>
 <td>Custom compile-time code generation</td>
-<td>Yes (custom AST nodes)</td>
-<td>Not well-supported</td>
+<td>✔ (custom AST nodes)</td>
+<td>✖ (not well-supported)</td>
 </tr>
 <tr>
 <td>Import vanilla Node.js modules as helpers?</td>
-<td>Yes</td>
-<td>No</td>
+<td>✔</td>
+<td>✖</td>
 </tr>
 <tr>
 <td>Custom helper registration</td>
@@ -366,8 +366,8 @@
 </tr>
 <tr>
 <td>Declarative taglibs</td>
-<td>Yes</td>
-<td>No</td>
+<td>✔</td>
+<td>✖</td>
 </tr>
 </tbody></table><h3 id="interoperability"><a name="interoperability" class="anchor" href="#interoperability"><span class="header-link"></span></a>Interoperability</h3><table class="markdown-table"><thead><tr>
 <th></th>
@@ -381,28 +381,28 @@
 </tr>
 <tr>
 <td>Node.js support</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✔</td>
+<td>✔</td>
 </tr>
 <tr>
 <td>Node.js-compatible module loader required?</td>
-<td>Yes</td>
-<td>No</td>
+<td>✔</td>
+<td>✖</td>
 </tr>
 <tr>
 <td>Client-side support</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✔</td>
+<td>✔</td>
 </tr>
 <tr>
 <td><a href="https://github.com/substack/node-browserify">Browserify</a> support</td>
-<td>Yes (see <a href="https://github.com/raptorjs3/rhtmlify">rhtmlify</a>)</td>
+<td>✔ (see <a href="https://github.com/raptorjs3/rhtmlify">rhtmlify</a>)</td>
 <td>Maybe (see <a href="https://github.com/blai/dust-browserify">dust-browserify</a>)</td>
 </tr>
 <tr>
 <td><a href="https://github.com/raptorjs3/raptor-optimizer">Raptor Optimizer</a> support</td>
-<td>Yes</td>
-<td>Yes</td>
+<td>✔</td>
+<td>✔</td>
 </tr>
 </tbody></table><h3 id="community"><a name="community" class="anchor" href="#community"><span class="header-link"></span></a>Community</h3><table class="markdown-table"><thead><tr>
 <th></th>
