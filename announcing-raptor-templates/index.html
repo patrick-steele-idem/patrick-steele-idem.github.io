@@ -1,7 +1,8 @@
 <!doctype html> <html lang="en"> <head><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Announcing the New Raptor Templates! | Patrick Steele-Idem</title><link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"><meta name="description" content="Web Development, JavaScript, Node.js and open source software."><link href="/favicon.ico" rel="icon"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width"><link rel="stylesheet" type="text/css" href="/static/post-7247e57d.css">
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></head><body><div id="header-bg"></div><div id="nav-bg"></div><div id="content"><header id="header"><div id="titles"><h1><a href="/">Patrick Steele-Idem</a></h1><h2>Better WebDev</h2></div></header><nav role="navigation" id="nav"><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archive/">Archive</a></li><li><a href="/about/">About</a></li><li><a href="/subscribe/">Subscribe</a></li><li><form action="https://google.com/search" method="get" class="search-form"><fieldset role="search"><input type="hidden" name="q" value="site:http://psteeleidem.com/"><input type="text" name="q" results="0" placeholder="Search" class="search-input"></fieldset></form></li></ul></nav><main id="main"><div class="draft"><i class="fa fa-exclamation-circle"></i> Draft</div><article class="hentry" role="article"><h1 class="post-title">Announcing the New Raptor Templates!</h1><div class="post-meta"><span class="byline author vcard">Posted by <span class="fn">Patrick Steele-Idem</span></span> on <time data-updated="true" pubdate="" datetime="2014-05-06">Tuesday, May 6th, 2014</time> <span class="categories">&nbsp; <nobr><i class="fa fa-tags"></i> <a href="/category/javascript/" class="category">JavaScript</a>, <a href="/category/raptor-templates/" class="category">Raptor Templates</a>, <a href="/category/templating/" class="category">Templating</a></nobr></span></div><div class="post-body"><p>We are excited to announce the first release candidate of the <em>new</em> <a href="https://github.com/raptorjs3/raptor-templates">Raptor Templates</a>! Earlier this year, we undertook the task of making substantial usability improvements to the Raptor Templates language and API based on the feedback received from the community. We also made significant performance improvements that resulted in Raptor Templates being far faster and leaner than all competitors (see <a href="https://github.com/raptorjs3/templating-benchmarks">benchmarks</a>).</p>
-<p>In this release the language is fundamentally the same, but we have removed the friction that made it more difficult to adopt Raptor Templates templates in the past. Notably, we have switched from an XML parser to an HTML parser. In addition, the AMD-based modules were replaced with CommonJS-based modules for better compatibility with Node.js on the server.</p>
-<p><p class="toc"><strong>Table of Contents</strong><ul class="toc-level0"><li><a href="#summary-of-changes">Summary of Changes</a></li><li><a href="#change-details">Change Details</a><ul class="toc-level1"><li><a href="#separated-out-raptor-templates-into-a-separate-top-level-module">Separated out Raptor Templates into a separate, top-level module:</a></li><li><a href="#switched-from-xml-to-html">Switched from XML to HTML</a></li><li><a href="#simplified-javascript-api">Simplified JavaScript API</a></li><li><a href="#improved-streaming-support">Improved streaming support</a></li><li><a href="#introduced-directory-scanning-for-easier-taglib-maintenance">Introduced directory scanning for easier taglib maintenance</a></li><li><a href="#switched-from-xml-to-json-for-taglibs">Switched from XML to JSON for taglibs</a></li><li><a href="#simplified-th-asynchronous-api">Simplified th asynchronous API</a></li></ul></li><li><a href="#get-started-today!">Get Started Today!</a></li></ul></p></p>
+<p>If you are not familiar with Raptor Templates, it is an extensible, streaming, asynchronous, high performance, HTML-based templating language that can be used in Node.js or in the browser. Raptor Templates was founded on the philosophy that an HTML-based templating language is more natural and intuitive for generating HTML.</p>
+<p>In this release the language is fundamentally the same, but we have removed the friction that made it more difficult to adopt Raptor Templates templates in the past. Notably, we have switched from an XML parser to an HTML parser. In addition, the AMD-based modules were replaced with CommonJS-based modules for better compatibility with the Node.js module loader.</p>
+<p><p class="toc"><strong>Table of Contents</strong><ul class="toc-level0"><li><a href="#summary-of-changes">Summary of Changes</a></li><li><a href="#change-details">Change Details</a><ul class="toc-level1"><li><a href="#separated-out-raptor-templates-into-a-new-top-level-module">Separated out Raptor Templates into a new top-level module:</a></li><li><a href="#switched-from-xml-to-html">Switched from XML to HTML</a></li><li><a href="#simplified-the-javascript-api">Simplified the JavaScript API</a></li><li><a href="#improved-streaming-support">Improved streaming support</a></li><li><a href="#switched-to-commonjs-modules-for-compiled-templates">Switched to CommonJS modules for compiled templates</a></li><li><a href="#introduced-directory-scanning-for-easier-taglib-maintenance">Introduced directory scanning for easier taglib maintenance</a></li><li><a href="#switched-from-xml-to-json-for-taglibs">Switched from XML to JSON for taglibs</a></li><li><a href="#simplified-the-asynchronous-rendering-api">Simplified the asynchronous rendering API</a></li></ul></li><li><a href="#further-reading">Further Reading</a></li><li><a href="#try-out-raptor-templates-today!">Try Out Raptor Templates Today!</a></li></ul></p></p>
 <h2 id="summary-of-changes"><a name="summary-of-changes" class="anchor" href="#summary-of-changes"><span class="header-link"></span></a>Summary of Changes</h2><p>Here&#39;s a summary of the changes in this new major release:</p>
 <ul>
 <li>Code cleaned up and reorganized<ul>
@@ -48,7 +49,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="change-details"><a name="change-details" class="anchor" href="#change-details"><span class="header-link"></span></a>Change Details</h2><h3 id="separated-out-raptor-templates-into-a-separate-top-level-module"><a name="separated-out-raptor-templates-into-a-separate-top-level-module" class="anchor" href="#separated-out-raptor-templates-into-a-separate-top-level-module"><span class="header-link"></span></a>Separated out Raptor Templates into a separate, top-level module:</h3><pre><code class="lang-bash">npm install raptor-templates
+<h2 id="change-details"><a name="change-details" class="anchor" href="#change-details"><span class="header-link"></span></a>Change Details</h2><h3 id="separated-out-raptor-templates-into-a-new-top-level-module"><a name="separated-out-raptor-templates-into-a-new-top-level-module" class="anchor" href="#separated-out-raptor-templates-into-a-new-top-level-module"><span class="header-link"></span></a>Separated out Raptor Templates into a new top-level module:</h3><pre><code class="lang-bash">npm install raptor-templates
 </code></pre>
 <p>Project links:</p>
 <ul>
@@ -89,7 +90,7 @@
     No colors!
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
-<h3 id="simplified-javascript-api"><a name="simplified-javascript-api" class="anchor" href="#simplified-javascript-api"><span class="header-link"></span></a>Simplified JavaScript API</h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'raptor-templates'</span>).load(<span class="hljs-string">'hello.rhtml'</span>);
+<h3 id="simplified-the-javascript-api"><a name="simplified-the-javascript-api" class="anchor" href="#simplified-the-javascript-api"><span class="header-link"></span></a>Simplified the JavaScript API</h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'raptor-templates'</span>).load(<span class="hljs-string">'hello.rhtml'</span>);
 
 template.render({
         name: <span class="hljs-string">'World'</span>,
@@ -100,9 +101,39 @@ template.render({
     });
 </code></pre>
 <h3 id="improved-streaming-support"><a name="improved-streaming-support" class="anchor" href="#improved-streaming-support"><span class="header-link"></span></a>Improved streaming support</h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'raptor-templates'</span>).load(<span class="hljs-string">'hello.rhtml'</span>);
+<span class="hljs-keyword">var</span> out = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).createWriteStream(<span class="hljs-string">'hello.html'</span>, <span class="hljs-string">'utf8'</span>);
 
 template.stream(data)
-    .pipe();
+    .pipe(out);
+</code></pre>
+<h3 id="switched-to-commonjs-modules-for-compiled-templates"><a name="switched-to-commonjs-modules-for-compiled-templates" class="anchor" href="#switched-to-commonjs-modules-for-compiled-templates"><span class="header-link"></span></a>Switched to CommonJS modules for compiled templates</h3><p>Sample compiled templated:</p>
+<pre><code class="lang-javascript">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">(__helpers)</span> {</span>
+  <span class="hljs-keyword">var</span> empty = __helpers.e,
+      notEmpty = __helpers.ne,
+      escapeXml = __helpers.x,
+      forEach = __helpers.f;
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(data, context)</span> {</span>
+    context.w(<span class="hljs-string">'Hello '</span> +
+      escapeXml(data.name) +
+      <span class="hljs-string">'! '</span>);
+
+    <span class="hljs-keyword">if</span> (notEmpty(data.colors)) {
+      context.w(<span class="hljs-string">'&lt;ul&gt;'</span>);
+
+      forEach(data.colors, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(color)</span> {</span>
+        context.w(<span class="hljs-string">'&lt;li class="color"&gt;'</span> +
+          escapeXml(color) +
+          <span class="hljs-string">'&lt;/li&gt;'</span>);
+      });
+
+      context.w(<span class="hljs-string">'&lt;/ul&gt;'</span>);
+    }
+    <span class="hljs-keyword">else</span> {
+      context.w(<span class="hljs-string">'&lt;div&gt;No colors!&lt;/div&gt;'</span>);
+    }
+  };
+}
 </code></pre>
 <h3 id="introduced-directory-scanning-for-easier-taglib-maintenance"><a name="introduced-directory-scanning-for-easier-taglib-maintenance" class="anchor" href="#introduced-directory-scanning-for-easier-taglib-maintenance"><span class="header-link"></span></a>Introduced directory scanning for easier taglib maintenance</h3><p>Please see <a href="https://github.com/raptorjs3/raptor-templates#scanning-for-tags">Scanning for Tags</a></p>
 <h3 id="switched-from-xml-to-json-for-taglibs"><a name="switched-from-xml-to-json-for-taglibs" class="anchor" href="#switched-from-xml-to-json-for-taglibs"><span class="header-link"></span></a>Switched from XML to JSON for taglibs</h3><p><strong>Old taglib:</strong></p>
@@ -134,9 +165,9 @@ template.stream(data)
 <p><code>raptor-taglib.json</code></p>
 <pre><code class="lang-json">{
     "<span class="hljs-attribute">tags</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">app-button</span>": <span class="hljs-value"><span class="hljs-string">"./ui-components/buttons/Button/raptor-tag.json"</span></span>,
+        "<span class="hljs-attribute">app-button</span>": <span class="hljs-value"><span class="hljs-string">"./components/app-button/raptor-tag.json"</span></span>,
         "<span class="hljs-attribute">app-hello</span>": <span class="hljs-value">{
-            "<span class="hljs-attribute">renderer</span>": <span class="hljs-value"><span class="hljs-string">"./hello-renderer.js"</span></span>,
+            "<span class="hljs-attribute">renderer</span>": <span class="hljs-value"><span class="hljs-string">"./components/app-hello/renderer.js"</span></span>,
             "<span class="hljs-attribute">attributes</span>": <span class="hljs-value">{
                 "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
             }
@@ -144,7 +175,7 @@ template.stream(data)
     </span>}
 </span>}
 </code></pre>
-<p><code>./ui-components/buttons/Button/raptor-tag.json</code></p>
+<p><code>./components/app-button/raptor-tag.json</code></p>
 <pre><code class="lang-json">{
     "<span class="hljs-attribute">renderer</span>": <span class="hljs-value"><span class="hljs-string">"./renderer"</span></span>,
     "<span class="hljs-attribute">attributes</span>": <span class="hljs-value">{
@@ -171,7 +202,7 @@ template.stream(data)
     </span>}
 </span>}
 </code></pre>
-<h3 id="simplified-th-asynchronous-api"><a name="simplified-th-asynchronous-api" class="anchor" href="#simplified-th-asynchronous-api"><span class="header-link"></span></a>Simplified th asynchronous API</h3><pre><code class="lang-javascript">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(input, context)</span> {</span>
+<h3 id="simplified-the-asynchronous-rendering-api"><a name="simplified-the-asynchronous-rendering-api" class="anchor" href="#simplified-the-asynchronous-rendering-api"><span class="header-link"></span></a>Simplified the asynchronous rendering API</h3><pre><code class="lang-javascript">module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(input, context)</span> {</span>
     <span class="hljs-keyword">var</span> asyncContext = context.beginAsync();
     userService.loadUser(input.userId, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, userInfo)</span> {</span>
         asyncContext.write(<span class="hljs-string">'Hello '</span> + userInfo.name + <span class="hljs-string">'!'</span>);
@@ -180,7 +211,13 @@ template.stream(data)
 };
 </code></pre>
 <p>For more details, please see <a href="https://github.com/raptorjs3/raptor-templates#custom-taglibs">raptor-templates » README.md » Custom Taglibs</a>.</p>
-<h2 id="get-started-today!"><a name="get-started-today!" class="anchor" href="#get-started-today!"><span class="header-link"></span></a>Get Started Today!</h2><p>Check out the latest <a href="https://github.com/raptorjs3/raptor-templates">Raptor Templates documentation</a> and get started today. If you find any problems or have any feature requests please create a new issue on the <a href="https://github.com/raptorjs3/raptor-templates/issues">Github Issues</a> page or start a discussion on the <a href="https://groups.google.com/forum/#!forum/raptorjs">Google Group</a> forum.</p>
+<h2 id="further-reading"><a name="further-reading" class="anchor" href="#further-reading"><span class="header-link"></span></a>Further Reading</h2><ul>
+<li><a href="https://github.com/raptorjs3/raptor-templates">Github » raptor-templates</a>: Documentation and source code for Raptor Templates</li>
+<li><a href="/raptor-templates-versus-dust">Raptor Templates versus Dust</a>: An in-depth comparison between Raptor Templates and Dust</li>
+<li><a href="/the-javascript-templating-landscape">The JavaScript Templating Landscape</a>: A broad comparison of the different types of JavaScript templating languages that are compatible with Node.js</li>
+<li><a href="https://github.com/raptorjs3/templating-benchmarks">templating-benchmarks</a>: Performance comparison of popular templating languages (including CPU usage, runtime size and compiled template sizes)</li>
+</ul>
+<h2 id="try-out-raptor-templates-today!"><a name="try-out-raptor-templates-today!" class="anchor" href="#try-out-raptor-templates-today!"><span class="header-link"></span></a>Try Out Raptor Templates Today!</h2><p>Check out the latest <a href="https://github.com/raptorjs3/raptor-templates">Raptor Templates documentation</a> and get started today. If you find any problems or have any feature requests please create a new issue on the <a href="https://github.com/raptorjs3/raptor-templates/issues">Github Issues</a> page or start a discussion on the <a href="https://groups.google.com/forum/#!forum/raptorjs">RaptorJS Google Group forum</a>.</p>
 <p>Please share this post to expand the community and help make the <em>new</em> Raptor Templates the templating language of choice for more developers.</p>
 </div><div class="post-footer"><div class="sharing"><a href="https://twitter.com/share" class="twitter-share-button" data-via="psteeleidem">Tweet</a><script>!function(d,s,id){var
 js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,
