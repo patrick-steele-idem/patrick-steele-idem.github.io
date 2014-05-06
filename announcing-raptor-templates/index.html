@@ -50,6 +50,14 @@ template.render({
 template.stream(data)
     .pipe(out);
 </code></pre>
+<p>With Raptor Templates you can start streaming rendered templates directly to an HTTP response stream. For example, with <a href="http://expressjs.com/">Express</a>:</p>
+<pre><code class="lang-javascript">app.get(<span class="hljs-string">'/profile'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span>
+    template.stream({
+            name: <span class="hljs-string">'Frank'</span>
+        })
+        .pipe(res);
+});
+</code></pre>
 <h2 id="summary-of-changes"><a name="summary-of-changes" class="anchor" href="#summary-of-changes"><span class="header-link"></span></a>Summary of Changes</h2><p>Here&#39;s a summary of the changes in this new major release:</p>
 <ul>
 <li>Code cleaned up and reorganized<ul>
