@@ -45,13 +45,18 @@ template.render({
     });
 </code></pre>
 <p>Alternatively, you can choose to stream out the rendered HTML. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> out = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).createWriteStream(<span class="hljs-string">'hello.html'</span>, <span class="hljs-string">'utf8'</span>);
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> templatePath = <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./hello.rhtml'</span>);
+<span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'raptor-templates'</span>).load(templatePath);
+<span class="hljs-keyword">var</span> out = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).createWriteStream(<span class="hljs-string">'hello.html'</span>, <span class="hljs-string">'utf8'</span>);
 
 template.stream(data)
     .pipe(out);
 </code></pre>
 <p>With Raptor Templates you can start streaming rendered templates directly to an HTTP response stream. For example, with <a href="http://expressjs.com/">Express</a>:</p>
-<pre><code class="lang-javascript">app.get(<span class="hljs-string">'/profile'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> templatePath = <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./profile.rhtml'</span>);
+<span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'raptor-templates'</span>).load(templatePath);
+
+app.get(<span class="hljs-string">'/profile'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> {</span>
     template.stream({
             name: <span class="hljs-string">'Frank'</span>
         })
