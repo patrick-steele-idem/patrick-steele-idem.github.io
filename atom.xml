@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>Patrick Steele-Idem</title>
     <link>http://psteeleidem.com/</link>
-    <updated>2014-05-06T19:52:32Z</updated>
+    <updated>2014-05-06T19:53:35Z</updated>
     <author>
         <name>Patrick Steele-Idem</name>
         <email>pnidem@gmail.com</email>
@@ -12,7 +12,7 @@
     <rights>All rights reserved 2014, Patrick Steele-Idem</rights>
     <generator>Feed for Node.js</generator>
     <entry>
-        <title type="html"><![CDATA[Announcing the new Raptor Templates!]]></title>
+        <title type="html"><![CDATA[Announcing the New Raptor Templates!]]></title>
         <id>http://psteeleidem.com/announcing-raptor-templates/</id>
         <link href="http://psteeleidem.com/announcing-raptor-templates/">
         </link>
