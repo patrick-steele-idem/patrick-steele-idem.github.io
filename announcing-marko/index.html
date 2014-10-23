@@ -1,0 +1,318 @@
+<!doctype html> <html lang="en"> <head><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Announcing Marko! | Patrick Steele-Idem</title><link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"><meta name="description" content="Web Development, JavaScript, Node.js and open source software."><link href="/favicon.ico" rel="icon"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width"><link rel="stylesheet" type="text/css" href="/static/post-78f5e532.css">
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></head><body><div id="header-bg"></div><div id="nav-bg"></div><div id="content"><header id="header"><div id="titles"><h1><a href="/">Patrick Steele-Idem</a></h1><h2>Better WebDev</h2></div></header><nav role="navigation" id="nav"><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archive/">Archive</a></li><li><a href="/about/">About</a></li><li><a href="/subscribe/">Subscribe</a></li><li><form action="https://google.com/search" method="get" class="search-form"><fieldset role="search"><input type="hidden" name="q" value="site:http://psteeleidem.com/"><input type="text" name="q" results="0" placeholder="Search" class="search-input"></fieldset></form></li></ul></nav><main id="main"><article class="hentry" role="article"><h1 class="post-title">Announcing Marko!</h1><div class="post-meta"><span class="byline author vcard">Posted by <span class="fn">Patrick Steele-Idem</span></span> on <time data-updated="true" pubdate="" datetime="2014-10-21">Tuesday, Oct 21st, 2014</time> <span class="categories">&nbsp; <nobr><i class="fa fa-tags"></i> <a href="/category/javascript/" class="category">JavaScript</a>, <a href="/category/marko/" class="category">Marko</a>, <a href="/category/templating/" class="category">Templating</a></nobr></span></div><div class="post-body"><p>We are excited to announce the release of <a href="https://github.com/marko/marko">Marko</a>! Earlier this year, we undertook the task of making substantial usability improvements to the Marko language and API based on the feedback received from the community. We also made significant performance improvements that resulted in Marko being far faster <em>and</em> leaner than all competitors (see <a href="https://github.com/marko/templating-benchmarks">benchmarks</a>).</p>
+<p>If you are not familiar with Marko, it is an extensible, streaming, asynchronous, high performance, HTML-based templating language that can be used in Node.js or in the browser. Marko was founded on the philosophy that an HTML-based templating language is more natural and intuitive for generating HTML.</p>
+<p>In this release the language is fundamentally the same, but we have removed the friction that made it more difficult to adopt Marko templates in the past. Notably, we have switched from an XML parser to an HTML parser. In addition, the AMD-based modules were replaced with CommonJS-based modules for better compatibility with the Node.js module loader.</p>
+<p><p class="toc"><strong>Table of Contents</strong><ul class="toc-level0"><li><a href="#marko-at-a-glance">Marko at a Glance</a><ul class="toc-level1"><li><a href="#design-philosophy">Design Philosophy</a></li><li><a href="#installation">Installation</a></li><li><a href="#sample-code">Sample Code</a></li></ul></li><li><a href="#summary-of-changes">Summary of Changes</a></li><li><a href="#change-details">Change Details</a><ul class="toc-level1"><li><a href="#separated-out-marko-into-a-new-top-level-module">Separated out Marko into a new top-level module</a></li><li><a href="#switched-from-xml-to-html">Switched from XML to HTML</a></li><li><a href="#simplified-the-javascript-api">Simplified the JavaScript API</a></li><li><a href="#improved-streaming-support">Improved streaming support</a></li><li><a href="#switched-to-commonjs-modules-for-compiled-templates">Switched to CommonJS modules for compiled templates</a></li><li><a href="#added-support-for-importing-nodejs-modules-as-template-helpers">Added support for importing Node.js modules as template helpers</a></li><li><a href="#introduced-a-simple-command-line-utility-for-compiling-templates">Introduced a simple command line utility for compiling templates</a></li><li><a href="#improved-debugging">Improved debugging</a></li><li><a href="#simplified-the-asynchronous-rendering-api">Simplified the asynchronous rendering API</a></li><li><a href="#introduced-directory-scanning-for-easier-taglib-maintenance">Introduced directory scanning for easier taglib maintenance</a></li><li><a href="#switched-from-xml-to-json-for-taglibs">Switched from XML to JSON for taglibs</a></li></ul></li><li><a href="#further-reading">Further Reading</a></li><li><a href="#try-out-marko-today!">Try out Marko Today!</a></li></ul></p></p>
+<h2 id="marko-at-a-glance"><a name="marko-at-a-glance" class="anchor" href="#marko-at-a-glance"><span class="header-link"></span></a>Marko at a Glance</h2><h3 id="design-philosophy"><a name="design-philosophy" class="anchor" href="#design-philosophy"><span class="header-link"></span></a>Design Philosophy</h3><ul>
+<li><strong>Readable:</strong> Templates should be as close to the output HTML as possible to keep templates readable. Cryptic syntax and symbols should be avoided.</li>
+<li><strong>Simple:</strong> The number of new concepts should be minimized and complexity should be avoided.</li>
+<li><strong>Extensible:</strong> The template engine should be easily extensible at both compile-time and runtime.</li>
+<li><strong>High Performance:</strong> Runtime and compiled output should be optimized for low CPU and memory usage and have a small footprint. All expressions should be native JavaScript to avoid runtime interpretation.</li>
+<li><strong>Not Restrictive:</strong> Whether or not to go less logic or more logic is up to the developer.</li>
+<li><strong>Asynchronous and Streaming Output:</strong> It should be possible to render HTML out-of-order, but the output HTML should be streamed out in the correct order. This minimizes idle time and reduces the time to first byte.</li>
+<li><strong>Intuitive:</strong> The templating engine should introduce as few surprises as possible.</li>
+<li><strong>Browser and Server Compatibility:</strong> Templates should compile down to JavaScript that can be executed on both the server and the client.</li>
+<li><strong>Debuggable:</strong> Compiled JavaScript should be debuggable and readable.</li>
+<li><strong>Compile-Time Checks:</strong> Syntax, custom tags and custom attributes should be validated at compile-time.</li>
+<li><strong>Tools Support:</strong> Tools should be enabled to offer auto-completion and validation for improved productivity and safety.</li>
+<li><strong>Modular:</strong> Runtime and compiled templates should be based on CommonJS modules for improved dependency management. Template dependencies (such as custom tags) should be resolved based on a template&#39;s file system path instead of relying on a shared registry.</li>
+</ul>
+<h3 id="installation"><a name="installation" class="anchor" href="#installation"><span class="header-link"></span></a>Installation</h3><p>To install the <a href="https://github.com/marko/marko">marko</a> module into your Node.js project, the following command should be used:</p>
+<pre><code class="lang-bash">npm install marko --save
+</code></pre>
+<h3 id="sample-code"><a name="sample-code" class="anchor" href="#sample-code"><span class="header-link"></span></a>Sample Code</h3><p>A basic template with text replacement, looping and conditionals is shown below:</p>
+<pre><code class="lang-html">Hello ${data.name}!
+
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">if</span>=<span class="hljs-value">"notEmpty(data.colors)"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"color: $color"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"color in data.colors"</span>&gt;</span>
+        $color
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">c-else</span>&gt;</span>
+    No colors!
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<p>The template can then be rendered as shown in the following sample code:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> templatePath = <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./hello.marko'</span>);
+<span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marko'</span>).load(templatePath);
+
+template.render({
+        name: <span class="hljs-string">'World'</span>,
+        colors: [<span class="hljs-string">"red"</span>, <span class="hljs-string">"green"</span>, <span class="hljs-string">"blue"</span>]
+    },
+    <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, output)</span> </span>{
+        <span class="hljs-built_in">console</span>.log(output);
+    });
+</code></pre>
+<p>Alternatively, you can choose to stream out the rendered HTML. For example:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> templatePath = <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./hello.marko'</span>);
+<span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marko'</span>).load(templatePath);
+<span class="hljs-keyword">var</span> out = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).createWriteStream(<span class="hljs-string">'hello.html'</span>, <span class="hljs-string">'utf8'</span>);
+
+template.stream(data)
+    .pipe(out);
+</code></pre>
+<p>With Marko you can start streaming rendered templates directly to an HTTP response stream. For example, with <a href="http://expressjs.com/">Express</a>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> templatePath = <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./profile.marko'</span>);
+<span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marko'</span>).load(templatePath);
+
+app.get(<span class="hljs-string">'/profile'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> </span>{
+    template.stream({
+            name: <span class="hljs-string">'Frank'</span>
+        })
+        .pipe(res);
+});
+</code></pre>
+<h2 id="summary-of-changes"><a name="summary-of-changes" class="anchor" href="#summary-of-changes"><span class="header-link"></span></a>Summary of Changes</h2><p>Here&#39;s a summary of the changes in this new major release:</p>
+<ul>
+<li>Code cleaned up and reorganized<ul>
+<li>Split out Marko into its own top-level module: <a href="https://www.npmjs.org/package/marko">marko</a></li>
+<li>Moved documentation into <a href="https://github.com/marko/marko/blob/master/README.md">README.md</a></li>
+<li>Significant reduction in code size</li>
+<li>Flattened the directory structure</li>
+</ul>
+</li>
+<li>Switched from an XML parser to an <a href="https://github.com/fb55/htmlparser2">HTML parser</a><ul>
+<li>Dropped the root <code>&lt;c:template&gt;</code> tag</li>
+<li>Taglibs no longer have to be imported (no more <code>xmlns</code>)</li>
+<li>Dropped support for the <code>params</code> attribute</li>
+<li>Dropped namespaces in favor of dash separated names</li>
+</ul>
+</li>
+<li>Switched to CommonJS modules everywhere<ul>
+<li>Switched from AMD to CommonJS for the runtime</li>
+<li>Templates now compile down to CommonJS modules for better integration with Node.js (no named templates)</li>
+<li>Designed to support Node.js and Node.js module bundlers that target the browser</li>
+</ul>
+</li>
+<li>Simplified the JavaScript API<ul>
+<li>Templates can now be easily loaded to get back an object with a <code>render</code> method</li>
+<li>Improved streaming support</li>
+<li>Simplified the asynchronous rendering API</li>
+</ul>
+</li>
+<li>Simplified taglibs<ul>
+<li>Switched from XML to JSON for taglibs</li>
+<li>Custom tags and custom attributes must have a dash in the name</li>
+<li>Taglibs automatically discovered based on template location</li>
+<li>Taglibs installed via <code>npm</code> will automatically be discovered</li>
+<li>Added support for directory scanning for automatic taglibs</li>
+<li>Custom tag renderers now referenced by relative path</li>
+<li>Custom tag attribute definitions are now optional</li>
+<li>Custom tag definition can be put into the renderer&#39;s JavaScript file instead of in a separate file</li>
+</ul>
+</li>
+<li>Miscellaneous<ul>
+<li>Node.js modules can be imported into templates for use as helpers</li>
+<li>Introduced a simple and powerful command-line compiler: <a href="https://github.com/marko/marko#template-compilation">markoc</a></li>
+<li>Improved performance now far exceeds the competition! Please see <a href="https://github.com/marko/templating-benchmarks">benchmarks</a>.</li>
+<li>Improved debugging</li>
+</ul>
+</li>
+</ul>
+<h2 id="change-details"><a name="change-details" class="anchor" href="#change-details"><span class="header-link"></span></a>Change Details</h2><h3 id="separated-out-marko-into-a-new-top-level-module"><a name="separated-out-marko-into-a-new-top-level-module" class="anchor" href="#separated-out-marko-into-a-new-top-level-module"><span class="header-link"></span></a>Separated out Marko into a new top-level module</h3><p>The <a href="https://github.com/marko/marko">https://www.npmjs.org/package/marko</a> module can now be installed independently of any other modules:</p>
+<pre><code class="lang-bash">npm install marko
+</code></pre>
+<p>Project links:</p>
+<ul>
+<li>Github: <a href="https://github.com/marko/marko">https://github.com/marko/marko</a></li>
+<li>npm: <a href="https://www.npmjs.org/package/marko">https://www.npmjs.org/package/marko</a></li>
+</ul>
+<h3 id="switched-from-xml-to-html"><a name="switched-from-xml-to-html" class="anchor" href="#switched-from-xml-to-html"><span class="header-link"></span></a>Switched from XML to HTML</h3><p><strong>OLD:</strong></p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">c:template</span> <span class="hljs-attribute">xmlns:c</span>=<span class="hljs-value">"core"</span>
+    <span class="hljs-attribute">xmlns:app</span>=<span class="hljs-value">"app"</span>
+    <span class="hljs-attribute">params</span>=<span class="hljs-value">"name,colors"</span>&gt;</span>
+
+    Hello $name!
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">app:button</span> <span class="hljs-attribute">label</span>=<span class="hljs-value">"Hello World"</span>/&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">c:if</span>=<span class="hljs-value">"notEmpty(colors)"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"color: $color"</span> <span class="hljs-attribute">c:for</span>=<span class="hljs-value">"color in colors"</span>&gt;</span>
+            $color
+        <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">c:else</span>=<span class="hljs-value">""</span>&gt;</span>
+        No colors!
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-title">c:template</span>&gt;</span>
+</code></pre>
+<p><strong>NEW:</strong></p>
+<pre><code class="lang-html">Hello $data.name!
+
+<span class="hljs-tag">&lt;<span class="hljs-title">app-button</span> <span class="hljs-attribute">label</span>=<span class="hljs-value">"Hello World"</span>/&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">if</span>=<span class="hljs-value">"notEmpty(data.colors)"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"color: $color"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"color in data.colors"</span>&gt;</span>
+        $color
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">c-else</span>&gt;</span>
+    No colors!
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<h3 id="simplified-the-javascript-api"><a name="simplified-the-javascript-api" class="anchor" href="#simplified-the-javascript-api"><span class="header-link"></span></a>Simplified the JavaScript API</h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marko'</span>).load(<span class="hljs-string">'hello.marko'</span>);
+
+template.render({
+        name: <span class="hljs-string">'World'</span>,
+        colors: [<span class="hljs-string">"red"</span>, <span class="hljs-string">"green"</span>, <span class="hljs-string">"blue"</span>]
+    },
+    <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, output)</span> </span>{
+        <span class="hljs-built_in">console</span>.log(output);
+    });
+</code></pre>
+<h3 id="improved-streaming-support"><a name="improved-streaming-support" class="anchor" href="#improved-streaming-support"><span class="header-link"></span></a>Improved streaming support</h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marko'</span>).load(<span class="hljs-string">'hello.marko'</span>);
+<span class="hljs-keyword">var</span> out = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).createWriteStream(<span class="hljs-string">'hello.html'</span>, <span class="hljs-string">'utf8'</span>);
+
+template.stream(data)
+    .pipe(out);
+</code></pre>
+<h3 id="switched-to-commonjs-modules-for-compiled-templates"><a name="switched-to-commonjs-modules-for-compiled-templates" class="anchor" href="#switched-to-commonjs-modules-for-compiled-templates"><span class="header-link"></span></a>Switched to CommonJS modules for compiled templates</h3><p>Sample compiled template:</p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">(__helpers)</span> </span>{
+  <span class="hljs-keyword">var</span> empty = __helpers.e,
+      notEmpty = __helpers.ne,
+      escapeXml = __helpers.x,
+      forEach = __helpers.f;
+
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(data, context)</span> </span>{
+    context.w(<span class="hljs-string">'Hello '</span> +
+      escapeXml(data.name) +
+      <span class="hljs-string">'! '</span>);
+
+    <span class="hljs-keyword">if</span> (notEmpty(data.colors)) {
+      context.w(<span class="hljs-string">'&lt;ul&gt;'</span>);
+
+      forEach(data.colors, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(color)</span> </span>{
+        context.w(<span class="hljs-string">'&lt;li class="color"&gt;'</span> +
+          escapeXml(color) +
+          <span class="hljs-string">'&lt;/li&gt;'</span>);
+      });
+
+      context.w(<span class="hljs-string">'&lt;/ul&gt;'</span>);
+    }
+    <span class="hljs-keyword">else</span> {
+      context.w(<span class="hljs-string">'&lt;div&gt;No colors!&lt;/div&gt;'</span>);
+    }
+  };
+}
+</code></pre>
+<h3 id="added-support-for-importing-nodejs-modules-as-template-helpers"><a name="added-support-for-importing-nodejs-modules-as-template-helpers" class="anchor" href="#added-support-for-importing-nodejs-modules-as-template-helpers"><span class="header-link"></span></a>Added support for importing Node.js modules as template helpers</h3><p>Since all templates are now compiled into CommonJS modules, you can easily import other Node.js modules into your template for use as helpers:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">require</span> <span class="hljs-attribute">module</span>=<span class="hljs-value">"change-case"</span> <span class="hljs-attribute">var</span>=<span class="hljs-value">"changeCase"</span>/&gt;</span>
+
+Hello ${changeCase.titleCase(name)}!
+</code></pre>
+<p><em>NOTE: This assumes that the <a href="https://www.npmjs.org/package/change-case">change-case</a> module was installed into the project using the following command:</em> <code>npm install change-case</code></p>
+<h3 id="introduced-a-simple-command-line-utility-for-compiling-templates"><a name="introduced-a-simple-command-line-utility-for-compiling-templates" class="anchor" href="#introduced-a-simple-command-line-utility-for-compiling-templates"><span class="header-link"></span></a>Introduced a simple command line utility for compiling templates</h3><p>Usage:</p>
+<pre><code><span class="hljs-title">markoc</span> hello.marko
+</code></pre><p>Running the above command will generate a file named <code>hello.marko.js</code>.</p>
+<p>Please see <a href="https://github.com/marko/marko#template-compilation">Template Compilation</a> for more details.</p>
+<h3 id="improved-debugging"><a name="improved-debugging" class="anchor" href="#improved-debugging"><span class="header-link"></span></a>Improved debugging</h3><p>With the new version of Marko, every compiled template is written to disk next to the original file. The CommonJS module that is written to disk is then loaded using the standard Node.js <code>require</code>. By loading the compiled template from disk, you can easily step through the generated code and read through the generated code in your editor.</p>
+<p>For example, running the following command:</p>
+<pre><code><span class="hljs-title">markoc</span> hello.marko
+</code></pre><p>Will result in a new <code>hello.marko.js</code> file in the same directory.</p>
+<p>You will want to add <code>*.marko.js</code> to your source code ignore file (e.g. <code>.gitignore</code>).</p>
+<h3 id="simplified-the-asynchronous-rendering-api"><a name="simplified-the-asynchronous-rendering-api" class="anchor" href="#simplified-the-asynchronous-rendering-api"><span class="header-link"></span></a>Simplified the asynchronous rendering API</h3><pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(input, context)</span> </span>{
+    <span class="hljs-keyword">var</span> asyncContext = context.beginAsync();
+    userService.loadUser(input.userId, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(err, userInfo)</span> </span>{
+        asyncContext.write(<span class="hljs-string">'Hello '</span> + userInfo.name + <span class="hljs-string">'!'</span>);
+        asyncContext.end();
+    })
+};
+</code></pre>
+<h3 id="introduced-directory-scanning-for-easier-taglib-maintenance"><a name="introduced-directory-scanning-for-easier-taglib-maintenance" class="anchor" href="#introduced-directory-scanning-for-easier-taglib-maintenance"><span class="header-link"></span></a>Introduced directory scanning for easier taglib maintenance</h3><p>Please see <a href="https://github.com/marko/marko#scanning-for-tags">Scanning for Tags</a></p>
+<h3 id="switched-from-xml-to-json-for-taglibs"><a name="switched-from-xml-to-json-for-taglibs" class="anchor" href="#switched-from-xml-to-json-for-taglibs"><span class="header-link"></span></a>Switched from XML to JSON for taglibs</h3><p><strong>Old taglib:</strong></p>
+<p><code>rebootstrap.rtld</code></p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">raptor-taglib</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">uri</span>&gt;</span>rebootstrap<span class="hljs-tag">&lt;/<span class="hljs-title">uri</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">import-taglib</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"rebootstrap/ui/components/buttons/Button/Button.rtld"</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">raptor-taglib</span>&gt;</span>
+</code></pre>
+<p><code>./ui-components/buttons/Button/Button.rtld</code></p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">raptor-taglib</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">tag</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"button"</span> <span class="hljs-attribute">renderer</span>=<span class="hljs-value">"rebootstrap/ui/components/buttons/Button/ButtonRenderer"</span> <span class="hljs-attribute">dynamic-attributes</span>=<span class="hljs-value">"true"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">attribute</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"id"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"string"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">attribute</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"label"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"string"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">attribute</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"href"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"string"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">attribute</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"variant"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"string"</span> <span class="hljs-attribute">description</span>=<span class="hljs-value">"primary | info | success | warning | danger | inverse"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">attribute</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"size"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"string"</span> <span class="hljs-attribute">description</span>=<span class="hljs-value">"large | small | mini"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">attribute</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"toggle"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"boolean"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">attribute</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"toggled"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"boolean"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">attribute</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"dropdown"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"boolean"</span>/&gt;</span>
+
+        <span class="hljs-comment">&lt;!-- Support widget attributes --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">attribute</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"id"</span> <span class="hljs-attribute">uri</span>=<span class="hljs-value">"widgets"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">attribute</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"event-click"</span> <span class="hljs-attribute">uri</span>=<span class="hljs-value">"widgets"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">tag</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">raptor-taglib</span>&gt;</span>
+</code></pre>
+<p><strong>New taglib:</strong></p>
+<p><code>raptor-taglib.json</code></p>
+<pre><code class="lang-json">{
+    "<span class="hljs-attribute">tags</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">app-button</span>": <span class="hljs-value"><span class="hljs-string">"./components/app-button/raptor-tag.json"</span></span>,
+        "<span class="hljs-attribute">app-hello</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">renderer</span>": <span class="hljs-value"><span class="hljs-string">"./components/app-hello/renderer.js"</span></span>,
+            "<span class="hljs-attribute">attributes</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+            }
+        </span>}
+    </span>}
+</span>}
+</code></pre>
+<p><code>./components/app-button/raptor-tag.json</code></p>
+<pre><code class="lang-json">{
+    "<span class="hljs-attribute">renderer</span>": <span class="hljs-value"><span class="hljs-string">"./renderer"</span></span>,
+    "<span class="hljs-attribute">attributes</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+        "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+        "<span class="hljs-attribute">href</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+        "<span class="hljs-attribute">variant</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+            "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"primary | info | success | warning | danger | inverse"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">size</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+            "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"large | small | mini"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">toggle</span>": <span class="hljs-value"><span class="hljs-string">"boolean"</span></span>,
+        "<span class="hljs-attribute">toggled</span>": <span class="hljs-value"><span class="hljs-string">"boolean"</span></span>,
+        "<span class="hljs-attribute">dropdown</span>": <span class="hljs-value"><span class="hljs-string">"boolean"</span></span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">namespace</span>": <span class="hljs-value"><span class="hljs-string">"raptor-widgets"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">event-click</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">namespace</span>": <span class="hljs-value"><span class="hljs-string">"raptor-widgets"</span>
+        </span>}
+    </span>}
+</span>}
+</code></pre>
+<p>For more details, please see <a href="https://github.com/marko/marko#custom-taglibs">marko » README.md » Custom Taglibs</a>.</p>
+<h2 id="further-reading"><a name="further-reading" class="anchor" href="#further-reading"><span class="header-link"></span></a>Further Reading</h2><ul>
+<li><a href="https://github.com/marko/marko">Github » marko</a>: Documentation and source code for Marko</li>
+<li><a href="/marko-versus-dust">Marko versus Dust</a>: An in-depth comparison between Marko and Dust</li>
+<li><a href="/the-javascript-templating-landscape">The JavaScript Templating Landscape</a>: A broad comparison of the different types of JavaScript templating languages that are compatible with Node.js</li>
+<li><a href="https://github.com/marko/templating-benchmarks">templating-benchmarks</a>: Performance comparison of popular templating languages (including CPU usage, runtime size and compiled template sizes)</li>
+</ul>
+<h2 id="try-out-marko-today!"><a name="try-out-marko-today!" class="anchor" href="#try-out-marko-today!"><span class="header-link"></span></a>Try out Marko Today!</h2><p>Check out the latest <a href="https://github.com/marko/marko">Marko documentation</a> and get started today. If you find any problems or have any feature requests please create a new issue on the <a href="https://github.com/marko/marko/issues">Github Issues</a> page or start a discussion on the <a href="https://groups.google.com/forum/#!forum/raptorjs">RaptorJS Google Group forum</a>.</p>
+<p>Please share this post to expand the community and help make the <em>new</em> Marko the templating language of choice for more developers.</p>
+</div><div class="post-footer"><div class="sharing"><a href="https://twitter.com/share" class="twitter-share-button" data-via="psteeleidem">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div><div class="post-nav"></div></div></article><section><h1>Comments</h1><div id="disqus_thread"></div><script type="text/javascript">
+    var disqus_shortname = "psteeleidem";var disqus_identifier = "announcing-marko";var disqus_title = "Announcing Marko!";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></section></main><aside id="sidebar"><div id="logo"><a href="http://psteeleidem.com/"><img src="/static/logo-b7524d72.jpg" alt="Patrick Steele-Idem"></a></div><p class="bio"><p>Web Developer with a passion for JavaScript and Node.js.</p>
+<p>Senior Platform Architect at eBay.</p>
+</p><p class="links"><a href="https://github.com/patrick-steele-idem"><i class="fa fa-github fa-2x"></i></a> <a href="https://twitter.com/psteeleidem"><i class="fa fa-twitter fa-2x"></i></a> <a href="https://www.npmjs.org/~pnidem"><img src="/static/npm-logo-7e4eb9dd.png"></a></p><section><h1>Projects</h1><ul><li><a href="https://github.com/raptorjs/marko">Marko</a></li><li><a href="https://github.com/raptorjs/optimizer">RaptorJS Optimizer</a></li><li><a href="https://github.com/patrick-steele-idem/freeze">Freeze</a></li></ul></section><section><h1>Explore</h1><ul><li><a href="/category/dust/">Dust (2)</a></li><li><a href="/category/javascript/">JavaScript (3)</a></li><li><a href="/category/marko/">Marko (3)</a></li><li><a href="/category/templating/">Templating (3)</a></li></ul></section></aside><footer id="footer"><section id="footer-message">&copy; 2014 Patrick Steele-Idem. All rights reserved. Powered by <a href="https://github.com/patrick-steele-idem/freeze" target="_blank">Freeze</a>.</section></footer></div><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50307227-1', 'psteeleidem.com');
+  ga('send', 'pageview');
+
+</script></body></html>
