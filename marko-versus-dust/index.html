@@ -439,7 +439,7 @@
 <td><a href="https://groups.google.com/forum/#!forum/raptorjs">Google Group</a></td>
 <td><a href="http://stackoverflow.com/questions/tagged/dust.js">Stack Overflow</a></td>
 </tr>
-</tbody></table><h2 id="code-comparison"><a name="code-comparison" class="anchor" href="#code-comparison"><span class="header-link"></span></a>Code Comparison</h2><h3 id="dynamic-text"><a name="dynamic-text" class="anchor" href="#dynamic-text"><span class="header-link"></span></a>Dynamic Text</h3><p><em>_Marko</em></p>
+</tbody></table><h2 id="code-comparison"><a name="code-comparison" class="anchor" href="#code-comparison"><span class="header-link"></span></a>Code Comparison</h2><h3 id="dynamic-text"><a name="dynamic-text" class="anchor" href="#dynamic-text"><span class="header-link"></span></a>Dynamic Text</h3><p><strong>Marko</strong></p>
 <pre><code class="lang-html">Hello $name!
 
 <span class="hljs-comment">&lt;!-- Unescaped: --&gt;</span>
@@ -451,7 +451,7 @@ $!profile
 {! Unescaped: !}
 {profile|s}
 </code></pre>
-<h3 id="looping"><a name="looping" class="anchor" href="#looping"><span class="header-link"></span></a>Looping</h3><p><em>_Marko</em></p>
+<h3 id="looping"><a name="looping" class="anchor" href="#looping"><span class="header-link"></span></a>Looping</h3><p><strong>Marko</strong></p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"friend in friends"</span>&gt;</span>
         $friend.name
@@ -467,7 +467,7 @@ $!profile
     {/friends}
 <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
 </code></pre>
-<h4 id="loop-status-variable"><a name="loop-status-variable" class="anchor" href="#loop-status-variable"><span class="header-link"></span></a>Loop Status Variable</h4><p><em>_Marko</em></p>
+<h4 id="loop-status-variable"><a name="loop-status-variable" class="anchor" href="#loop-status-variable"><span class="header-link"></span></a>Loop Status Variable</h4><p><strong>Marko</strong></p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"friend in friends; status-var=loop"</span>&gt;</span>
         ${loop.getIndex() + 1} of ${loop.getLength()}) $friend.name
@@ -496,7 +496,7 @@ $!profile
     <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
 </code></pre>
-<h3 id="conditionals"><a name="conditionals" class="anchor" href="#conditionals"><span class="header-link"></span></a>Conditionals</h3><p><em>_Marko</em></p>
+<h3 id="conditionals"><a name="conditionals" class="anchor" href="#conditionals"><span class="header-link"></span></a>Conditionals</h3><p><strong>Marko</strong></p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">if</span>=<span class="hljs-value">"isLoggedIn"</span>&gt;</span>
     Welcome back, ${name}!
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -557,7 +557,7 @@ $!profile
     Child Content
 {/body}
 </code></pre>
-<h3 id="custom-tags"><a name="custom-tags" class="anchor" href="#custom-tags"><span class="header-link"></span></a>Custom Tags</h3><p><em>_Marko</em></p>
+<h3 id="custom-tags"><a name="custom-tags" class="anchor" href="#custom-tags"><span class="header-link"></span></a>Custom Tags</h3><p><strong>Marko</strong></p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">my-hello</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"Frank"</span>/&gt;</span>
 </code></pre>
 <pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(data, out)</span> </span>{
@@ -613,7 +613,7 @@ $!profile
 </div>
 
 <p>Readability is largely subjective, but let&#39;s compare a template from each language:</p>
-<p><em>_Marko</em></p>
+<p><strong>Marko</strong></p>
 <pre><code class="lang-html">Hello ${data.name}!
 
 <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">if</span>=<span class="hljs-value">"notEmpty(data.colors)"</span>&gt;</span>
@@ -667,7 +667,7 @@ $!profile
 </div>
 
 <p>Comparing ramp-up time is difficult, but below is a summary of the <em>new concepts</em> that must be understood to truly master each templating language.</p>
-<p><em>_Marko</em></p>
+<p><strong>Marko</strong></p>
 <ul>
 <li>Expressions<ul>
 <li>Escaped: <code>$property.path</code>, <code>${javaScriptExpression}</code></li>
@@ -730,7 +730,7 @@ $!profile
 </div>
 
 <p>Here&#39;s a comparison of both public APIs:</p>
-<p><em>_Marko</em></p>
+<p><strong>Marko</strong></p>
 <ul>
 <li><code>require(&#39;marko&#39;).load(path) : Template</code></li>
 <li><code>require(&#39;marko&#39;).unload(path)</code></li>
@@ -819,7 +819,7 @@ $!profile
 </div>
 
 <p>Where Dust falls short in this category is that it requires you to repeat expressions used for sections and blocks. For example:</p>
-<p><em>_Marko</em></p>
+<p><strong>Marko</strong></p>
 <pre><code class="lang-html">
 <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">if</span>=<span class="hljs-value">"notEmpty(person.friends)"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"friend"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"friend in person.friends"</span>&gt;</span>
@@ -860,7 +860,7 @@ $!profile
 </div>
 
 <p>Examples of using the asynchronous rendering API for each templating engine is shown below:</p>
-<p><em>_Marko</em></p>
+<p><strong>Marko</strong></p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(data, out)</span> </span>{
     <span class="hljs-keyword">var</span> asyncOut = out.beginAsync();
     setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
@@ -941,7 +941,7 @@ Hello ${util.reverse(name)}!
 </div>
 
 <p>Let&#39;s take a look at a sample custom tag for Marko and a sample custom helper for Dust:</p>
-<p><em>_Marko</em></p>
+<p><strong>Marko</strong></p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span><span class="hljs-params">(data, out)</span> </span>{
     out.write(<span class="hljs-string">'Hello '</span> + data.name + <span class="hljs-string">'!'</span>);
 }
