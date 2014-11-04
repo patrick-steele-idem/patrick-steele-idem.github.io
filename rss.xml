@@ -4,7 +4,7 @@
         <title>Patrick Steele-Idem</title>
         <description>Web Development, JavaScript, Node.js and open source software.</description>
         <link>http://psteeleidem.com/</link>
-        <lastBuildDate>Mon, 27 Oct 2014 21:57:08 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 04 Nov 2014 22:35:05 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <copyright>All rights reserved 2014, Patrick Steele-Idem</copyright>
         <generator>Feed for Node.js</generator>
@@ -40,7 +40,7 @@
             <link>http://psteeleidem.com/announcing-marko/</link>
             <guid>http://psteeleidem.com/announcing-marko/</guid>
             <pubDate>Tue, 21 Oct 2014 06:00:00 GMT</pubDate>
-            <description><![CDATA[<p>We are excited to announce the release of <a href="https://github.com/marko/marko">Marko</a>! Earlier this year, we undertook the task of making substantial usability improvements to the Marko language and API based on the feedback received from the community. We also made significant performance improvements that resulted in Marko being far faster <em>and</em> leaner than all competitors (see <a href="https://github.com/marko/templating-benchmarks">benchmarks</a>).</p>
+            <description><![CDATA[<p>We are excited to announce the release of <a href="https://github.com/raptorjs/marko">Marko</a>! Earlier this year, we undertook the task of making substantial usability improvements to the Marko language and API based on the feedback received from the community. We also made significant performance improvements that resulted in Marko being far faster <em>and</em> leaner than all competitors (see <a href="https://github.com/raptorjs/templating-benchmarks">benchmarks</a>).</p>
 <p>If you are not familiar with Marko, it is an extensible, streaming, asynchronous, high performance, HTML-based templating language that can be used in Node.js or in the browser. Marko was founded on the philosophy that an HTML-based templating language is more natural and intuitive for generating HTML.</p>
 <p>In this release the language is fundamentally the same, but we have removed the friction that made it more difficult to adopt Marko templates in the past. Notably, we have switched from an XML parser to an HTML parser. In addition, the AMD-based modules were replaced with CommonJS-based modules for better compatibility with the Node.js module loader.</p>
 <p><a href="http://psteeleidem.com/announcing-marko/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></description>
