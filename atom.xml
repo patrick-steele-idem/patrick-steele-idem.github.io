@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>Patrick Steele-Idem</title>
     <link>http://psteeleidem.com/</link>
-    <updated>2014-11-04T22:35:05Z</updated>
+    <updated>2014-11-06T05:05:56Z</updated>
     <author>
         <name>Patrick Steele-Idem</name>
         <email>pnidem@gmail.com</email>
@@ -11,6 +11,19 @@
     <subtitle>Web Development, JavaScript, Node.js and open source software.</subtitle>
     <rights>All rights reserved 2014, Patrick Steele-Idem</rights>
     <generator>Feed for Node.js</generator>
+    <entry>
+        <title type="html"><![CDATA[Bypassing Express View Rendering for Speed and Modularity]]></title>
+        <id>http://psteeleidem.com/bypassing-express-view-rendering-for-speed-and-modularity/</id>
+        <link href="http://psteeleidem.com/bypassing-express-view-rendering-for-speed-and-modularity/">
+        </link>
+        <updated>2014-11-05T07:00:00Z</updated>
+        <summary type="html"><![CDATA[<p>Check out my post on the StrongLoop blog to learn how bypassing the Express view rendering engine can improve the speed and modularity of your web application. Please visit:<br><a href="http://strongloop.com/strongblog/bypassing-express-view-rendering-for-speed-and-modularity/">StrongLoop Blog: Bypassing Express View Rendering for Speed and Modularity</a></p>
+<p><a href="http://psteeleidem.com/bypassing-express-view-rendering-for-speed-and-modularity/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></summary>
+        <author>
+            <name>Patrick Steele-Idem</name>
+            <email>pnidem@gmail.com</email>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[The JavaScript Templating Landscape]]></title>
         <id>http://psteeleidem.com/the-javascript-templating-landscape/</id>
