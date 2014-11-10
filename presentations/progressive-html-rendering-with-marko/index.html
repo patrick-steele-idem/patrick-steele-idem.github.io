@@ -196,7 +196,7 @@ module.exports = function(req, res) {
     var userid = req.query.userid;
 
     template.render({
-            userInfoProvider: function(args, callback) {
+            userInfoProvider: function(callback) {
                 userService.getUserInfo(userid, callback);
             }
         },
