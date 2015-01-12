@@ -4,10 +4,42 @@
         <title>Patrick Steele-Idem</title>
         <description>Web Development, JavaScript, Node.js and open source software.</description>
         <link>http://psteeleidem.com/</link>
-        <lastBuildDate>Mon, 10 Nov 2014 17:56:10 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 12 Jan 2015 21:13:56 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <copyright>All rights reserved 2014, Patrick Steele-Idem</copyright>
         <generator>Feed for Node.js</generator>
+        <item>
+            <title><![CDATA[Improving the Module Factory Pattern in Node.js]]></title>
+            <link>http://psteeleidem.com/node-module-factory-pattern/</link>
+            <guid>http://psteeleidem.com/node-module-factory-pattern/</guid>
+            <pubDate>Mon, 12 Jan 2015 07:00:00 GMT</pubDate>
+            <description><![CDATA[<p>There&#39;s a common design pattern in the Node.js community that has been bothering me for some time since it results in less readable code. The issue relates to designing modules that export a single <em>factory</em> function. Let&#39;s take a look at some example code using the popular <a href="https://www.npmjs.com/package/express">express</a> module:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">var</span> app = express();
+</code></pre>
+<p>The above code first requires the <code>express</code> module to get a reference to a function that, when invoked, will create a new Express app instance.</p>
+<p>The following code has equivalent results, but it has been reduced to a concise one-liner, albeit less readable:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)();
+</code></pre>
+<p>The implementation for this pattern will be similar to the following:</p>
+<pre><code class="lang-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Foo</span><span class="hljs-params">(options)</span> </span>{
+    <span class="hljs-comment">// ...</span>
+}
+
+Foo.prototype = {
+    <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(options)</span> </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Foo(options);
+}
+</code></pre>
+<p><a href="http://psteeleidem.com/node-module-factory-pattern/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></description>
+            <author>
+                <name>Patrick Steele-Idem</name>
+                <email>pnidem@gmail.com</email>
+            </author>
+        </item>
         <item>
             <title><![CDATA[Bypassing Express View Rendering for Speed and Modularity]]></title>
             <link>http://psteeleidem.com/bypassing-express-view-rendering-for-speed-and-modularity/</link>
@@ -34,14 +66,13 @@
             </author>
         </item>
         <item>
-            <title><![CDATA[Marko versus Dust]]></title>
-            <link>http://psteeleidem.com/marko-versus-dust/</link>
-            <guid>http://psteeleidem.com/marko-versus-dust/</guid>
-            <pubDate>Wed, 22 Oct 2014 06:00:00 GMT</pubDate>
-            <description><![CDATA[<p>This guide aims to compare <a href="https://github.com/raptorjs/marko">Marko</a> and <a href="https://github.com/linkedin/dustjs">Dust</a> to help guide developers deciding between the two. However, even if you are considering other templating languages, such as Handlebars or Mustache, this guide should still be helpful.</p>
-<p>Why Marko and Dust? Dust represents a well-established text-based templating language and Marko represents a well-established HTML-based templating language. Marko was created as an alternative to Dust when Dust was first starting to be used at eBay.</p>
-<p><em>Disclaimer: This guide is my opinion, and as the author of Marko it is very difficult for me to be unbiased. Also, I&#39;ve used Dust enough to be proficient in it, but I would not claim to be a Dust expert. If you feel that anything is misleading or wrong then please let me know and I will correct it. Also, my goal was to be as objective and as fair as possible, but some things are inherently subjective.</em></p>
-<p><a href="http://psteeleidem.com/marko-versus-dust/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></description>
+            <title><![CDATA[Introduction]]></title>
+            <link>http://psteeleidem.com/intro/</link>
+            <guid>http://psteeleidem.com/intro/</guid>
+            <pubDate>Wed, 23 Apr 2014 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>A little about myself, I’m currently a Senior Platform Architect at eBay. I started out building web applications, but I now focus mostly on building the platform so that others can build applications more easily. Building frameworks, platforms and tools is a much better fit for me because if I were tasked with building a web application I would typically end up spending too much time on the underlying architecture. </p>
+<p>This blog gives me a chance to share my vision for how building web applications can be made easier. I am an open source advocate and you can find many of my projects linked to from this site.</p>
+<p><a href="http://psteeleidem.com/intro/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></description>
             <author>
                 <name>Patrick Steele-Idem</name>
                 <email>pnidem@gmail.com</email>
@@ -62,13 +93,14 @@
             </author>
         </item>
         <item>
-            <title><![CDATA[Introduction]]></title>
-            <link>http://psteeleidem.com/intro/</link>
-            <guid>http://psteeleidem.com/intro/</guid>
-            <pubDate>Wed, 23 Apr 2014 06:00:00 GMT</pubDate>
-            <description><![CDATA[<p>A little about myself, I’m currently a Senior Platform Architect at eBay. I started out building web applications, but I now focus mostly on building the platform so that others can build applications more easily. Building frameworks, platforms and tools is a much better fit for me because if I were tasked with building a web application I would typically end up spending too much time on the underlying architecture. </p>
-<p>This blog gives me a chance to share my vision for how building web applications can be made easier. I am an open source advocate and you can find many of my projects linked to from this site.</p>
-<p><a href="http://psteeleidem.com/intro/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></description>
+            <title><![CDATA[Marko versus Dust]]></title>
+            <link>http://psteeleidem.com/marko-versus-dust/</link>
+            <guid>http://psteeleidem.com/marko-versus-dust/</guid>
+            <pubDate>Wed, 22 Oct 2014 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>This guide aims to compare <a href="https://github.com/raptorjs/marko">Marko</a> and <a href="https://github.com/linkedin/dustjs">Dust</a> to help guide developers deciding between the two. However, even if you are considering other templating languages, such as Handlebars or Mustache, this guide should still be helpful.</p>
+<p>Why Marko and Dust? Dust represents a well-established text-based templating language and Marko represents a well-established HTML-based templating language. Marko was created as an alternative to Dust when Dust was first starting to be used at eBay.</p>
+<p><em>Disclaimer: This guide is my opinion, and as the author of Marko it is very difficult for me to be unbiased. Also, I&#39;ve used Dust enough to be proficient in it, but I would not claim to be a Dust expert. If you feel that anything is misleading or wrong then please let me know and I will correct it. Also, my goal was to be as objective and as fair as possible, but some things are inherently subjective.</em></p>
+<p><a href="http://psteeleidem.com/marko-versus-dust/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></description>
             <author>
                 <name>Patrick Steele-Idem</name>
                 <email>pnidem@gmail.com</email>
