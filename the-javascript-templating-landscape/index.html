@@ -29,7 +29,7 @@
 <h3 id="html-based"><a name="html-based" class="anchor" href="#html-based"><span class="header-link"></span></a>HTML-based</h3><p>An HTML-based templating language relies on an HTML parser to recognize templating directives inside of HTML documents. Templating directives are given as either HTML elements or HTML attributes on top of the standard HTML grammar. An HTML-based templating language is only appropriate for producing HTML output.</p>
 <p>Examples of HTML-based templating languages:</p>
 <ul>
-<li><a href="https://github.com/raptorjs/marko">Marko</a></li>
+<li><a href="https://github.com/marko-js/marko">Marko</a></li>
 <li><a href="https://github.com/flatiron/plates">Plates</a></li>
 <li><a href="https://github.com/kethinov/teddy">Teddy</a></li>
 </ul>
@@ -142,7 +142,7 @@
 <p>Examples of &quot;more logic&quot; templates:</p>
 <ul>
 <li><a href="https://github.com/linkedin/dustjs">Dust</a></li>
-<li><a href="https://github.com/raptorjs/marko">Marko</a></li>
+<li><a href="https://github.com/marko-js/marko">Marko</a></li>
 </ul>
 <p>Examples of &quot;more logic&quot; templates for Marko and Dust are shown below:</p>
 <p><em>Marko:</em></p>
@@ -191,9 +191,9 @@
 <ul>
 <li><a href="https://github.com/linkedin/dustjs">Dust</a></li>
 <li><a href="http://mozilla.github.io/nunjucks/">Numjucks</a></li>
-<li><a href="https://github.com/raptorjs/marko">Marko</a></li>
+<li><a href="https://github.com/marko-js/marko">Marko</a></li>
 </ul>
-<p>Marko gets asynchronous rendering for <em>almost</em> free as a result of wrapping the output stream with an <a href="https://github.com/raptorjs/raptor-render-context">Asynchronous Render Context</a>.</p>
+<p>Marko gets asynchronous rendering for <em>almost</em> free as a result of wrapping the output stream with an <a href="https://github.com/marko-js/async-writer">AsyncWriter</a>.</p>
 <h2 id="full-stream-ahead"><a name="full-stream-ahead" class="anchor" href="#full-stream-ahead"><span class="header-link"></span></a>Full Stream Ahead</h2><p>As mentioned earlier, a streaming templating language will offer better performance on the server. This is for two reasons:</p>
 <ol>
 <li>The entirety of the output does not need to be kept in memory at the same time</li>
@@ -203,7 +203,7 @@
 <p>Examples of templating languages that support streaming:</p>
 <ul>
 <li><a href="https://github.com/linkedin/dustjs">Dust</a></li>
-<li><a href="https://github.com/raptorjs/marko">Marko</a></li>
+<li><a href="https://github.com/marko-js/marko">Marko</a></li>
 </ul>
 <h2 id="other-considerations"><a name="other-considerations" class="anchor" href="#other-considerations"><span class="header-link"></span></a>Other Considerations</h2><h3 id="can-i-use-you"><a name="can-i-use-you" class="anchor" href="#can-i-use-you"><span class="header-link"></span></a>Can I Use You?</h3><p>Just because you may like a templating language doesn&#39;t mean you can use it. Some templating engines come with a lot of baggage (perhaps an entire framework) and other templating languages might have an implementation that is not compatible with your JavaScript runtime. While other templating languages might have picked a JavaScript module system that is not compatible with your application (e.g. AMD versus CommonJS).</p>
 <p>When deciding to use a templating language you should ask yourself the following questions:</p>
@@ -225,8 +225,8 @@
 <p>Benchmarks are a great place to start when comparing templating engines, but it is important to remember that every use case is different. Also, avoid giving too much weight to a microbenchmark that only compares a single, small template. How large a template is, how much output it produces or what features are utilized can have a big impact on performance.</p>
 <p>Below are links to benchmarking projects that can be used to compare performance:</p>
 <ol>
-<li><a href="https://github.com/raptorjs/templating-benchmarks">https://github.com/raptorjs/templating-benchmarks</a><ul>
-<li>NOTE: Created to compare the performance of <a href="https://github.com/raptorjs/marko">Marko</a></li>
+<li><a href="https://github.com/marko-js/templating-benchmarks">https://github.com/marko-js/templating-benchmarks</a><ul>
+<li>NOTE: Created to compare the performance of <a href="https://github.com/marko-js/marko">Marko</a></li>
 </ul>
 </li>
 <li><a href="http://linkedin.github.io/dustjs/benchmark/index.html">http://linkedin.github.io/dustjs/benchmark/index.html</a><ul>
@@ -251,7 +251,7 @@
 <li>Custom delimiters for tokens</li>
 </ul>
 <p>If you feel that you might need to extend a templating language you should also consider the complexity of the JavaScript API. If your extensions to a templating language are very tied to a particular templating solution then you might be forced to throw away a lot of code in the future.</p>
-<p><a href="https://github.com/raptorjs/marko">Marko</a> is an example of templating language that is both extensible at compile-time and runtime with very few restrictions.</p>
+<p><a href="https://github.com/marko-js/marko">Marko</a> is an example of templating language that is both extensible at compile-time and runtime with very few restrictions.</p>
 <h3 id="editor-support"><a name="editor-support" class="anchor" href="#editor-support"><span class="header-link"></span></a>Editor Support</h3><p>If you are considering a new templating language you should also strongly consider how well your templating language works with your existing tools, as well as the tools used by others on your team. At a minimum you will want to ensure that you have proper syntax highlighting. However, auto-completion, tag matching and validation will also provide significant improvements in productivity.</p>
 <h2 id="additional-resources"><a name="additional-resources" class="anchor" href="#additional-resources"><span class="header-link"></span></a>Additional Resources</h2><ul>
 <li><a href="https://engineering.linkedin.com/frontend/client-side-templating-throwdown-mustache-handlebars-dustjs-and-more">LinkedIn: The client-side templating throwdown: mustache, handlebars, dust.js, and more</a></li>
@@ -281,7 +281,7 @@
 <li><strong>Documentation:</strong> How is the documentation?</li>
 <li><strong>Future Relevancy:</strong> Is the templating language aligned with trends in the industry?</li>
 </ul>
-<p>My biased, but personal favorite is the templating language that I authored, <a href="https://github.com/raptorjs/marko">Marko</a>. Marko utilizes the HTML syntax and it also supports asynchronous and streaming rendering. The language was designed such that it could be easily extended at both compile-time and runtime. All Marko templates compile to CommonJS modules for improved ease of use with Node.js or a Node.js-compatible module loader (e.g. <a href="http://browserify.org/">Browserify</a>). When developing Marko, a lot of emphasis was put on performance and this is reflected in the <a href="https://github.com/raptorjs/templating-benchmarks">performance benchmarks</a>. Marko is a production-ready templating language being used at eBay and the project is being actively maintained and supported by developers at eBay and the community.</p>
+<p>My biased, but personal favorite is the templating language that I authored, <a href="https://github.com/marko-js/marko">Marko</a>. Marko utilizes the HTML syntax and it also supports asynchronous and streaming rendering. The language was designed such that it could be easily extended at both compile-time and runtime. All Marko templates compile to CommonJS modules for improved ease of use with Node.js or a Node.js-compatible module loader (e.g. <a href="http://browserify.org/">Browserify</a>). When developing Marko, a lot of emphasis was put on performance and this is reflected in the <a href="https://github.com/marko-js/templating-benchmarks">performance benchmarks</a>. Marko is a production-ready templating language being used at eBay and the project is being actively maintained and supported by developers at eBay and the community.</p>
 <p>Hopefully you found this guide helpful when considering a templating language.</p>
 <p>If you feel that I missed anything or if I made any mistakes then please let me know.</p>
 </div><div class="post-footer"><div class="sharing"><a href="https://twitter.com/share" class="twitter-share-button" data-via="psteeleidem">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div><div class="post-nav"></div></div></article><section><h1>Comments</h1><div id="disqus_thread"></div><script type="text/javascript">

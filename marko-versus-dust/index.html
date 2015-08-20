@@ -1,8 +1,8 @@
 <!doctype html> <html lang="en"><head><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Marko versus Dust | Patrick Steele-Idem</title><link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"><meta name="description" content="Web Development, JavaScript, Node.js and open source software."><link href="/favicon.ico" rel="icon"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width"><link rel="stylesheet" type="text/css" href="/static/post-1e8c39c2.css">
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></head><body><div id="header-bg"></div><div id="nav-bg"></div><div id="content"><header id="header"><div id="titles"><h1><a href="/">Patrick Steele-Idem</a></h1><h2>Better WebDev</h2></div></header><nav role="navigation" id="nav"><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archive/">Archive</a></li><li><a href="/about/">About</a></li><li><a href="/subscribe/">Subscribe</a></li><li><form action="https://google.com/search" method="get" class="search-form"><fieldset role="search"><input type="hidden" name="q" value="site:http://psteeleidem.com/"><input type="text" name="q" results="0" placeholder="Search" class="search-input"></fieldset></form></li></ul></nav><main id="main"><article class="hentry" role="article"><h1 class="post-title">Marko versus Dust</h1><div class="post-meta"><span class="byline author vcard">Posted by <span class="fn">Patrick Steele-Idem</span></span> on <time data-updated="true" pubdate datetime="2014-10-22">Wednesday, Oct 22nd, 2014</time><span class="categories">&nbsp; <nobr><i class="fa fa-tags"></i><a href="/category/dust/" class="category">Dust</a>, <a href="/category/javascript/" class="category">JavaScript</a>, <a href="/category/marko/" class="category">Marko</a>, <a href="/category/node-js/" class="category">Node.js</a>, <a href="/category/templating/" class="category">Templating</a></nobr></span></div><div class="post-body"><p>This guide aims to compare <a href="https://github.com/raptorjs/marko">Marko</a> and <a href="https://github.com/linkedin/dustjs">Dust</a> to help guide developers deciding between the two. However, even if you are considering other templating languages, such as Handlebars or Mustache, this guide should still be helpful.</p>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></head><body><div id="header-bg"></div><div id="nav-bg"></div><div id="content"><header id="header"><div id="titles"><h1><a href="/">Patrick Steele-Idem</a></h1><h2>Better WebDev</h2></div></header><nav role="navigation" id="nav"><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archive/">Archive</a></li><li><a href="/about/">About</a></li><li><a href="/subscribe/">Subscribe</a></li><li><form action="https://google.com/search" method="get" class="search-form"><fieldset role="search"><input type="hidden" name="q" value="site:http://psteeleidem.com/"><input type="text" name="q" results="0" placeholder="Search" class="search-input"></fieldset></form></li></ul></nav><main id="main"><article class="hentry" role="article"><h1 class="post-title">Marko versus Dust</h1><div class="post-meta"><span class="byline author vcard">Posted by <span class="fn">Patrick Steele-Idem</span></span> on <time data-updated="true" pubdate datetime="2014-10-22">Wednesday, Oct 22nd, 2014</time><span class="categories">&nbsp; <nobr><i class="fa fa-tags"></i><a href="/category/dust/" class="category">Dust</a>, <a href="/category/javascript/" class="category">JavaScript</a>, <a href="/category/marko/" class="category">Marko</a>, <a href="/category/node-js/" class="category">Node.js</a>, <a href="/category/templating/" class="category">Templating</a></nobr></span></div><div class="post-body"><p>This guide aims to compare <a href="https://github.com/marko-js/marko">Marko</a> and <a href="https://github.com/linkedin/dustjs">Dust</a> to help guide developers deciding between the two. However, even if you are considering other templating languages, such as Handlebars or Mustache, this guide should still be helpful.</p>
 <p>Why Marko and Dust? Dust represents a well-established text-based templating language and Marko represents a well-established HTML-based templating language. Marko was created as an alternative to Dust when Dust was first starting to be used at eBay.</p>
 <p><em>Disclaimer: This guide is my opinion, and as the author of Marko it is very difficult for me to be unbiased. Also, I&#39;ve used Dust enough to be proficient in it, but I would not claim to be a Dust expert. If you feel that anything is misleading or wrong then please let me know and I will correct it. Also, my goal was to be as objective and as fair as possible, but some things are inherently subjective.</em></p>
-<p><p class="toc"><strong>Table of Contents</strong><ul class="toc-level0"><li><a href="#design-philosophies">Design Philosophies</a><ul class="toc-level1"><li><a href="#marko">Marko</a></li><li><a href="#dust">Dust</a></li></ul></li><li><a href="#feature-comparison">Feature Comparison</a><ul class="toc-level1"><li><a href="#language">Language</a></li><li><a href="#runtime">Runtime</a></li><li><a href="#compiler">Compiler</a></li><li><a href="#performance">Performance</a></li><li><a href="#debugging">Debugging</a></li><li><a href="#extensibility">Extensibility</a></li><li><a href="#interoperability">Interoperability</a></li><li><a href="#community">Community</a></li></ul></li><li><a href="#code-comparison">Code Comparison</a><ul class="toc-level1"><li><a href="#dynamic-text">Dynamic Text</a></li><li><a href="#looping">Looping</a><ul class="toc-level2"><li><a href="#loop-status-variable">Loop Status Variable</a></li></ul></li><li><a href="#conditionals">Conditionals</a></li><li><a href="#template-inheritance">Template Inheritance</a></li><li><a href="#custom-tags">Custom Tags</a></li></ul></li><li><a href="#detailed-comparisons">Detailed Comparisons</a><ul class="toc-level1"><li><a href="#overview">Overview</a></li><li><a href="#readability">Readability</a></li><li><a href="#ramp-up-time">Ramp-up Time</a></li><li><a href="#javascript-api-usability">JavaScript API Usability</a></li><li><a href="#dry">DRY</a></li><li><a href="#asynchronous-and-streaming-support">Asynchronous and Streaming Support</a></li><li><a href="#interoperability-1">Interoperability</a></li><li><a href="#extensibility-1">Extensibility</a></li><li><a href="#rendering-performance">Rendering Performance</a></li><li><a href="#page-weight">Page Weight</a></li><li><a href="#ease-of-debugging">Ease of Debugging</a></li><li><a href="#security">Security</a></li><li><a href="#validation">Validation</a></li><li><a href="#editor-support">Editor Support</a></li><li><a href="#community-1">Community</a></li><li><a href="#maturity">Maturity</a></li><li><a href="#documentation">Documentation</a></li><li><a href="#future-relevancy">Future Relevancy</a></li></ul></li><li><a href="#summary">Summary</a></li></ul></p></p>
+<p><p class="toc"><strong>Table of Contents</strong><ul class="toc-level0"><li><a href="#design-philosophies">Design Philosophies</a><ul class="toc-level1"><li><a href="#marko">Marko</a></li><li><a href="#dust">Dust</a></li></ul></li><li><a href="#feature-comparison">Feature Comparison</a><ul class="toc-level1"><li><a href="#language">Language</a></li><li><a href="#runtime">Runtime</a></li><li><a href="#compiler">Compiler</a></li><li><a href="#performance">Performance</a></li><li><a href="#debugging">Debugging</a></li><li><a href="#extensibility">Extensibility</a></li><li><a href="#interoperability">Interoperability</a></li><li><a href="#community">Community</a></li></ul></li><li><a href="#code-comparison">Code Comparison</a><ul class="toc-level1"><li><a href="#dynamic-text">Dynamic Text</a></li><li><a href="#looping">Looping</a><ul class="toc-level2"><li><a href="#loop-status-variable">Loop Status Variable</a></li></ul></li><li><a href="#conditionals">Conditionals</a></li><li><a href="#template-inheritance">Template Inheritance</a></li><li><a href="#custom-tags">Custom Tags</a></li></ul></li><li><a href="#detailed-comparisons">Detailed Comparisons</a><ul class="toc-level1"><li><a href="#overview">Overview</a></li><li><a href="#readability">Readability</a></li><li><a href="#ramp-up-time">Ramp-up Time</a></li><li><a href="#javascript-api-usability">JavaScript API Usability</a></li><li><a href="#dry">DRY</a></li><li><a href="#asynchronous-and-streaming-support">Asynchronous and Streaming Support</a></li><li><a href="#interoperability-1">Interoperability</a></li><li><a href="#extensibility-1">Extensibility</a></li><li><a href="#rendering-performance">Rendering Performance</a></li><li><a href="#page-weight">Page Weight</a></li><li><a href="#ease-of-debugging">Ease of Debugging</a></li><li><a href="#security">Security</a></li><li><a href="#validation">Validation</a></li><li><a href="#editor-support">Editor Support</a></li><li><a href="#documentation">Documentation</a></li><li><a href="#future-relevancy">Future Relevancy</a></li></ul></li><li><a href="#summary">Summary</a></li></ul></p></p>
 <style type="text/css">
 .compare {
     margin-top: 1.1em;
@@ -195,7 +195,7 @@
 </tr>
 <tr>
 <td>Template inheritance</td>
-<td>✔ (<a href="https://github.com/raptorjs/marko#layout-taglib">layout taglib</a>)</td>
+<td>✔ (<a href="https://github.com/marko-js/marko#layout-taglib">layout taglib</a>)</td>
 <td>✔</td>
 </tr>
 <tr>
@@ -308,7 +308,7 @@
 <td>Smallest (~2.33KB)*</td>
 <td>Larger (~3.41KB minimum, or ~4.7KB with optional <a href="https://github.com/linkedin/dustjs-helpers">helpers</a>)*</td>
 </tr>
-</tbody></table><p>*<a href="https://github.com/raptorjs/templating-benchmarks">See templating benchmarks</a></p>
+</tbody></table><p>*<a href="https://github.com/marko-js/templating-benchmarks">See templating benchmarks</a></p>
 <h3 id="debugging"><a name="debugging" class="anchor" href="#debugging"><span class="header-link"></span></a>Debugging</h3><table class="markdown-table"><thead><tr>
 <th></th>
 <th>Marko</th>
@@ -396,11 +396,11 @@
 </tr>
 <tr>
 <td><a href="https://github.com/substack/node-browserify">Browserify</a> support</td>
-<td>✔ (see <a href="https://github.com/raptorjs/markoify">markoify</a>)</td>
+<td>✔ (see <a href="https://github.com/marko-js/markoify">markoify</a>)</td>
 <td>Maybe (see <a href="https://github.com/blai/dust-browserify">dust-browserify</a>)</td>
 </tr>
 <tr>
-<td><a href="https://github.com/raptorjs/optimizer">RaptorJS Optimizer</a> support</td>
+<td><a href="https://github.com/lasso-js/lasso">Lasso.js</a> support</td>
 <td>✔</td>
 <td>✔</td>
 </tr>
@@ -421,12 +421,12 @@
 </tr>
 <tr>
 <td>Source code</td>
-<td><a href="https://github.com/raptorjs/marko">Github</a></td>
+<td><a href="https://github.com/marko-js/marko">Github</a></td>
 <td><a href="https://github.com/linkedin/dustjs">Github</a></td>
 </tr>
 <tr>
 <td>Bugs and Feature Requests</td>
-<td><a href="https://github.com/raptorjs/marko/issues">Github Issues</a></td>
+<td><a href="https://github.com/marko-js/marko/issues">Github Issues</a></td>
 <td><a href="https://github.com/linkedin/dustjs/issues">Github Issues</a></td>
 </tr>
 <tr>
@@ -436,7 +436,7 @@
 </tr>
 <tr>
 <td>Support Forums</td>
-<td><a href="https://groups.google.com/forum/#!forum/raptorjs">Google Group</a></td>
+<td><a href="https://gitter.im/marko-js/marko">Gitter</a></td>
 <td><a href="http://stackoverflow.com/questions/tagged/dust.js">Stack Overflow</a></td>
 </tr>
 </tbody></table><h2 id="code-comparison"><a name="code-comparison" class="anchor" href="#code-comparison"><span class="header-link"></span></a>Code Comparison</h2><h3 id="dynamic-text"><a name="dynamic-text" class="anchor" href="#dynamic-text"><span class="header-link"></span></a>Dynamic Text</h3><p><strong>Marko</strong></p>
@@ -588,8 +588,6 @@ $!profile
 <li><strong>Security:</strong> How helpful is the templating language in preventing security holes such as XSS attacks?</li>
 <li><strong>Validation:</strong> What validations can be done at compile-time to prevent errors at runtime?</li>
 <li><strong>Editor Support:</strong> Is there an editor with auto-complete, syntax highlighting, error checking, etc.?</li>
-<li><strong>Community:</strong> Is there an active community using this project? Can questions be answered via a search engine?</li>
-<li><strong>Maturity:</strong> Is this a relatively stable project or still experimenting and churning?</li>
 <li><strong>Documentation:</strong> How is the documentation?</li>
 <li><strong>Future Relevancy:</strong> Is the templating language aligned with trends in the industry?</li>
 </ul>
@@ -734,17 +732,17 @@ $!profile
 <ul>
 <li><code>require(&#39;marko&#39;).load(path) : Template</code></li>
 <li><code>require(&#39;marko&#39;).unload(path)</code></li>
-<li><code>require(&#39;marko&#39;).createWriter(stream) :</code><a href="https://github.com/raptorjs/async-writer">AsyncWriter</a></li>
+<li><code>require(&#39;marko&#39;).createWriter(stream) :</code><a href="https://github.com/marko-js/async-writer">AsyncWriter</a></li>
 <li><code>require(&#39;marko/compiler&#39;).compile(src, path, options)</code></li>
 <li><code>require(&#39;marko/compiler&#39;).compileFile(path, options, callback)</code></li>
 <li><code>Template</code><ul>
 <li><code>renderSync(data) : String</code></li>
 <li><code>render(data, callback)</code></li>
-<li><code>render(data, stream) :</code><a href="https://github.com/raptorjs/async-writer">AsyncWriter</a></li>
+<li><code>render(data, stream) :</code><a href="https://github.com/marko-js/async-writer">AsyncWriter</a></li>
 <li><code>stream(data) : Stream</code></li>
 </ul>
 </li>
-<li><a href="https://github.com/raptorjs/async-writer">AsyncWriter</a><ul>
+<li><a href="https://github.com/marko-js/async-writer">AsyncWriter</a><ul>
 <li><code>this.write(str)</code></li>
 <li><code>this.beginAsync(timeout)</code></li>
 <li><code>this.end(timeout)</code></li>
@@ -877,7 +875,7 @@ $!profile
     })
 };
 </code></pre>
-<p>Marko has the advantage that the <a href="https://github.com/raptorjs/async-writer">async-writer</a> module used to support asynchronous rendering to a stream is a public module independent of Marko.</p>
+<p>Marko has the advantage that the <a href="https://github.com/marko-js/async-writer">async-writer</a> module used to support asynchronous rendering to a stream is a public module independent of Marko.</p>
 <h3 id="interoperability-1"><a name="interoperability-1" class="anchor" href="#interoperability-1"><span class="header-link"></span></a>Interoperability</h3><div class="compare">
     <div class="col1 good">
         <h1>Marko</h1>
@@ -896,7 +894,7 @@ $!profile
             <li>
                 Runtime and compiled templates compatible with
                 <a href="https://github.com/substack/node-browserify">Browserify</a> and the
-                <a href="https://github.com/raptorjs/optimizer">RaptorJS Optimizer</a>
+                <a href="https://github.com/lasso-js/lasso">Lasso.js</a>
                 for client-side support
             </li>
         </ul>
@@ -998,7 +996,7 @@ Hello ${util.reverse(name)}!
 </code></pre>
 <p>Because Marko favors simple JavaScript objects, the tag implementation is much simpler for Marko.</p>
 <p>Marko was designed to be extended via an API that is not tied to Marko. This allows custom tag renderers to be usable outside the context of template rendering (such as being called directly from JavaScript code).</p>
-<p>With Marko, the <code>data</code> argument is just a standard JavaScript object with no tie-ins to Marko. The <code>out</code> argument is an <a href="https://github.com/raptorjs/async-writer">AsyncWriter</a> object that wraps a standard Node.js stream and it is independent of Marko.</p>
+<p>With Marko, the <code>data</code> argument is just a standard JavaScript object with no tie-ins to Marko. The <code>out</code> argument is an <a href="https://github.com/marko-js/async-writer">AsyncWriter</a> object that wraps a standard Node.js stream and it is independent of Marko.</p>
 <p>In comparison, the <code>chunk</code> argument is a Dust <code>Chunk</code> object. The <code>context</code> is a Dust <code>Context</code> object and the <code>bodies</code> object is very specific to <code>Dust</code> as well. When you are building helpers for Dust, those helpers will only work with Dust (unless an abstraction is utilized).</p>
 <h3 id="rendering-performance"><a name="rendering-performance" class="anchor" href="#rendering-performance"><span class="header-link"></span></a>Rendering Performance</h3><div class="compare">
     <div class="col1 good">
@@ -1019,7 +1017,7 @@ Hello ${util.reverse(name)}!
     </div>
 </div>
 
-<p>Marko has significantly better rendering performance when compared to Dust. For benchmarks, please see <a href="https://github.com/raptorjs/templating-benchmarks">Templating Benchmarks</a>.</p>
+<p>Marko has significantly better rendering performance when compared to Dust. For benchmarks, please see <a href="https://github.com/marko-js/templating-benchmarks">Templating Benchmarks</a>.</p>
 <p>The memory utilization has not been compared, but I suspect that the memory usage is very similar.</p>
 <h3 id="page-weight"><a name="page-weight" class="anchor" href="#page-weight"><span class="header-link"></span></a>Page Weight</h3><div class="compare">
     <div class="col1 good">
@@ -1038,7 +1036,7 @@ Hello ${util.reverse(name)}!
     </div>
 </div>
 
-<p>Marko produces smaller compiled templates and has a smaller runtime. For benchmarks, please see <a href="https://github.com/raptorjs/templating-benchmarks">Templating Benchmarks</a>.</p>
+<p>Marko produces smaller compiled templates and has a smaller runtime. For benchmarks, please see <a href="https://github.com/marko-js/templating-benchmarks">Templating Benchmarks</a>.</p>
 <h3 id="ease-of-debugging"><a name="ease-of-debugging" class="anchor" href="#ease-of-debugging"><span class="header-link"></span></a>Ease of Debugging</h3><div class="compare">
     <div class="col1 good">
         <h1>Marko</h1>
@@ -1178,64 +1176,12 @@ Hello ${util.reverse(name)}!
     </div>
 </div>
 
-<h3 id="community-1"><a name="community-1" class="anchor" href="#community-1"><span class="header-link"></span></a>Community</h3><div class="compare">
-    <div class="col1 bad">
-        <h1>Marko</h1>
-        <ul>
-            <li>Emerging templating language</li>
-            <li>Used by only a few companies (including eBay)</li>
-            <li>Not heavily promoted</li>
-            <li>Questions will be answered in Google Groups <a href="https://groups.google.com/forum/#!forum/raptorjs">discussion forum</a></li>
-        </ul>
-    </div>
-    <div class="col2 good">
-        <h1>Dust</h1>
-        <ul>
-            <li>Fairly strong community</li>
-            <li>LinkedIn has helped promote Dust</li>
-            <li>Active developers on <a href="http://stackoverflow.com/tags/dust.js/">StackOverflow</a></li>
-        </ul>
-    </div>
-</div>
-
-<h3 id="maturity"><a name="maturity" class="anchor" href="#maturity"><span class="header-link"></span></a>Maturity</h3><div class="compare">
-    <div class="col1 bad">
-        <h1>Marko</h1>
-        <ul>
-            <li>Relatively mature</li>
-            <li>Used in heavily trafficked websites</li>
-            <li>
-                Recent and significant improvements:
-                <ul>
-                    <li>Switched from XML to HTML</li>
-                    <li>Dropped XML namespaces</li>
-                    <li>Better Node.js compatibility</li>
-                    <li>Switched to CommonJS modules for compiled output</li>
-                    <li>Faster and lighter</li>
-                </ul>
-            </li>
-            <li>Lots of tests</li>
-            <li>Still being improved</li>
-        </ul>
-    </div>
-    <div class="col2 good">
-        <h1>Dust</h1>
-        <ul>
-            <li>Relatively mature</li>
-            <li>Used in heavily trafficked websites</li>
-            <li>Still being improved</li>
-            <li>Lots of tests</li>
-        </ul>
-    </div>
-</div>
-
-
 <h3 id="documentation"><a name="documentation" class="anchor" href="#documentation"><span class="header-link"></span></a>Documentation</h3><div class="compare">
     <div class="col1 good">
         <h1>Marko</h1>
         <ul>
-            <li>Fairly complete <a href="https://github.com/raptorjs/marko">documentation</a></li>
-            <li>Documentation is in a <a href="https://github.com/raptorjs/marko/blob/master/README.md">README.md</a> file</li>
+            <li>Fairly complete <a href="https://github.com/marko-js/marko">documentation</a></li>
+            <li>Documentation is in a <a href="https://github.com/marko-js/marko/blob/master/README.md">README.md</a> file</li>
             <li>Legacy online testbed needs to be migrated to new version</li>
         </ul>
     </div>
