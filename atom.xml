@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>Patrick Steele-Idem</title>
     <link>http://psteeleidem.com/</link>
-    <updated>2015-01-12T21:13:56Z</updated>
+    <updated>2015-08-20T15:54:45Z</updated>
     <author>
         <name>Patrick Steele-Idem</name>
         <email>pnidem@gmail.com</email>
@@ -72,14 +72,15 @@ Foo.prototype = {
         </author>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Introduction]]></title>
-        <id>http://psteeleidem.com/intro/</id>
-        <link href="http://psteeleidem.com/intro/">
+        <title type="html"><![CDATA[Marko versus Dust]]></title>
+        <id>http://psteeleidem.com/marko-versus-dust/</id>
+        <link href="http://psteeleidem.com/marko-versus-dust/">
         </link>
-        <updated>2014-04-23T06:00:00Z</updated>
-        <summary type="html"><![CDATA[<p>A little about myself, I’m currently a Senior Platform Architect at eBay. I started out building web applications, but I now focus mostly on building the platform so that others can build applications more easily. Building frameworks, platforms and tools is a much better fit for me because if I were tasked with building a web application I would typically end up spending too much time on the underlying architecture. </p>
-<p>This blog gives me a chance to share my vision for how building web applications can be made easier. I am an open source advocate and you can find many of my projects linked to from this site.</p>
-<p><a href="http://psteeleidem.com/intro/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></summary>
+        <updated>2014-10-22T06:00:00Z</updated>
+        <summary type="html"><![CDATA[<p>This guide aims to compare <a href="https://github.com/raptorjs/marko">Marko</a> and <a href="https://github.com/linkedin/dustjs">Dust</a> to help guide developers deciding between the two. However, even if you are considering other templating languages, such as Handlebars or Mustache, this guide should still be helpful.</p>
+<p>Why Marko and Dust? Dust represents a well-established text-based templating language and Marko represents a well-established HTML-based templating language. Marko was created as an alternative to Dust when Dust was first starting to be used at eBay.</p>
+<p><em>Disclaimer: This guide is my opinion, and as the author of Marko it is very difficult for me to be unbiased. Also, I&#39;ve used Dust enough to be proficient in it, but I would not claim to be a Dust expert. If you feel that anything is misleading or wrong then please let me know and I will correct it. Also, my goal was to be as objective and as fair as possible, but some things are inherently subjective.</em></p>
+<p><a href="http://psteeleidem.com/marko-versus-dust/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></summary>
         <author>
             <name>Patrick Steele-Idem</name>
             <email>pnidem@gmail.com</email>
@@ -101,15 +102,14 @@ Foo.prototype = {
         </author>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Marko versus Dust]]></title>
-        <id>http://psteeleidem.com/marko-versus-dust/</id>
-        <link href="http://psteeleidem.com/marko-versus-dust/">
+        <title type="html"><![CDATA[Introduction]]></title>
+        <id>http://psteeleidem.com/intro/</id>
+        <link href="http://psteeleidem.com/intro/">
         </link>
-        <updated>2014-10-22T06:00:00Z</updated>
-        <summary type="html"><![CDATA[<p>This guide aims to compare <a href="https://github.com/raptorjs/marko">Marko</a> and <a href="https://github.com/linkedin/dustjs">Dust</a> to help guide developers deciding between the two. However, even if you are considering other templating languages, such as Handlebars or Mustache, this guide should still be helpful.</p>
-<p>Why Marko and Dust? Dust represents a well-established text-based templating language and Marko represents a well-established HTML-based templating language. Marko was created as an alternative to Dust when Dust was first starting to be used at eBay.</p>
-<p><em>Disclaimer: This guide is my opinion, and as the author of Marko it is very difficult for me to be unbiased. Also, I&#39;ve used Dust enough to be proficient in it, but I would not claim to be a Dust expert. If you feel that anything is misleading or wrong then please let me know and I will correct it. Also, my goal was to be as objective and as fair as possible, but some things are inherently subjective.</em></p>
-<p><a href="http://psteeleidem.com/marko-versus-dust/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></summary>
+        <updated>2014-04-23T06:00:00Z</updated>
+        <summary type="html"><![CDATA[<p>A little about myself, I’m currently a Senior Platform Architect at eBay. I started out building web applications, but I now focus mostly on building the platform so that others can build applications more easily. Building frameworks, platforms and tools is a much better fit for me because if I were tasked with building a web application I would typically end up spending too much time on the underlying architecture. </p>
+<p>This blog gives me a chance to share my vision for how building web applications can be made easier. I am an open source advocate and you can find many of my projects linked to from this site.</p>
+<p><a href="http://psteeleidem.com/intro/">Continue Reading on http://psteeleidem.com/ &raquo;</a></p>]]></summary>
         <author>
             <name>Patrick Steele-Idem</name>
             <email>pnidem@gmail.com</email>
