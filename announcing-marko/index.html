@@ -33,8 +33,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
 <p>The template can then be rendered as shown in the following sample code:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> templatePath = <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./hello.marko'</span>);
-<span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marko'</span>).load(templatePath);
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./hello.marko'</span>);
 
 template.render({
         name: <span class="hljs-string">'World'</span>,
@@ -45,16 +44,14 @@ template.render({
     });
 </code></pre>
 <p>Alternatively, you can choose to stream out the rendered HTML. For example:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> templatePath = <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./hello.marko'</span>);
-<span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marko'</span>).load(templatePath);
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./hello.marko'</span>);
 <span class="hljs-keyword">var</span> out = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).createWriteStream(<span class="hljs-string">'hello.html'</span>, <span class="hljs-string">'utf8'</span>);
 
 template.stream(data)
     .pipe(out);
 </code></pre>
 <p>With Marko you can start streaming rendered templates directly to an HTTP response stream. For example, with <a href="http://expressjs.com/">Express</a>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> templatePath = <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'./profile.marko'</span>);
-<span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marko'</span>).load(templatePath);
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./profile.marko'</span>);
 
 app.get(<span class="hljs-string">'/profile'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(req, res)</span> </span>{
     template.stream({
@@ -152,7 +149,7 @@ app.get(<span class="hljs-string">'/profile'</span>, <span class="hljs-function"
     No colors!
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
 </code></pre>
-<h3 id="simplified-the-javascript-api"><a name="simplified-the-javascript-api" class="anchor" href="#simplified-the-javascript-api"><span class="header-link"></span></a>Simplified the JavaScript API</h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marko'</span>).load(<span class="hljs-string">'hello.marko'</span>);
+<h3 id="simplified-the-javascript-api"><a name="simplified-the-javascript-api" class="anchor" href="#simplified-the-javascript-api"><span class="header-link"></span></a>Simplified the JavaScript API</h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./hello.marko'</span>);
 
 template.render({
         name: <span class="hljs-string">'World'</span>,
@@ -162,11 +159,10 @@ template.render({
         <span class="hljs-built_in">console</span>.log(output);
     });
 </code></pre>
-<h3 id="improved-streaming-support"><a name="improved-streaming-support" class="anchor" href="#improved-streaming-support"><span class="header-link"></span></a>Improved streaming support</h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'marko'</span>).load(<span class="hljs-string">'hello.marko'</span>);
+<h3 id="improved-streaming-support"><a name="improved-streaming-support" class="anchor" href="#improved-streaming-support"><span class="header-link"></span></a>Improved streaming support</h3><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./hello.marko'</span>);
 <span class="hljs-keyword">var</span> out = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>).createWriteStream(<span class="hljs-string">'hello.html'</span>, <span class="hljs-string">'utf8'</span>);
 
-template.stream(data)
-    .pipe(out);
+template.render(data, out);
 </code></pre>
 <h3 id="switched-to-commonjs-modules-for-compiled-templates"><a name="switched-to-commonjs-modules-for-compiled-templates" class="anchor" href="#switched-to-commonjs-modules-for-compiled-templates"><span class="header-link"></span></a>Switched to CommonJS modules for compiled templates</h3><p>Sample compiled template:</p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">(__helpers)</span> </span>{
