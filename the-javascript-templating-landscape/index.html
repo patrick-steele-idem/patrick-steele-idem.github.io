@@ -1,0 +1,306 @@
+<!doctype html> <html lang="en"><head><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>The JavaScript Templating Landscape | Patrick Steele-Idem</title><link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml"><meta name="description" content="Web Development, JavaScript, Node.js and open source software."><link href="/favicon.ico" rel="icon"><meta name="HandheldFriendly" content="True"><meta name="MobileOptimized" content="320"><meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width"><link rel="stylesheet" type="text/css" href="/static/post-1e8c39c2.css">
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></head><body><div id="header-bg"></div><div id="nav-bg"></div><div id="content"><header id="header"><div id="titles"><h1><a href="/">Patrick Steele-Idem</a></h1><h2>Better WebDev</h2></div></header><nav role="navigation" id="nav"><ul class="main-navigation"><li><a href="/">Blog</a></li><li><a href="/archive">Archive</a></li><li><a href="/about">About</a></li><li><a href="/subscribe">Subscribe</a></li><li><form action="https://google.com/search" method="get" class="search-form"><fieldset role="search"><input type="hidden" name="q" value="site:http://psteeleidem.com/"><input type="text" name="q" results="0" placeholder="Search" class="search-input"></fieldset></form></li></ul></nav><main id="main"><article class="hentry" role="article"><h1 class="post-title">The JavaScript Templating Landscape</h1><div class="post-meta"><span class="byline author vcard">Posted by <span class="fn">Patrick Steele-Idem</span></span> on <time data-updated="true" pubdate datetime="2014-10-23">Thursday, Oct 23rd, 2014</time><span class="categories">&nbsp; <nobr><i class="fa fa-tags"></i> <a href="/category/templating" class="category">Templating</a>, <a href="/category/javascript" class="category">JavaScript</a>, <a href="/category/marko" class="category">Marko</a>, <a href="/category/dust" class="category">Dust</a>, <a href="/category/node-js" class="category">Node.js</a></nobr></span></div><div class="post-body"><p>Choosing a template may seem inconsequential at first, but it can have a big impact on a project. Many templating languages have a certain design philosophy that may put restrictions on how you build your app. In addition, there can be significant performance implications that can increase rendering times or add to the weight of your page. It is also important to consider maintainability, usability and debuggability of a templating language, which can have a big impact on developer productivity.</p>
+<p>This guide hopes to help you navigate the JavaScript templating landscape. This document is not, however, meant to be comprehensive guide that compares all possible JavaScript templating languages. Instead, I have picked a few templating languages that I believe highlight the different types of templating languages.</p>
+<p><p class="toc"><strong>Table of Contents</strong><ul class="toc-level0"><li><a href="#a-sea-of-syntax">A Sea of Syntax</a><ul class="toc-level1"><li><a href="#text-based">Text-based</a></li><li><a href="#html-based">HTML-based</a></li><li><a href="#dom-based">DOM-based</a></li><li><a href="#proprietary-markup">Proprietary Markup</a></li><li><a href="#pure-javascript">Pure JavaScript</a></li><li><a href="#javascript-hybrid">JavaScript Hybrid</a></li></ul></li><li><a href="#a-logical-choice">A Logical Choice</a><ul class="toc-level1"><li><a href="#logic-less">Logic-less</a></li><li><a href="#less-logic">Less Logic</a></li><li><a href="#more-logic">More Logic</a></li><li><a href="#extreme-logic">Extreme Logic</a></li></ul></li><li><a href="#asynchronous-ftw">Asynchronous FTW</a></li><li><a href="#full-stream-ahead">Full Stream Ahead</a></li><li><a href="#other-considerations">Other Considerations</a><ul class="toc-level1"><li><a href="#can-i-use-you">Can I Use You?</a></li><li><a href="#supercharged-or-fast-enough">Supercharged or Fast Enough?</a></li><li><a href="#make-it-your-own">Make It Your Own</a></li><li><a href="#editor-support">Editor Support</a></li></ul></li><li><a href="#additional-resources">Additional Resources</a></li><li><a href="#summary">Summary</a></li></ul></p></p>
+<h2 id="a-sea-of-syntax"><a name="a-sea-of-syntax" class="anchor" href="#a-sea-of-syntax"><span class="header-link"></span></a>A Sea of Syntax</h2><h3 id="text-based"><a name="text-based" class="anchor" href="#text-based"><span class="header-link"></span></a>Text-based</h3><p>A text-based templating language relies on a custom parser to recognize template directives inside of any text document. A text-based templating language does not understand, nor does it care about, the structure of the document being templated. For this reason, a text-based templating language can be used to produce any type of text output (whether it be HTML source code, Java source code, XML, etc.).</p>
+<p>Examples of text-based templating languages:</p>
+<ul>
+<li><a href="https://github.com/linkedin/dustjs">Dust</a></li>
+<li><a href="http://mustache.github.io/">Mustache</a> / <a href="http://twitter.github.io/hogan.js/">Hogan.js</a></li>
+<li><a href="http://handlebarsjs.com/">Handlebars</a></li>
+</ul>
+<p>A sample Dust template is shown below:</p>
+<pre><code class="lang-html">Hello {name}!
+
+{?colors}
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+    {#colors}
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"color"</span>&gt;</span>{.}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    {/colors}
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+{/colors}
+
+{^colors}
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+    No colors!
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+{/colors}
+</code></pre>
+<h3 id="html-based"><a name="html-based" class="anchor" href="#html-based"><span class="header-link"></span></a>HTML-based</h3><p>An HTML-based templating language relies on an HTML parser to recognize templating directives inside of HTML documents. Templating directives are given as either HTML elements or HTML attributes on top of the standard HTML grammar. An HTML-based templating language is only appropriate for producing HTML output.</p>
+<p>Examples of HTML-based templating languages:</p>
+<ul>
+<li><a href="https://github.com/marko-js/marko">Marko</a></li>
+<li><a href="https://github.com/flatiron/plates">Plates</a></li>
+<li><a href="https://github.com/kethinov/teddy">Teddy</a></li>
+</ul>
+<p>A sample Marko template is shown below:</p>
+<pre><code class="lang-html">Hello ${data.name}!
+
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">if</span>=<span class="hljs-value">"notEmpty(data.colors)"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"color"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"color in data.colors"</span>&gt;</span>
+        ${color}
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">else</span>&gt;</span>
+    No colors!
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<h3 id="dom-based"><a name="dom-based" class="anchor" href="#dom-based"><span class="header-link"></span></a>DOM-based</h3><p>A DOM-based templating language relies on a DOM tree to recognize templating directives. A DOM-based templating will walk the DOM tree to discover templating directives and then manipulate the DOM tree to produce the final DOM tree that is then rendered in the browser. A DOM-based templating language only works in the browser unless a virtual DOM is used on the server. DOM-based templating languages are inherently much slower because the templates cannot be precompiled since the input is the DOM tree that is to be manipulated and the output is the manipulated DOM tree. In comparison, text-based and HTML-based templates can be precompiled into a JavaScript function that is a result of the compiler analyzing a template to find all of the interesting dynamic parts.</p>
+<p>Examples of DOM-based templating languages:</p>
+<ul>
+<li><a href="https://docs.angularjs.org/guide/templates">AngularJS</a></li>
+<li><a href="http://knockoutjs.com/documentation/template-binding.html">Knockout</a></li>
+<li><a href="https://github.com/tmpvar/weld">Weld</a></li>
+</ul>
+<p>A sample Knockout template is shown below:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"text: name"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"if: hasColors"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"color"</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"foreach: { data: colors, as: 'color' }"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"text: color"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-bind</span>=<span class="hljs-value">"ifnot: hasColors"</span>&gt;</span>
+    No colors!
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<h3 id="proprietary-markup"><a name="proprietary-markup" class="anchor" href="#proprietary-markup"><span class="header-link"></span></a>Proprietary Markup</h3><p>Templating languages in this category introduce a new markup language that is translatable to HTML.</p>
+<p>Examples of templating languages with a proprietary markup language:</p>
+<ul>
+<li><a href="https://github.com/creationix/haml-js">Haml</a></li>
+<li><a href="http://jade-lang.com/">Jade</a> (inspired by <a href="http://haml.info/">Haml</a>)</li>
+</ul>
+<p>Both Jade and Haml rely on whitespace for determining the output HTML structure and are less verbose than raw HTML since they drop the ending tags and angle brackets.</p>
+<p>A sample Jade template is shown below:</p>
+<pre><code><span class="hljs-header">= 'Hello ' + name + '!'</span>
+if colors &amp;&amp; colors.length
+<span class="hljs-code">    ul</span>
+<span class="hljs-code">        each color in colors</span>
+<span class="hljs-code">            li.color= color</span>
+if !colors || !colors.length
+<span class="hljs-code">    div No colors!</span>
+</code></pre><h3 id="pure-javascript"><a name="pure-javascript" class="anchor" href="#pure-javascript"><span class="header-link"></span></a>Pure JavaScript</h3><p>Templating languages in this category utilize only inline JavaScript (or CoffeeScript) for producing their output (instead of a separate template file).</p>
+<p>Examples of templating languages that use the JavaScript syntax:</p>
+<ul>
+<li><a href="https://github.com/medikoo/domjs">dom.js</a></li>
+<li><a href="https://github.com/atom/space-pen">SpacePen</a> (CoffeeScript)</li>
+</ul>
+<p>An example dom.js template is shown below:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> mytemplate = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  header(
+    h1(<span class="hljs-string">'Heading'</span>),
+    h2(<span class="hljs-string">'Subheading'</span>));
+
+  nav(
+    ul({ <span class="hljs-string">'class'</span>: <span class="hljs-string">'breadcrumbs'</span> },
+      li(a({ href: <span class="hljs-string">'/'</span> }, <span class="hljs-string">'Home'</span>)),
+      li(a({ href: <span class="hljs-string">'/section/'</span>}, <span class="hljs-string">'Section'</span>)),
+      li(a(<span class="hljs-string">'Subject'</span>))));
+
+  article(
+    p(<span class="hljs-string">'Lorem ipsum...'</span>));
+
+  footer(<span class="hljs-string">'Footer stuff'</span>);
+};
+</code></pre>
+<h3 id="javascript-hybrid"><a name="javascript-hybrid" class="anchor" href="#javascript-hybrid"><span class="header-link"></span></a>JavaScript Hybrid</h3><p>Templating languages in this category introduce a pre-processor on top of JavaScript to allow embedded templates that blend more nicely with pure JavaScript.</p>
+<p>Examples that use a hybrid JavaScript syntax:</p>
+<ul>
+<li><a href="http://facebook.github.io/react/docs/jsx-in-depth.html">React JSX</a></li>
+</ul>
+<p>Example React JSX template:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">/** @jsx React.DOM */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>Hello {this.props.name}<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>;</span>
+}
+</code></pre>
+<h2 id="a-logical-choice"><a name="a-logical-choice" class="anchor" href="#a-logical-choice"><span class="header-link"></span></a>A Logical Choice</h2><p>Some templating languages allow no logic (not even structural logic), some templating languages allow only structural logic and other templating languages allow complex expressions and embedded JavaScript code. These are compared below.</p>
+<h3 id="logic-less"><a name="logic-less" class="anchor" href="#logic-less"><span class="header-link"></span></a>Logic-less</h3><p>Despite the common claim, Mustache is not a logic-less language. It puts restrictions on what logic is allowed, but as a developer you are still putting in special templating directives to control repeating blocks and to control conditional blocks and to also add dynamic text. For a truly logic-less template you have to invert the control and have outside code control how the template renders. One way to do this is to assign IDs to elements and then to have outside code manipulate the elements of interest using a separate interface. Two examples of truly logic-less templating languages are the following:</p>
+<ul>
+<li><a href="https://github.com/flatiron/plates">Plates</a></li>
+<li><a href="https://github.com/tmpvar/weld">Weld</a></li>
+</ul>
+<p>While a truly logic-less template might seem appealing, here are some things to consider:</p>
+<ul>
+<li>It is often helpful to convey logic in a template</li>
+<li>The logic has to exist somewhere and moving the logic into external JavaScript will often result in harder to maintain code</li>
+<li>Separating out logic from a template can result in a disconnect and potential problems</li>
+</ul>
+<h3 id="less-logic"><a name="less-logic" class="anchor" href="#less-logic"><span class="header-link"></span></a>Less Logic</h3><p>Templates that enforce less logic often have a simplified expression language for referencing data and do not allow complex expressions. In addition, you definitely aren&#39;t allowed to embed JavaScript code when using a &quot;less logic&quot; templating language.</p>
+<p>For example, with a less-logic templating languages you would be prevented from having the following expression in your template:
+<code>account.closed &amp;&amp; balance &gt; 0</code></p>
+<p>Instead, the controller would need to build a view model with the computed property (or provide a function that returns the computed property).</p>
+<p>In addition, logic less templates will also prevent you from embedding arbitrary code into a template.</p>
+<p>Examples of &quot;less logic&quot; templates:</p>
+<ul>
+<li><a href="http://handlebarsjs.com/">Handlebars</a></li>
+<li><a href="http://mustache.github.io/">Mustache</a></li>
+</ul>
+<h3 id="more-logic"><a name="more-logic" class="anchor" href="#more-logic"><span class="header-link"></span></a>More Logic</h3><p>Templating languages in the &quot;more logic&quot; category allow complex expressions for conditionals and may also allow arbitrary JavaScript code to be embedded (although they don&#39;t encourage it).</p>
+<p>Examples of &quot;more logic&quot; templates:</p>
+<ul>
+<li><a href="https://github.com/linkedin/dustjs">Dust</a></li>
+<li><a href="https://github.com/marko-js/marko">Marko</a></li>
+</ul>
+<p>Examples of &quot;more logic&quot; templates for Marko and Dust are shown below:</p>
+<p><em>Marko:</em></p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">if</span>=<span class="hljs-value">"listing.ended || listing.removed"</span>&gt;</span>
+    This listing is no longer available
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<p><em>Dust:</em></p>
+<pre><code class="lang-html">{@if condition="{ended} || {removed}"}
+<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+    This listing is no longer available
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+{@/if}
+</code></pre>
+<h3 id="extreme-logic"><a name="extreme-logic" class="anchor" href="#extreme-logic"><span class="header-link"></span></a>Extreme Logic</h3><p>Templating languages in the &quot;extreme logic&quot; category, not only allow embedded JavaScript to be included in a template, they encourage it.</p>
+<p>Examples of &quot;extreme logic&quot; templating languages:</p>
+<ul>
+<li><a href="http://olado.github.io/doT/">doT</a></li>
+<li><a href="https://github.com/sstephenson/eco">Eco</a> (CoffeeScript)</li>
+<li><a href="http://embeddedjs.com/">EJS</a></li>
+<li><a href="http://underscorejs.org/#template">Underscore</a></li>
+</ul>
+<p>An example EJS template is shown below:</p>
+<pre><code class="lang-html">&lt;ul&gt;
+&lt;% for(var i=0; i&lt;supplies.length; i++) {%&gt;
+   &lt;li&gt;&lt;%= supplies[i] %&gt;&lt;/li&gt;
+&lt;% } %&gt;
+&lt;/ul&gt;
+</code></pre>
+<h2 id="asynchronous-ftw"><a name="asynchronous-ftw" class="anchor" href="#asynchronous-ftw"><span class="header-link"></span></a>Asynchronous FTW</h2><p>An emerging feature in newer templating languages is &quot;asynchronous rendering&quot;. What this means is that <em>after</em> template rendering has begun, additional data can be asynchronously loaded and used to render parts of the output. While parts of the output may be rendered out of order, the output will be pieced together in the correct order. This might not seem helpful at first, but it does provide some significant advantages:</p>
+<ul>
+<li>Lower time to first byte<ul>
+<li>Template rendering can begin streaming out before any dependent data is received from a remote service</li>
+</ul>
+</li>
+<li>Less idle time<ul>
+<li>Parts of the page can be rendered as soon as the remote data becomes available</li>
+</ul>
+</li>
+<li>Template rendering can drive which data is requested<ul>
+<li><em>Pull model</em> instead of <em>push model</em></li>
+</ul>
+</li>
+</ul>
+<p>Examples of templating languages that support asynchronous rendering:</p>
+<ul>
+<li><a href="https://github.com/linkedin/dustjs">Dust</a></li>
+<li><a href="http://mozilla.github.io/nunjucks/">Numjucks</a></li>
+<li><a href="https://github.com/marko-js/marko">Marko</a></li>
+</ul>
+<p>Marko gets asynchronous rendering for <em>almost</em> free as a result of wrapping the output stream with an <a href="https://github.com/marko-js/async-writer">AsyncWriter</a>.</p>
+<h2 id="full-stream-ahead"><a name="full-stream-ahead" class="anchor" href="#full-stream-ahead"><span class="header-link"></span></a>Full Stream Ahead</h2><p>As mentioned earlier, a streaming templating language will offer better performance on the server. This is for two reasons:</p>
+<ol>
+<li>The entirety of the output does not need to be kept in memory at the same time</li>
+<li>The time-to-first-byte is reduced since it can be sent out immediately</li>
+</ol>
+<p>For these reasons, it is beneficial to select a templating language that supports streaming to reduce the time to first byte and to reduce the memory footprint.</p>
+<p>Examples of templating languages that support streaming:</p>
+<ul>
+<li><a href="https://github.com/linkedin/dustjs">Dust</a></li>
+<li><a href="https://github.com/marko-js/marko">Marko</a></li>
+</ul>
+<h2 id="other-considerations"><a name="other-considerations" class="anchor" href="#other-considerations"><span class="header-link"></span></a>Other Considerations</h2><h3 id="can-i-use-you"><a name="can-i-use-you" class="anchor" href="#can-i-use-you"><span class="header-link"></span></a>Can I Use You?</h3><p>Just because you may like a templating language doesn&#39;t mean you can use it. Some templating engines come with a lot of baggage (perhaps an entire framework) and other templating languages might have an implementation that is not compatible with your JavaScript runtime. While other templating languages might have picked a JavaScript module system that is not compatible with your application (e.g. AMD versus CommonJS).</p>
+<p>When deciding to use a templating language you should ask yourself the following questions:</p>
+<ul>
+<li><em>Which package manager(s) does the templating engine use? (npm, bower, none, etc.)</em></li>
+<li><em>Can the templating language be used standalone from a framework/library?</em></li>
+<li><em>Can the templating engine be used to produce HTML on the both the server and client? Just the server? Just the client?</em></li>
+<li><em>Does the templating engine have dependencies and how are those dependencies managed?</em></li>
+<li><em>Does the templating engine depend on a module system? (CommonJS, AMD, globals, etc.)</em></li>
+</ul>
+<h3 id="supercharged-or-fast-enough"><a name="supercharged-or-fast-enough" class="anchor" href="#supercharged-or-fast-enough"><span class="header-link"></span></a>Supercharged or Fast Enough?</h3><p>Most templating languages will perform well enough in most situations, but if your application is expected to drive a lot traffic to your front-end servers or if you are targeting mobile or low-end devices you will want to strongly consider the performance of a templating engine. Performance should be evaluated based on the following criteria:</p>
+<ul>
+<li><strong>CPU Usage:</strong> How fast can the template be rendered to HTML?</li>
+<li><strong>Memory Usage:</strong> How much memory does the template renderer consume during rendering?</li>
+<li><strong>Compiled Template Size:</strong> How much code does the template compiler produce?</li>
+<li><strong>Runtime Size:</strong> How large is the execution engine?</li>
+<li><strong>Streaming vs. Non-streaming:</strong> Can the output be streamed out as it is produced?</li>
+</ul>
+<p>Benchmarks are a great place to start when comparing templating engines, but it is important to remember that every use case is different. Also, avoid giving too much weight to a microbenchmark that only compares a single, small template. How large a template is, how much output it produces or what features are utilized can have a big impact on performance.</p>
+<p>Below are links to benchmarking projects that can be used to compare performance:</p>
+<ol>
+<li><a href="https://github.com/marko-js/templating-benchmarks">https://github.com/marko-js/templating-benchmarks</a><ul>
+<li>NOTE: Created to compare the performance of <a href="https://github.com/marko-js/marko">Marko</a></li>
+</ul>
+</li>
+<li><a href="http://linkedin.github.io/dustjs/benchmark/index.html">http://linkedin.github.io/dustjs/benchmark/index.html</a><ul>
+<li>NOTE: Created to compare the performance of <a href="https://github.com/linkedin/dustjs">Dust</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/baryshev/template-benchmark">https://github.com/baryshev/template-benchmark</a><ul>
+<li>NOTE: Created to compare the performance of <a href="http://ectjs.com/">ECT</a></li>
+</ul>
+</li>
+<li><a href="http://paularmstrong.github.io/node-templates/benchmarks.html">http://paularmstrong.github.io/node-templates/benchmarks.html</a></li>
+</ol>
+<h3 id="make-it-your-own"><a name="make-it-your-own" class="anchor" href="#make-it-your-own"><span class="header-link"></span></a>Make It Your Own</h3><p>Some templating languages are designed to be extended while with others you have to accept what is given to you. In addition, some templating languages only allow the runtime to be extended while others allow both the runtime and the compiler to be extended. An extensible templating language allows a language to be extended in ways that may not have been intended by the original author.</p>
+<p>Below are examples of extensibilities features that a templating language might offer:</p>
+<ul>
+<li>Custom helper functions</li>
+<li>Custom helper tags</li>
+<li>Custom code generators at compile time</li>
+<li>Custom transforms at compile time (e.g. remove whitespace, add/remove nodes, etc.)</li>
+<li>Custom filters</li>
+<li>Import modules for use as helpers</li>
+<li>Custom delimiters for tokens</li>
+</ul>
+<p>If you feel that you might need to extend a templating language you should also consider the complexity of the JavaScript API. If your extensions to a templating language are very tied to a particular templating solution then you might be forced to throw away a lot of code in the future.</p>
+<p><a href="https://github.com/marko-js/marko">Marko</a> is an example of templating language that is both extensible at compile-time and runtime with very few restrictions.</p>
+<h3 id="editor-support"><a name="editor-support" class="anchor" href="#editor-support"><span class="header-link"></span></a>Editor Support</h3><p>If you are considering a new templating language you should also strongly consider how well your templating language works with your existing tools, as well as the tools used by others on your team. At a minimum you will want to ensure that you have proper syntax highlighting. However, auto-completion, tag matching and validation will also provide significant improvements in productivity.</p>
+<h2 id="additional-resources"><a name="additional-resources" class="anchor" href="#additional-resources"><span class="header-link"></span></a>Additional Resources</h2><ul>
+<li><a href="https://engineering.linkedin.com/frontend/client-side-templating-throwdown-mustache-handlebars-dustjs-and-more">LinkedIn: The client-side templating throwdown: mustache, handlebars, dust.js, and more</a></li>
+<li><a href="http://garann.github.io/template-chooser/">Template-Engine-Chooser</a> (interactive)</li>
+<li><a href="https://gist.github.com/rhumlover/6503507">JavaScript Templates Engines - Quick Comparison/Benchmark</a> (Hogan, Dust, doT and underscore)</li>
+<li><a href="http://www.bearfruit.org/2014/01/20/node-js-template-showdown-5-options-compared/">Node.js template showdown – 5 options compared</a></li>
+<li><a href="http://paularmstrong.github.io/node-templates/">Paul Armstrong: Node Templates</a></li>
+</ul>
+<p>For a more in-depth comparison between Dust and Marko, please see the related <a href="/marko-versus-dust/">Marko versus Dust</a> post.</p>
+<h2 id="summary"><a name="summary" class="anchor" href="#summary"><span class="header-link"></span></a>Summary</h2><p>Hopefully it is clear that not all templating languages are created equal and a templating language is more than just &quot;syntax&quot;. Below is a more complete list of things you should consider when deciding on a templating language:</p>
+<ul>
+<li><strong>Readability:</strong> How easy is it to discern the HTML structure of a template and understand what it will produce?</li>
+<li><strong>Ramp-up Time:</strong> What does the learning curve look like?</li>
+<li><strong>JavaScript API Usability:</strong> How easy is it to use the JavaScript API to compile and render templates and also extend the language?</li>
+<li><strong>DRY (Don&#39;t Repeat Yourself):</strong> How DRY is the templating technology? Is there support for code reuse and partials?</li>
+<li><strong>Asynchronous and Streaming Support:</strong> How well is asynchronous rendering and streaming supported?</li>
+<li><strong>Interoperability:</strong> How easy is the templating language to integrate into an existing stack?</li>
+<li><strong>Extensibility:</strong> How easy can the language be extended at runtime and compile-time? What are the restrictions?</li>
+<li><strong>Rendering Performance:</strong> What is the CPU and memory overhead?</li>
+<li><strong>Page Weight:</strong> What is the weight of the runtime and the compiled templates?</li>
+<li><strong>Ease of Debugging:</strong> Is it possible to step through the code while it&#39;s running to track down errors?</li>
+<li><strong>Security:</strong> How helpful is the templating language in preventing security holes such as XSS attacks?</li>
+<li><strong>Validation:</strong> What validations can be done at compile-time to prevent errors at runtime?</li>
+<li><strong>Editor Support:</strong> Is there an editor with auto-complete, syntax highlighting, error checking, etc.?</li>
+<li><strong>Community:</strong> Is there an active community using this project? Can questions be answered via a search engine?</li>
+<li><strong>Maturity:</strong> Is this a relatively stable project or still experimenting and churning?</li>
+<li><strong>Documentation:</strong> How is the documentation?</li>
+<li><strong>Future Relevancy:</strong> Is the templating language aligned with trends in the industry?</li>
+</ul>
+<p>My biased, but personal favorite is the templating language that I authored, <a href="https://github.com/marko-js/marko">Marko</a>. Marko utilizes the HTML syntax and it also supports asynchronous and streaming rendering. The language was designed such that it could be easily extended at both compile-time and runtime. All Marko templates compile to CommonJS modules for improved ease of use with Node.js or a Node.js-compatible module loader (e.g. <a href="http://browserify.org/">Browserify</a>). When developing Marko, a lot of emphasis was put on performance and this is reflected in the <a href="https://github.com/marko-js/templating-benchmarks">performance benchmarks</a>. Marko is a production-ready templating language being used at eBay and the project is being actively maintained and supported by developers at eBay and the community.</p>
+<p>Hopefully you found this guide helpful when considering a templating language.</p>
+<p>If you feel that I missed anything or if I made any mistakes then please let me know.</p>
+</div><div class="post-footer"><div class="sharing"><a href="https://twitter.com/share" class="twitter-share-button" data-via="psteeleidem">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div><div class="post-nav"><span class="post-older"><a title="Older Post: Marko versus Dust" href="/marko-versus-dust" class="post-older"><i class="fa fa-arrow-left"></i> Older: Marko versus Dust</a></span><br><span class="post-newer"><a title="Next Post: Bypassing Express View Rendering for Speed and Modularity" href="/bypassing-express-view-rendering-for-speed-and-modularity" class="post-newer">Newer: Bypassing Express View Rendering for Speed and Modularity <i class="fa fa-arrow-right"></i></a></span></div></div></article><section><h1>Comments</h1><div id="disqus_thread"></div><script type="text/javascript">
+    var disqus_shortname = "psteeleidem";var disqus_identifier = "the-javascript-templating-landscape";var disqus_title = "The JavaScript Templating Landscape";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></section></main><aside id="sidebar"><div id="logo"><a href="http://psteeleidem.com/"><img src="/images/logo.jpg" alt="Patrick Steele-Idem"></a></div><p class="bio"><p>Web Developer with a passion for JavaScript and Node.js.</p>
+<p>Senior Platform Architect at eBay.</p>
+</p><p class="links"><a href="https://github.com/patrick-steele-idem"><i class="fa fa-github fa-2x"></i></a> <a href="https://twitter.com/psteeleidem"><i class="fa fa-twitter fa-2x"></i></a> <a href="https://www.npmjs.org/~pnidem"><img src="/images/npm-logo.png"></a></p><section><h1>Projects</h1><ul><li><a href="https://github.com/marko-js/marko" target="_blank">Marko</a></li><li><a href="https://github.com/marko-js/marko-widgets" target="_blank">Marko Widgets</a></li><li><a href="https://github.com/lasso-js/lasso" target="_blank">Lasso.js</a></li></ul></section><section><h1>Explore</h1><ul><li><a href="/category/design-patterns">Design Patterns (1)</a></li><li><a href="/category/dust">Dust (2)</a></li><li><a href="/category/express">Express (1)</a></li><li><a href="/category/javascript">JavaScript (5)</a></li><li><a href="/category/marko">Marko (4)</a></li><li><a href="/category/modules">Modules (1)</a></li><li><a href="/category/node-js">Node.js (5)</a></li><li><a href="/category/templating">Templating (4)</a></li></ul></section></aside><footer id="footer"><section id="footer-message">&copy; 2014 Patrick Steele-Idem. All rights reserved.</section></footer></div><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50307227-1', 'psteeleidem.com');
+  ga('send', 'pageview');
+
+</script></body></html>
